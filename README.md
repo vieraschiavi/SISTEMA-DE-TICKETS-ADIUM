@@ -116,7 +116,7 @@ docs/             casilla, indicadores, Power BI / Fabric
 
 ```bash
 ruff check .
-python -m pytest -q tests                  # 59 tests; el del tablero necesita la suite al lado
+python -m pytest -q tests                  # 60 tests; el del tablero necesita la suite al lado
 python scripts/e2e_ui.py                   # la app de verdad, en Chromium
 ```
 
