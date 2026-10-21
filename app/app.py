@@ -14,6 +14,7 @@ La app no tiene reglas propias: todo lo que cambia un ticket pasa por
 """
 from __future__ import annotations
 
+import re
 import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -25,7 +26,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
 
 from tickets_ec import catalogos as C  # noqa: E402
-from tickets_ec import clasificador, demo, exportar  # noqa: E402
+from tickets_ec import clasificador, demo, exportar, guia  # noqa: E402
 from tickets_ec import correo as CO  # noqa: E402
 from tickets_ec import indicadores as I  # noqa: E402
 from tickets_ec import marca as M  # noqa: E402
@@ -145,7 +146,7 @@ with st.sidebar:
     st.markdown(f"### {M.NOMBRE}")
     st.caption(M.LEMA)
     paginas = ["🏠 Inicio", "📥 Bandeja", "🎫 Ticket", "➕ Nuevo pedido", "📨 Casilla", "📊 Indicadores",
-               "📤 Power BI", "⚙️ Configuración"]
+               "📤 Power BI", "🧭 Guía Power Platform", "⚙️ Configuración"]
     if "pagina" not in st.session_state:
         st.session_state["pagina"] = "🎫 Ticket" if st.query_params.get("ticket") else paginas[0]
     pagina = st.radio("Ir a", paginas, key="pagina", label_visibility="collapsed")
@@ -641,5 +642,74 @@ def configuracion() -> None:
                  hide_index=True, width="stretch")
 
 
+# ==========================================================================
+# Guía Power Platform
+# ==========================================================================
+PROGRESO = RAIZ / "datos" / "guia_progreso.json"
+
+
+def _progreso() -> dict:
+    import json
+    try:
+        return json.loads(PROGRESO.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def _guardar_progreso(estado: dict) -> None:
+    import json
+    PROGRESO.parent.mkdir(parents=True, exist_ok=True)
+    PROGRESO.write_text(json.dumps(estado, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def guia_power_platform() -> None:
+    st.title("🧭 Guía Power Platform")
+    st.markdown("La mesa en el entorno corporativo: **buzón compartido → Power Automate → listas de SharePoint ← "
+                "Power Apps**, y el tablero en Power BI. Usa las licencias de Microsoft 365 que ya tienen: sin "
+                "licencias premium ni servidor. Las listas, los catálogos y las fórmulas se generan desde los "
+                "mismos catálogos que usa esta app.")
+    st.warning("**· REVISAR** — los flujos y las pantallas todavía no se armaron en el tenant de Adium. "
+               "La guía deja de estar en revisión cuando pasa la prueba de punta a punta (paso 8).")
+    hechos = _progreso()
+    listos = sum(bool(hechos.get(p.clave)) for p in guia.PASOS)
+    st.progress(listos / len(guia.PASOS), text=f"{listos} de {len(guia.PASOS)} pasos hechos")
+    faltan = guia.faltantes()
+    if faltan:
+        st.info("Falta generar: " + ", ".join(f"`{f}`" for f in faltan) + " (ver 📤 Power BI).")
+
+    for i, paso in enumerate(guia.PASOS, start=1):
+        marca = "✅" if hechos.get(paso.clave) else "⬜"
+        with st.expander(f"{marca} **{i} · {paso.titulo}** — {paso.donde} · {paso.tiempo}", expanded=not listos and i == 1):
+            for linea in paso.hacer:
+                st.markdown(f"- {linea}")
+            st.markdown(f"**Cómo saber que quedó:** {paso.prueba}")
+            descargas = [a for a in paso.archivos if guia.archivo(a).is_file()]
+            if descargas:
+                cols = st.columns(min(4, len(descargas)))
+                for j, a in enumerate(descargas):
+                    ruta = guia.archivo(a)
+                    cols[j % len(cols)].download_button(f"⬇️ {ruta.name}", ruta.read_bytes(), ruta.name,
+                                                        key=f"dl_{paso.clave}_{j}", width="stretch")
+            for documento, prefijo in paso.secciones:
+                encontrada = guia.seccion(documento, prefijo)
+                if encontrada:
+                    titulo, cuerpo = encontrada
+                    with st.popover(f"📄 {titulo}", width="stretch"):
+                        st.markdown(cuerpo)
+            nuevo = st.checkbox("Hecho", value=bool(hechos.get(paso.clave)), key=f"hecho_{paso.clave}")
+            if nuevo != bool(hechos.get(paso.clave)):
+                hechos[paso.clave] = nuevo
+                _guardar_progreso(hechos)
+                st.rerun()
+
+    with st.expander("Por qué SharePoint y no Dataverse · permisos · límites"):
+        leeme = (guia.POWERAPPS / "README.md").read_text(encoding="utf-8") if (guia.POWERAPPS / "README.md").is_file() else ""
+        for titulo in ("Permisos: lo que cada uno ve", "Límites que hay que conocer", "Una sola definición"):
+            bloque = re.search(rf"^## {re.escape(titulo)}\n(.*?)(?=^## |\Z)", leeme, re.MULTILINE | re.DOTALL)
+            if bloque:
+                st.markdown(f"#### {titulo}\n{bloque.group(1)}")
+
+
 {"🏠 Inicio": inicio, "📥 Bandeja": bandeja, "🎫 Ticket": ticket, "➕ Nuevo pedido": nuevo, "📨 Casilla": casilla,
- "📊 Indicadores": indicadores, "📤 Power BI": powerbi, "⚙️ Configuración": configuracion}[pagina]()
+ "📊 Indicadores": indicadores, "📤 Power BI": powerbi, "🧭 Guía Power Platform": guia_power_platform,
+ "⚙️ Configuración": configuracion}[pagina]()

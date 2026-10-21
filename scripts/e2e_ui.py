@@ -17,7 +17,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 PUERTO = 8761
-PAGINAS = ["Inicio", "Bandeja", "Ticket", "Nuevo pedido", "Casilla", "Indicadores", "Power BI", "Configuración"]
+PAGINAS = ["Inicio", "Bandeja", "Ticket", "Nuevo pedido", "Casilla", "Indicadores", "Power BI", "Guía Power Platform", "Configuración"]
 
 
 def main() -> int:

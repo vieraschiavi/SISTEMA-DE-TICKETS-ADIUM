@@ -63,6 +63,7 @@ En Windows: doble clic en `Abrir Tickets EC.bat`.
 | 📨 Casilla | Procesar la casilla, subir un `.eml` y ver la bandeja de salida |
 | 📊 Indicadores | Los KPIs con semáforo, mes a mes y abiertos por área, tipo, unidad de negocio, analista y país |
 | 📤 Power BI | Exportar los datos y bajar el `.pbit`, el proyecto PBIP para Fabric y la réplica HTML |
+| 🧭 Guía Power Platform | Los 8 pasos para llevarla a Power Apps + Power Automate + SharePoint: qué pedirle a IT, el script de las listas, cada flujo y cada pantalla, con las descargas y el avance marcado |
 | ⚙️ Configuración | Alta de analistas de cada equipo, matriz de SLA, tipos y subtipos |
 
 La **encuesta** es la única página que ve el solicitante: entra desde el link
@@ -115,7 +116,7 @@ docs/             casilla, indicadores, Power BI / Fabric
 
 ```bash
 ruff check .
-python -m pytest -q tests                  # 57 tests; el del tablero necesita la suite al lado
+python -m pytest -q tests                  # 59 tests; el del tablero necesita la suite al lado
 python scripts/e2e_ui.py                   # la app de verdad, en Chromium
 ```
 
