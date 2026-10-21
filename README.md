@@ -52,7 +52,13 @@ python -m tickets_ec.demo                  # 18 meses simulados (personas fictic
 streamlit run app/app.py                   # http://localhost:8750
 ```
 
-En Windows: doble clic en `Abrir Tickets EC.bat`.
+En Windows: doble clic en **`Abrir Tickets EC.bat`**. Si la PC no tiene Python,
+lo consigue sola (`packaging/conseguir_python.ps1`, el mismo de la suite), sin
+administrador. Arma su entorno en `%LOCALAPPDATA%\Tickets EC`, instala lo de
+`requirements-app.txt`, ofrece cargar la demo la primera vez y abre
+`http://localhost:8750`. Ante cualquier error la ventana queda abierta con el
+motivo. Sin salida a PyPI: carpeta `ruedas/` al lado del `.bat`
+(`pip wheel -r requirements-app.txt -w ruedas` en una PC con internet).
 
 | Página | Qué hace |
 |---|---|
@@ -116,7 +122,7 @@ docs/             casilla, indicadores, Power BI / Fabric
 
 ```bash
 ruff check .
-python -m pytest -q tests                  # 60 tests; el del tablero necesita la suite al lado
+python -m pytest -q tests                  # 66 tests; el del tablero necesita la suite al lado
 python scripts/e2e_ui.py                   # la app de verdad, en Chromium
 ```
 

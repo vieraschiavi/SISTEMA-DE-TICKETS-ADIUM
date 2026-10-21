@@ -1,6 +1,6 @@
 # El motor (tickets_ec/) sólo usa la biblioteca estándar. Esto es para la app,
 # el export a Excel y los tests.
-streamlit>=1.40
+streamlit>=1.50
 pandas>=2.0
 openpyxl>=3.1
 pytest>=8

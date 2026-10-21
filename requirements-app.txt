@@ -1,0 +1,7 @@
+# Lo que necesita la APP para abrir. Es lo que instala «Abrir Tickets EC.bat».
+# streamlit 1.50 o más nuevo: la app usa width="stretch" en botones y tablas, que
+# las versiones viejas no conocen (la pantalla abría con un TypeError).
+streamlit>=1.50
+pandas>=2.0
+# pandas no lee ni escribe Excel solo: el export a Power BI lo pide.
+openpyxl>=3.1
