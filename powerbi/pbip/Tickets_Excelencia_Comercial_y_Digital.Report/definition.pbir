@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Tickets_Excelencia_Comercial_y_Digital.SemanticModel"
+    }
+  }
+}

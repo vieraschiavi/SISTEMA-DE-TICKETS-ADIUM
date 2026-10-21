@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Tickets_Excelencia_Comercial_y_Digital"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9f25790c-b7f3-5bbc-b4c5-4fb71bc03a41"
+  }
+}

@@ -1,0 +1,669 @@
+{
+  "Tickets": [
+    {
+      "interno": "Title",
+      "visible": "Asunto",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Numero",
+      "visible": "Número",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Descripcion",
+      "visible": "Descripción",
+      "tipo": "Note",
+      "opciones": null
+    },
+    {
+      "interno": "SolicitanteMail",
+      "visible": "Mail solicitante",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "SolicitanteNombre",
+      "visible": "Solicitante",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Area",
+      "visible": "Área solicitante",
+      "tipo": "Choice",
+      "opciones": [
+        "Marketing",
+        "Fuerza de Ventas",
+        "Gerencia de Filial",
+        "Dirección Comercial",
+        "Excelencia Comercial",
+        "Digital",
+        "Finanzas",
+        "Medical Affairs",
+        "Acceso al Mercado",
+        "Business Development / Licencias",
+        "Supply Chain",
+        "IT",
+        "Recursos Humanos",
+        "Sin área"
+      ]
+    },
+    {
+      "interno": "Pais",
+      "visible": "País",
+      "tipo": "Choice",
+      "opciones": [
+        "Uruguay (HQ)",
+        "Argentina",
+        "Bolivia",
+        "Brasil",
+        "Centroamérica",
+        "Chile",
+        "Colombia",
+        "Ecuador",
+        "México",
+        "Paraguay",
+        "Perú",
+        "Venezuela",
+        "Regional",
+        "Sin país"
+      ]
+    },
+    {
+      "interno": "Equipo",
+      "visible": "Equipo resolutor",
+      "tipo": "Choice",
+      "opciones": [
+        "Excelencia Comercial",
+        "Digital"
+      ]
+    },
+    {
+      "interno": "Tipo",
+      "visible": "Tipo de ticket",
+      "tipo": "Choice",
+      "opciones": [
+        "Incidente / dato incorrecto",
+        "Solicitud de permisos",
+        "Nuevo desarrollo",
+        "Cambio en tablero existente",
+        "Pedido de información",
+        "Pedido digital",
+        "Capacitación / consulta",
+        "Otro"
+      ]
+    },
+    {
+      "interno": "Subtipo",
+      "visible": "Subtipo",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Prioridad",
+      "visible": "Prioridad",
+      "tipo": "Choice",
+      "opciones": [
+        "Crítica",
+        "Alta",
+        "Media",
+        "Baja"
+      ]
+    },
+    {
+      "interno": "Canal",
+      "visible": "Canal",
+      "tipo": "Choice",
+      "opciones": [
+        "Correo",
+        "Portal",
+        "Manual",
+        "Teams",
+        "Teléfono"
+      ]
+    },
+    {
+      "interno": "Estado",
+      "visible": "Estado",
+      "tipo": "Choice",
+      "opciones": [
+        "Nuevo",
+        "Asignado",
+        "En curso",
+        "En espera del solicitante",
+        "Resuelto",
+        "Reabierto",
+        "Cerrado",
+        "Cancelado"
+      ]
+    },
+    {
+      "interno": "Subestado",
+      "visible": "Subestado",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "AnalistaMail",
+      "visible": "Analista (mail)",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "ATC",
+      "visible": "ATC",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "AreaTerapeutica",
+      "visible": "Área terapéutica",
+      "tipo": "Choice",
+      "opciones": [
+        "Metab & Obesidad",
+        "Cardiovascular",
+        "Aparato Digestivo",
+        "Neurociencias",
+        "Osteo Dolor",
+        "Salud de la Mujer",
+        "Salud del Hombre",
+        "Oncología",
+        "Otra",
+        "Transversal / no aplica"
+      ]
+    },
+    {
+      "interno": "UnidadNegocio",
+      "visible": "Unidad de negocio",
+      "tipo": "Choice",
+      "opciones": [
+        "Cardiovascular",
+        "Gastro + Hipercol.",
+        "Metab & Obesidad Lic",
+        "Metab & Obesidad Pr",
+        "Neurociencias",
+        "Osteo Dolor",
+        "Salud de la Mujer",
+        "Salud del Hombre",
+        "Oncología",
+        "Otra",
+        "Transversal / no aplica"
+      ]
+    },
+    {
+      "interno": "Mercado",
+      "visible": "Mercado",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "FuenteDatos",
+      "visible": "Fuente de datos",
+      "tipo": "Choice",
+      "opciones": [
+        "IQVIA",
+        "Close Up",
+        "Venta interna / Adaptive",
+        "Stocking",
+        "Non Retail",
+        "MDW / Analysis Services",
+        "Fabric",
+        "Otra",
+        "No aplica"
+      ]
+    },
+    {
+      "interno": "Tablero",
+      "visible": "Tablero",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Cc",
+      "visible": "Cc",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Clasificacion",
+      "visible": "Clasificación",
+      "tipo": "Note",
+      "opciones": null
+    },
+    {
+      "interno": "MessageId",
+      "visible": "MessageId",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "CreadoEn",
+      "visible": "Creado",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "ActualizadoEn",
+      "visible": "Actualizado",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "AsignadoEn",
+      "visible": "Asignado",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "PrimeraRespuestaEn",
+      "visible": "Primera respuesta",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "EnCursoEn",
+      "visible": "En curso",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "ResueltoEn",
+      "visible": "Resuelto",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "CerradoEn",
+      "visible": "Cerrado",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "CanceladoEn",
+      "visible": "Cancelado",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "Reaperturas",
+      "visible": "Reaperturas",
+      "tipo": "Number",
+      "opciones": null
+    },
+    {
+      "interno": "VecesEnEspera",
+      "visible": "Veces en espera",
+      "tipo": "Number",
+      "opciones": null
+    },
+    {
+      "interno": "Conformidad",
+      "visible": "Conformidad",
+      "tipo": "Choice",
+      "opciones": [
+        "Conforme",
+        "No conforme",
+        "Tácita",
+        "Pendiente",
+        "Sin encuesta"
+      ]
+    },
+    {
+      "interno": "CSAT",
+      "visible": "CSAT",
+      "tipo": "Number",
+      "opciones": null
+    },
+    {
+      "interno": "Resolucion",
+      "visible": "Resolución",
+      "tipo": "Note",
+      "opciones": null
+    },
+    {
+      "interno": "VenceEn",
+      "visible": "Vence",
+      "tipo": "DateTime",
+      "opciones": null
+    }
+  ],
+  "Eventos": [
+    {
+      "interno": "Title",
+      "visible": "Tipo de evento",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "TicketNumero",
+      "visible": "Ticket",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "En",
+      "visible": "En",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "Usuario",
+      "visible": "Usuario",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "EstadoDesde",
+      "visible": "Estado desde",
+      "tipo": "Choice",
+      "opciones": [
+        "Nuevo",
+        "Asignado",
+        "En curso",
+        "En espera del solicitante",
+        "Resuelto",
+        "Reabierto",
+        "Cerrado",
+        "Cancelado"
+      ]
+    },
+    {
+      "interno": "EstadoHasta",
+      "visible": "Estado hasta",
+      "tipo": "Choice",
+      "opciones": [
+        "Nuevo",
+        "Asignado",
+        "En curso",
+        "En espera del solicitante",
+        "Resuelto",
+        "Reabierto",
+        "Cerrado",
+        "Cancelado"
+      ]
+    },
+    {
+      "interno": "Publico",
+      "visible": "Público",
+      "tipo": "Boolean",
+      "opciones": null
+    },
+    {
+      "interno": "Detalle",
+      "visible": "Detalle",
+      "tipo": "Note",
+      "opciones": null
+    }
+  ],
+  "Encuestas": [
+    {
+      "interno": "Title",
+      "visible": "Ticket",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Ronda",
+      "visible": "Ronda",
+      "tipo": "Number",
+      "opciones": null
+    },
+    {
+      "interno": "EnviadaEn",
+      "visible": "Enviada",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "RespondidaEn",
+      "visible": "Respondida",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "Resultado",
+      "visible": "Resultado",
+      "tipo": "Choice",
+      "opciones": [
+        "Pendiente",
+        "Conforme",
+        "No conforme",
+        "Tácita"
+      ]
+    },
+    {
+      "interno": "CSAT",
+      "visible": "CSAT",
+      "tipo": "Number",
+      "opciones": null
+    },
+    {
+      "interno": "Comentario",
+      "visible": "Comentario",
+      "tipo": "Note",
+      "opciones": null
+    }
+  ],
+  "Personas": [
+    {
+      "interno": "Title",
+      "visible": "Nombre",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Mail",
+      "visible": "Mail",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Area",
+      "visible": "Área solicitante",
+      "tipo": "Choice",
+      "opciones": [
+        "Marketing",
+        "Fuerza de Ventas",
+        "Gerencia de Filial",
+        "Dirección Comercial",
+        "Excelencia Comercial",
+        "Digital",
+        "Finanzas",
+        "Medical Affairs",
+        "Acceso al Mercado",
+        "Business Development / Licencias",
+        "Supply Chain",
+        "IT",
+        "Recursos Humanos",
+        "Sin área"
+      ]
+    },
+    {
+      "interno": "Pais",
+      "visible": "País",
+      "tipo": "Choice",
+      "opciones": [
+        "Uruguay (HQ)",
+        "Argentina",
+        "Bolivia",
+        "Brasil",
+        "Centroamérica",
+        "Chile",
+        "Colombia",
+        "Ecuador",
+        "México",
+        "Paraguay",
+        "Perú",
+        "Venezuela",
+        "Regional",
+        "Sin país"
+      ]
+    },
+    {
+      "interno": "Rol",
+      "visible": "Rol",
+      "tipo": "Choice",
+      "opciones": [
+        "solicitante",
+        "analista",
+        "coordinador"
+      ]
+    },
+    {
+      "interno": "Activo",
+      "visible": "Activo",
+      "tipo": "Boolean",
+      "opciones": null
+    }
+  ],
+  "ReglasClasificacion": [
+    {
+      "interno": "Title",
+      "visible": "Palabra",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Tipo",
+      "visible": "Tipo de ticket",
+      "tipo": "Choice",
+      "opciones": [
+        "Incidente / dato incorrecto",
+        "Solicitud de permisos",
+        "Nuevo desarrollo",
+        "Cambio en tablero existente",
+        "Pedido de información",
+        "Pedido digital",
+        "Capacitación / consulta",
+        "Otro"
+      ]
+    },
+    {
+      "interno": "Peso",
+      "visible": "Peso",
+      "tipo": "Number",
+      "opciones": null
+    },
+    {
+      "interno": "Equipo",
+      "visible": "Equipo resolutor",
+      "tipo": "Choice",
+      "opciones": [
+        "Excelencia Comercial",
+        "Digital"
+      ]
+    }
+  ],
+  "Mercados": [
+    {
+      "interno": "Title",
+      "visible": "Mercado",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "AreaTerapeutica",
+      "visible": "Área terapéutica",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "UnidadNegocio",
+      "visible": "Unidad de negocio",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "ATC",
+      "visible": "ATC",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "CTs",
+      "visible": "Clases terapéuticas",
+      "tipo": "Text",
+      "opciones": null
+    }
+  ],
+  "Feriados": [
+    {
+      "interno": "Title",
+      "visible": "Feriado",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Fecha",
+      "visible": "Fecha",
+      "tipo": "DateTime",
+      "opciones": null
+    }
+  ],
+  "Subtipos": [
+    {
+      "interno": "Title",
+      "visible": "Subtipo",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Tipo",
+      "visible": "Tipo de ticket",
+      "tipo": "Choice",
+      "opciones": [
+        "Incidente / dato incorrecto",
+        "Solicitud de permisos",
+        "Nuevo desarrollo",
+        "Cambio en tablero existente",
+        "Pedido de información",
+        "Pedido digital",
+        "Capacitación / consulta",
+        "Otro"
+      ]
+    }
+  ],
+  "SLA": [
+    {
+      "interno": "Title",
+      "visible": "Tipo de ticket",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Prioridad",
+      "visible": "Prioridad",
+      "tipo": "Choice",
+      "opciones": [
+        "Crítica",
+        "Alta",
+        "Media",
+        "Baja"
+      ]
+    },
+    {
+      "interno": "DiasResolucion",
+      "visible": "Días de resolución",
+      "tipo": "Number",
+      "opciones": null
+    },
+    {
+      "interno": "HorasRespuesta",
+      "visible": "Horas a la primera respuesta",
+      "tipo": "Number",
+      "opciones": null
+    },
+    {
+      "interno": "Equipo",
+      "visible": "Equipo resolutor",
+      "tipo": "Choice",
+      "opciones": [
+        "Excelencia Comercial",
+        "Digital"
+      ]
+    }
+  ]
+}

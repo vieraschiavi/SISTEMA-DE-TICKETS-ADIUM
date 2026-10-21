@@ -1,0 +1,125 @@
+Title,Tipo,Peso,Equipo
+error,Incidente / dato incorrecto,1,Excelencia Comercial
+no coincide,Incidente / dato incorrecto,2,Excelencia Comercial
+no cierra,Incidente / dato incorrecto,2,Excelencia Comercial
+no actualiza,Incidente / dato incorrecto,2,Excelencia Comercial
+falla,Incidente / dato incorrecto,1,Excelencia Comercial
+esta mal,Incidente / dato incorrecto,2,Excelencia Comercial
+incorrect,Incidente / dato incorrecto,1,Excelencia Comercial
+diferencia,Incidente / dato incorrecto,1,Excelencia Comercial
+no carga,Incidente / dato incorrecto,2,Excelencia Comercial
+caido,Incidente / dato incorrecto,1,Excelencia Comercial
+en blanco,Incidente / dato incorrecto,2,Excelencia Comercial
+duplicad,Incidente / dato incorrecto,1,Excelencia Comercial
+no anda,Incidente / dato incorrecto,2,Excelencia Comercial
+no funciona,Incidente / dato incorrecto,2,Excelencia Comercial
+rompio,Incidente / dato incorrecto,1,Excelencia Comercial
+acceso,Solicitud de permisos,1,Excelencia Comercial
+acceso al,Solicitud de permisos,2,Excelencia Comercial
+acceso a,Solicitud de permisos,2,Excelencia Comercial
+permiso,Solicitud de permisos,1,Excelencia Comercial
+licencia,Solicitud de permisos,1,Excelencia Comercial
+no puedo ver,Solicitud de permisos,3,Excelencia Comercial
+no puedo entrar,Solicitud de permisos,3,Excelencia Comercial
+compartir,Solicitud de permisos,1,Excelencia Comercial
+workspace,Solicitud de permisos,1,Excelencia Comercial
+rls,Solicitud de permisos,1,Excelencia Comercial
+habilitar,Solicitud de permisos,1,Excelencia Comercial
+dar de alta,Solicitud de permisos,3,Excelencia Comercial
+mismos accesos,Solicitud de permisos,2,Excelencia Comercial
+usuario nuevo,Solicitud de permisos,2,Excelencia Comercial
+nuevo tablero,Nuevo desarrollo,2,Excelencia Comercial
+nuevo informe,Nuevo desarrollo,2,Excelencia Comercial
+nuevo reporte,Nuevo desarrollo,2,Excelencia Comercial
+armar un tablero,Nuevo desarrollo,3,Excelencia Comercial
+armar un informe,Nuevo desarrollo,3,Excelencia Comercial
+dashboard,Nuevo desarrollo,1,Excelencia Comercial
+necesito un tablero,Nuevo desarrollo,3,Excelencia Comercial
+necesito un informe,Nuevo desarrollo,3,Excelencia Comercial
+desarrollar,Nuevo desarrollo,1,Excelencia Comercial
+desarrollo,Nuevo desarrollo,1,Excelencia Comercial
+automatizar,Nuevo desarrollo,1,Excelencia Comercial
+proyecto,Nuevo desarrollo,1,Excelencia Comercial
+presentacion,Nuevo desarrollo,1,Excelencia Comercial
+mazo,Nuevo desarrollo,1,Excelencia Comercial
+nuevo kpi,Nuevo desarrollo,2,Excelencia Comercial
+modelo,Nuevo desarrollo,1,Excelencia Comercial
+agregar,Cambio en tablero existente,1,Excelencia Comercial
+cambiar,Cambio en tablero existente,1,Excelencia Comercial
+modificar,Cambio en tablero existente,1,Excelencia Comercial
+sumar una columna,Cambio en tablero existente,3,Excelencia Comercial
+filtro,Cambio en tablero existente,1,Excelencia Comercial
+segmentador,Cambio en tablero existente,1,Excelencia Comercial
+nueva pagina,Cambio en tablero existente,2,Excelencia Comercial
+ajuste,Cambio en tablero existente,1,Excelencia Comercial
+mejora,Cambio en tablero existente,1,Excelencia Comercial
+agregar una,Cambio en tablero existente,2,Excelencia Comercial
+sacar,Cambio en tablero existente,1,Excelencia Comercial
+quitar,Cambio en tablero existente,1,Excelencia Comercial
+al tablero,Cambio en tablero existente,2,Excelencia Comercial
+en el tablero,Cambio en tablero existente,3,Excelencia Comercial
+del tablero,Cambio en tablero existente,2,Excelencia Comercial
+columna,Cambio en tablero existente,1,Excelencia Comercial
+iqvia,Pedido de información,1,Excelencia Comercial
+close up,Pedido de información,2,Excelencia Comercial
+closeup,Pedido de información,1,Excelencia Comercial
+share,Pedido de información,1,Excelencia Comercial
+mercado,Pedido de información,1,Excelencia Comercial
+recetas,Pedido de información,1,Excelencia Comercial
+prescripcion,Pedido de información,1,Excelencia Comercial
+penetracion,Pedido de información,1,Excelencia Comercial
+evolutivo,Pedido de información,1,Excelencia Comercial
+base,Pedido de información,1,Excelencia Comercial
+extraccion,Pedido de información,1,Excelencia Comercial
+extraer,Pedido de información,1,Excelencia Comercial
+excel con,Pedido de información,2,Excelencia Comercial
+listado,Pedido de información,1,Excelencia Comercial
+descargar,Pedido de información,1,Excelencia Comercial
+export,Pedido de información,1,Excelencia Comercial
+datos de,Pedido de información,2,Excelencia Comercial
+necesito el dato,Pedido de información,3,Excelencia Comercial
+cuanto,Pedido de información,1,Excelencia Comercial
+cuanta,Pedido de información,1,Excelencia Comercial
+me pasas,Pedido de información,2,Excelencia Comercial
+me podes pasar,Pedido de información,3,Excelencia Comercial
+informacion,Pedido de información,1,Excelencia Comercial
+venta interna,Pedido de información,2,Excelencia Comercial
+pea,Pedido de información,1,Excelencia Comercial
+unidades,Pedido de información,1,Excelencia Comercial
+vendimos,Pedido de información,1,Excelencia Comercial
+cumplimiento,Pedido de información,1,Excelencia Comercial
+veeva,Pedido digital,1,Digital
+crm,Pedido digital,1,Digital
+mailing,Pedido digital,1,Digital
+email marketing,Pedido digital,2,Digital
+newsletter,Pedido digital,1,Digital
+landing,Pedido digital,1,Digital
+pagina web,Pedido digital,2,Digital
+sitio web,Pedido digital,2,Digital
+redes sociales,Pedido digital,2,Digital
+whatsapp,Pedido digital,1,Digital
+e-detailing,Pedido digital,1,Digital
+edetailing,Pedido digital,1,Digital
+app movil,Pedido digital,2,Digital
+google analytics,Pedido digital,2,Digital
+campana digital,Pedido digital,2,Digital
+canal digital,Pedido digital,2,Digital
+omnicanal,Pedido digital,1,Digital
+webinar,Pedido digital,1,Digital
+portal medico,Pedido digital,2,Digital
+capacitacion,Capacitación / consulta,1,Excelencia Comercial
+curso,Capacitación / consulta,1,Excelencia Comercial
+como uso,Capacitación / consulta,2,Excelencia Comercial
+como se usa,Capacitación / consulta,3,Excelencia Comercial
+explicar,Capacitación / consulta,1,Excelencia Comercial
+tutorial,Capacitación / consulta,1,Excelencia Comercial
+duda,Capacitación / consulta,1,Excelencia Comercial
+duda sobre,Capacitación / consulta,2,Excelencia Comercial
+consulta,Capacitación / consulta,1,Excelencia Comercial
+como se lee,Capacitación / consulta,3,Excelencia Comercial
+como interpreto,Capacitación / consulta,2,Excelencia Comercial
+e-mail marketing,Pedido digital,1,Digital
+instagram,Pedido digital,1,Digital
+linkedin,Pedido digital,1,Digital
+aplicacion movil,Pedido digital,1,Digital
+digital,Pedido digital,1,Digital

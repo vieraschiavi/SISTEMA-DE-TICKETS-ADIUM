@@ -1,0 +1,18 @@
+# Los mismos colores que la suite Adium All in One (tickets_ec/marca.py → TEMA;
+# un test los cruza).
+[theme]
+base = "light"
+primaryColor = "#EB002C"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F2F4F7"
+textColor = "#3B4A5E"
+font = "sans serif"
+
+[browser]
+gatherUsageStats = false
+
+[server]
+port = 8750
+# Sólo esta PC. Para compartirla en la red, ponerla detrás del proxy/SSO
+# corporativo (ver docs/DESPLIEGUE.md): la app no tiene login propio.
+address = "127.0.0.1"

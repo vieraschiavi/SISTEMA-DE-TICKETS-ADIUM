@@ -1,0 +1,33 @@
+Title,Prioridad,DiasResolucion,HorasRespuesta,Equipo
+Incidente / dato incorrecto,Crítica,1,2,Excelencia Comercial
+Incidente / dato incorrecto,Alta,2,4,Excelencia Comercial
+Incidente / dato incorrecto,Media,3,9,Excelencia Comercial
+Incidente / dato incorrecto,Baja,5,18,Excelencia Comercial
+Solicitud de permisos,Crítica,1,2,Excelencia Comercial
+Solicitud de permisos,Alta,1,4,Excelencia Comercial
+Solicitud de permisos,Media,2,9,Excelencia Comercial
+Solicitud de permisos,Baja,3,18,Excelencia Comercial
+Nuevo desarrollo,Crítica,5,2,Excelencia Comercial
+Nuevo desarrollo,Alta,10,4,Excelencia Comercial
+Nuevo desarrollo,Media,20,9,Excelencia Comercial
+Nuevo desarrollo,Baja,30,18,Excelencia Comercial
+Cambio en tablero existente,Crítica,2,2,Excelencia Comercial
+Cambio en tablero existente,Alta,5,4,Excelencia Comercial
+Cambio en tablero existente,Media,8,9,Excelencia Comercial
+Cambio en tablero existente,Baja,15,18,Excelencia Comercial
+Pedido de información,Crítica,1,2,Excelencia Comercial
+Pedido de información,Alta,3,4,Excelencia Comercial
+Pedido de información,Media,5,9,Excelencia Comercial
+Pedido de información,Baja,10,18,Excelencia Comercial
+Pedido digital,Crítica,1,2,Digital
+Pedido digital,Alta,3,4,Digital
+Pedido digital,Media,5,9,Digital
+Pedido digital,Baja,10,18,Digital
+Capacitación / consulta,Crítica,1,2,Excelencia Comercial
+Capacitación / consulta,Alta,3,4,Excelencia Comercial
+Capacitación / consulta,Media,5,9,Excelencia Comercial
+Capacitación / consulta,Baja,10,18,Excelencia Comercial
+Otro,Crítica,1,2,Excelencia Comercial
+Otro,Alta,3,4,Excelencia Comercial
+Otro,Media,5,9,Excelencia Comercial
+Otro,Baja,10,18,Excelencia Comercial

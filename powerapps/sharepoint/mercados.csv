@@ -1,0 +1,85 @@
+Title,AreaTerapeutica,UnidadNegocio,ATC,CTs
+PANTOPRAZOL,Aparato Digestivo,Gastro + Hipercol.,A02B2,A02B2
+VONOPRAZAN,Aparato Digestivo,Gastro + Hipercol.,A02B2,A02B2
+MEBEVERINA,Aparato Digestivo,Gastro + Hipercol.,A03A0,A03A0 A03E0 A03F0 A03G0
+MEBEVERINA + SIMETICONA,Aparato Digestivo,Gastro + Hipercol.,A03E0,A03E0
+POLIETIGLENLICOL (NULYTELY),Aparato Digestivo,Gastro + Hipercol.,A06B1,A06B1 A06B2 A06B9
+LORCASERINA,Aparato Digestivo,Metab & Obesidad Lic,A08A,A08A
+DEXLANSOPRAZOL,Aparato Digestivo,Gastro + Hipercol.,A02B2,A02B2
+BISACODYL,Aparato Digestivo,Gastro + Hipercol.,A06B2,A06B2
+PINAVERIO + DIMETICONA,Aparato Digestivo,Gastro + Hipercol.,A03E0,A03E0
+DIOSMINA + HESPERIDINA,Cardiovascular,Cardiovascular,C05C0,C05C0
+NEBIVOLOL,Cardiovascular,Cardiovascular,C07A0,C07A0
+OLMESARTAN,Cardiovascular,Cardiovascular,C09C0,C09C0
+OLMESARTAN + HCT,Cardiovascular,Cardiovascular,C09D1,C09D1
+OLMESARTAN + AMLODIPINA,Cardiovascular,Cardiovascular,C09D3,C09D3
+OLMESARTAN + AMLODIPINA + HCT,Cardiovascular,Cardiovascular,C09D3,C09D3
+SACUBITRIL + VALSARTAN,Cardiovascular,Cardiovascular,C09D9,C09D9
+ACIDO BEMPEDOICO,Cardiovascular,Gastro + Hipercol.,C10A9,C10A9
+ATORVASTATINA + EZETIMBE,Cardiovascular,Gastro + Hipercol.,C10C0,C10C0 C10A1
+ROSUVASTATINA + EZETIMIBE,Cardiovascular,Gastro + Hipercol.,C10C0,C10C0
+ACIDO BEMPEDOICO + EZETIMIBE,Cardiovascular,Gastro + Hipercol.,C10C0,C10C0
+APIXABAN,Cardiovascular,Cardiovascular,B01F0,B01F0 B01E0
+EVOLOCUMAB,Cardiovascular,Gastro + Hipercol.,C10A4,C10A4
+RIVAROXABAN,Cardiovascular,Cardiovascular,B01F0,B01F0 B01E0
+FENTERMINA+TOPIRAMATO,Metab & Obesidad,Metab & Obesidad Lic,A08A,A08A
+NALTRAXENO+BUPROPION,Metab & Obesidad,Metab & Obesidad Lic,A08A,A08A
+VILDAGLIPTINA,Metab & Obesidad,Metab & Obesidad Lic,A10N1,A10N1
+SITAGLIPTINA,Metab & Obesidad,Metab & Obesidad Lic,A10N1,A10N1
+VILDAGLIPTINA + METFORMINA,Metab & Obesidad,Metab & Obesidad Lic,A10N3,A10N3
+SITAGLIPTINA + METFORMINA,Metab & Obesidad,Metab & Obesidad Lic,A10N3,A10N3
+DAPAGLIFLOZINA,Metab & Obesidad,Metab & Obesidad Lic,A10P1,A10P1
+EMPAGLIFLOZINA,Metab & Obesidad,Metab & Obesidad Lic,A10P1,A10P1
+DAPAGLIFLOZINA + METFORMINA,Metab & Obesidad,Metab & Obesidad Lic,A10P3,A10P3
+EMPAGLIFLOZINA + METFORMINA,Metab & Obesidad,Metab & Obesidad Lic,A10P3,A10P3
+DULAGLUTIDE,Metab & Obesidad,Metab & Obesidad Lic,A10S0,A10S0
+TIRZEPATIDE,Metab & Obesidad,Transversal / no aplica,,
+TRULICITY,Metab & Obesidad,Metab & Obesidad Lic,A10K2,A10K2 A10M3 A10N3 A10J2 A10K3 A10P3 A10P5 A10S0 A10C9
+LACOSAMIDA,Neurociencias,Neurociencias,N03A,N03A
+BRIVARACETAM,Neurociencias,Neurociencias,N03A,N03A
+LURASIDONA,Neurociencias,Neurociencias,N05A,N05A
+QUETIAPINA,Neurociencias,Neurociencias,N05A1,N05A1
+SERTRALINA,Neurociencias,Neurociencias,N06A4,N06A4 N06A5
+DESVENLAFAXINA,Neurociencias,Neurociencias,N06A4,N06A4 N06A5 N06A9
+METILFENIDATO,Neurociencias,Neurociencias,N06B,N06B
+RIVASTIGMINA,Neurociencias,Neurociencias,N07D,N07D
+MEMANTINE,Neurociencias,Neurociencias,N07D,N07D
+MEMANTINE + DONEPEZILO,Neurociencias,Neurociencias,N07D1,N07D1 N07D9
+CARIPRAZINA CLORHIDRATO,Neurociencias,Neurociencias,N05A,N05A
+LISDEXANFETAMINA,Neurociencias,Neurociencias,N06B,N06B
+PALIPERIDONA,Neurociencias,Neurociencias,N05A,N05A
+ANTIPSICOTICOS,Neurociencias,Neurociencias,N05A1,N05A1 N05A9
+BRIVARACETAM,Neurociencias,Neurociencias,N03A0,N03A0
+ETORICOXIB,Osteo Dolor,Osteo Dolor,M01A3,M01A3
+ACIDO HIALURONICO,Osteo Dolor,Osteo Dolor,M05X0,M05X0
+GLUCOSAMINA SULFATO + MELOXICAM,Osteo Dolor,Osteo Dolor,M05X0,M05X0 M01A2
+GLUCOSAMINA + CONDROITIN,Osteo Dolor,Osteo Dolor,M05X0,M05X0 M01A2
+BUPRENORFINA,Osteo Dolor,Osteo Dolor,N02A0,N02A0
+DICLOFENAC + TRAMADOL,Osteo Dolor,Transversal / no aplica,,
+PREGABALINA,Osteo Dolor,Osteo Dolor,N03A0,N03A0
+EXTRACTO INSAPONIFICABLES DE PALTA-SOJA,Osteo Dolor,Osteo Dolor,M05X0,M05X0
+PARACETAMOL,Osteo Dolor,Osteo Dolor,N02B0,N02B0
+PREGABALINA + TRAMADOL,Osteo Dolor,Osteo Dolor,N02B0,N02B0
+CLINDAMICINA + KETOCONAZOL,Salud de la Mujer,Salud de la Mujer,G01A2,G01A2 G01A3 G01B0 G01C0
+IBANDRONATO,Salud de la Mujer,Salud de la Mujer,M05B3,M05B3 M05B9
+PROGESTERONA,Salud de la Mujer,Salud de la Mujer,G03D0,G03D0
+DENOSUMAB,Salud de la Mujer,Salud de la Mujer,M05B3,M05B3 M05B9
+COLECALCIFEROL (VITAMINA D),Salud de la Mujer,Salud de la Mujer,A11C2,A11C2
+CLORMADINONA + ETINILESTRADIOL,Salud de la Mujer,Salud de la Mujer,G03A1,G03A1
+DIENOGEST + ETINILESTRADIOL,Salud de la Mujer,Salud de la Mujer,G03A4,G03A4
+FENTICONAZOL,Salud de la Mujer,Salud de la Mujer,G01A1,G01A1 G01A2 G01A3 G01B0
+ESTRADIOL + NOMEGESTROL,Salud de la Mujer,Salud de la Mujer,G03A2,G03A2
+PROMESTRIENO,Salud de la Mujer,Salud de la Mujer,G02F0,G02F0
+TAMSULOSINA + DUTASTERIDE,Salud del Hombre,Salud del Hombre,G04C,G04C
+SOLIFENACINA,Salud del Hombre,Salud del Hombre,G04D4,G04D4
+MIRABEGRON,Salud del Hombre,Salud del Hombre,G04D4,G04D4
+TAMSULOSINA + SOLIFENACINA,Salud del Hombre,Salud del Hombre,G04C2,G04C2 G04C7
+TAMSULOSINA,Salud del Hombre,Salud del Hombre,G04C,G04C
+FENAZOPIRIDINA,Salud del Hombre,Salud del Hombre,G04D4,G04D4 G04D8 G04X0
+LEVOSIMENDAN,Cardiovascular,Cardiovascular,C01,C01
+ROSUVASTATINA,Cardiovascular,Gastro + Hipercol.,C10,C10
+OLMESARTAN DOBLE COMB. HQ,Cardiovascular,Cardiovascular,C09D1,C09D1 C09D3
+OLMESARTAN TRIPLE COMB. HQ,Cardiovascular,Cardiovascular,C09D1,C09D1 C09D3
+MULTIVITAMINICOS,Otra,Otra,A11,A11
+ALOGLIPTINA,Metab & Obesidad,Metab & Obesidad Lic,A10N1,A10N1
+ALOGLIPTINA+METFORMINA,Metab & Obesidad,Metab & Obesidad Lic,A10N3,A10N3
