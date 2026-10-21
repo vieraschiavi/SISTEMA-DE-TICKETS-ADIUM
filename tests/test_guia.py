@@ -14,3 +14,11 @@ def test_claves_unicas_y_los_seis_flujos():
     assert len({p.clave for p in guia.PASOS}) == len(guia.PASOS)
     flujos = next(p for p in guia.PASOS if p.clave == "flujos")
     assert len(flujos.secciones) == 6
+
+
+def test_progreso_y_markdown():
+    hechos, total, siguiente = guia.progreso({"it", "listas"})
+    assert (hechos, total, siguiente) == (2, len(guia.PASOS), guia.PASOS[2].titulo)
+    assert guia.progreso({p.clave for p in guia.PASOS})[2] == ""
+    md = guia.a_markdown()
+    assert "## 4. Crear los 6 flujos de Power Automate" in md and "Correo → ticket" in md and "scrDetalle" in md

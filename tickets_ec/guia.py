@@ -129,3 +129,31 @@ def archivo(relativo: str) -> Path:
 def faltantes() -> list[str]:
     """Los archivos que la guía ofrece y no están (p. ej. el tablero sin armar)."""
     return sorted({a for p in PASOS for a in p.archivos if not archivo(a).is_file()})
+
+
+def progreso(hechos) -> tuple[int, int, str]:
+    """(hechos, total, título del próximo paso). `hechos`: las claves marcadas."""
+    hechos = set(hechos)
+    siguiente = next((p.titulo for p in PASOS if p.clave not in hechos), "")
+    return sum(p.clave in hechos for p in PASOS), len(PASOS), siguiente
+
+
+def a_markdown() -> str:
+    """La guía entera en un archivo, con el detalle de cada flujo y pantalla, para una wiki o un correo."""
+    out = ["# La mesa de tickets en Power Platform", "",
+           "Buzón compartido → Power Automate → listas de SharePoint ← Power Apps, y el tablero en Power BI. "
+           "Licencias de Microsoft 365, sin premium ni servidor.", "",
+           "> · REVISAR: los flujos y las pantallas no se armaron todavía en el tenant. La guía deja de estar en "
+           "revisión cuando pasa la prueba de punta a punta.", ""]
+    for i, p in enumerate(PASOS, 1):
+        out += [f"## {i}. {p.titulo}", "", f"**Dónde:** {p.donde} · **Tiempo:** {p.tiempo}", ""]
+        out += [f"- {x}" for x in p.hacer]
+        out += ["", f"**Cómo saber que quedó:** {p.prueba}", ""]
+        if p.archivos:
+            out += ["**Archivos:** " + ", ".join(f"`{a}`" for a in p.archivos), ""]
+        for documento, prefijo in p.secciones:
+            encontrada = seccion(documento, prefijo)
+            if encontrada:
+                titulo, cuerpo = encontrada
+                out += [f"### {titulo}", "", cuerpo.replace("\n### ", "\n#### "), ""]
+    return "\n".join(out).rstrip() + "\n"
