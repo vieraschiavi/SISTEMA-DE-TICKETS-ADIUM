@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Tickets_Excelencia_Comercial_y_Digital"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "552ff809-97c7-5442-b546-61d5ece54ced"
+  }
+}

@@ -1,0 +1,32 @@
+Title,Tipo
+Dato incorrecto o que no cierra,Incidente / dato incorrecto
+Tablero que no actualiza,Incidente / dato incorrecto
+Visual o tablero con error,Incidente / dato incorrecto
+Fuente de datos caída,Incidente / dato incorrecto
+Acceso a app o workspace de Power BI,Solicitud de permisos
+Acceso por país o marca (RLS),Solicitud de permisos
+Acceso a fuente de datos (MDW / Fabric / SQL),Solicitud de permisos
+Acceso a Adaptive,Solicitud de permisos
+Licencia Power BI Pro / Copilot,Solicitud de permisos
+Tablero Power BI nuevo,Nuevo desarrollo
+Modelo de datos o medidas DAX,Nuevo desarrollo
+Automatización o proceso de datos,Nuevo desarrollo
+Presentación o mazo,Nuevo desarrollo
+Agregar KPI o columna,Cambio en tablero existente
+Filtros o segmentadores,Cambio en tablero existente
+Nueva página,Cambio en tablero existente
+Formato o diseño,Cambio en tablero existente
+Mercado conformado,Pedido de información
+Consulta de mercado (IQVIA),Pedido de información
+Recetas y médicos (Close Up),Pedido de información
+Venta interna / PEA,Pedido de información
+Extracción de base,Pedido de información
+Dato puntual,Pedido de información
+CRM / Veeva,Pedido digital
+Campaña o canal digital,Pedido digital
+"Web, app o e-detailing",Pedido digital
+Analítica digital,Pedido digital
+Uso de un tablero,Capacitación / consulta
+Power BI / DAX,Capacitación / consulta
+Fuentes de datos,Capacitación / consulta
+Sin detalle,Otro

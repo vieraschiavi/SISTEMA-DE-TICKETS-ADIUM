@@ -1,0 +1,1050 @@
+{
+  "name": "Tickets_Excelencia_Comercial_y_Digital",
+  "compatibilityLevel": 1606,
+  "model": {
+    "culture": "es-ES",
+    "tables": [
+      {
+        "name": "Tickets",
+        "columns": [
+          {
+            "name": "Número",
+            "dataType": "string",
+            "sourceColumn": "Número",
+            "lineageTag": "3bcd1033-4d15-434b-93b6-e7d21005b86d",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Asunto",
+            "dataType": "string",
+            "sourceColumn": "Asunto",
+            "lineageTag": "2adad17b-5ab0-4cce-85a2-4666dfed2eac",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Solicitante",
+            "dataType": "string",
+            "sourceColumn": "Solicitante",
+            "lineageTag": "0b33d520-ce57-4a49-98b6-b6fdfd0e3bf3",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Mail solicitante",
+            "dataType": "string",
+            "sourceColumn": "Mail solicitante",
+            "isHidden": true,
+            "lineageTag": "c3004c28-fb99-4ad0-bc01-1ed84d36aa4c",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Área solicitante",
+            "dataType": "string",
+            "sourceColumn": "Área solicitante",
+            "lineageTag": "71fdd02f-8aed-499b-b75d-9f69fdc5deff",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "País",
+            "dataType": "string",
+            "sourceColumn": "País",
+            "lineageTag": "47188d50-3709-4019-b12b-acd781f84a3a",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Tipo de ticket",
+            "dataType": "string",
+            "sourceColumn": "Tipo de ticket",
+            "lineageTag": "6921f566-c3d9-4850-8ac7-15ebaf1ad616",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Subtipo",
+            "dataType": "string",
+            "sourceColumn": "Subtipo",
+            "lineageTag": "26f0e5a6-a9c0-4109-99c6-dc4877d15ade",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Prioridad",
+            "dataType": "string",
+            "sourceColumn": "Prioridad",
+            "sortByColumn": "Orden prioridad",
+            "lineageTag": "441920c7-7b7d-45eb-a627-15fab2cb1d21",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Orden prioridad",
+            "dataType": "int64",
+            "sourceColumn": "Orden prioridad",
+            "formatString": "#,0",
+            "lineageTag": "acc4d08b-95fa-495c-bdc0-8ab3e03d11cc",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Canal",
+            "dataType": "string",
+            "sourceColumn": "Canal",
+            "lineageTag": "82d409b0-6af1-4fc4-b2f2-7252f98068e2",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ATC",
+            "dataType": "string",
+            "sourceColumn": "ATC",
+            "lineageTag": "54fb039b-d232-462d-99a5-a9fb07e8d2da",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ATC nivel 1",
+            "dataType": "string",
+            "sourceColumn": "ATC nivel 1",
+            "lineageTag": "91b9f13f-84e5-4461-8e11-a4c071f8530b",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Área terapéutica",
+            "dataType": "string",
+            "sourceColumn": "Área terapéutica",
+            "lineageTag": "c067faea-2544-4b36-98d1-be54fdb1ff07",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Unidad de negocio",
+            "dataType": "string",
+            "sourceColumn": "Unidad de negocio",
+            "lineageTag": "d5da80ab-7bfd-430a-88a0-b2d6d302080a",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Mercado",
+            "dataType": "string",
+            "sourceColumn": "Mercado",
+            "lineageTag": "dd97b7c1-9010-49e7-b7bc-79eab4900978",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fuente de datos",
+            "dataType": "string",
+            "sourceColumn": "Fuente de datos",
+            "lineageTag": "8d27d1df-c066-46c1-8c95-90b914f17c56",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Tablero",
+            "dataType": "string",
+            "sourceColumn": "Tablero",
+            "lineageTag": "f4ef244f-1933-4b75-adeb-2c460a72e5e0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Estado",
+            "dataType": "string",
+            "sourceColumn": "Estado",
+            "sortByColumn": "Orden estado",
+            "lineageTag": "5eedb2da-4863-40ae-97b2-eb69a673decd",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Orden estado",
+            "dataType": "int64",
+            "sourceColumn": "Orden estado",
+            "formatString": "#,0",
+            "lineageTag": "34076e45-15f0-44b0-b517-7d3e5109e4a7",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Subestado",
+            "dataType": "string",
+            "sourceColumn": "Subestado",
+            "lineageTag": "c0cdd45f-2b37-4f45-8ee9-bf6d1d79918f",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Equipo resolutor",
+            "dataType": "string",
+            "sourceColumn": "Equipo resolutor",
+            "lineageTag": "f236b4d2-71e5-4247-8111-830fed15362d",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Analista",
+            "dataType": "string",
+            "sourceColumn": "Analista",
+            "lineageTag": "59172552-2b8a-4b6d-8844-e2eae847da32",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha creación",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha creación",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "502f7d08-ccb0-46dd-b1b0-67a50356fc9e",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha",
+            "isHidden": true,
+            "lineageTag": "7a0abb14-1c28-4ce8-af03-a363b10c5a92",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha asignación",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha asignación",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "cfe3015c-9658-4f93-a3fa-693a130e29cc",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha primera respuesta",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha primera respuesta",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "ac52ecb4-1033-4ca6-9211-5c450ef2a452",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha resolución",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha resolución",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "b94356ff-06f1-40d0-94e5-788d2e6aeb9f",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha resolución día",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha resolución día",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "15b9ee1f-b77f-46a7-8292-7ff8766e9c7d",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha cierre",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha cierre",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "85ea400a-2623-40f5-9916-6a665c85cfa0",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha cancelación",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha cancelación",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "810eebb7-40df-495e-ae11-af33bfc26fc3",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha salida backlog",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha salida backlog",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "7d880fe5-9fa3-4bf4-ab38-9dbb83514d8f",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Horas primera respuesta",
+            "dataType": "double",
+            "sourceColumn": "Horas primera respuesta",
+            "formatString": "#,0.00",
+            "lineageTag": "fb4359f6-dadf-499a-8cd8-5888131a5533",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Respuesta en SLA",
+            "dataType": "int64",
+            "sourceColumn": "Respuesta en SLA",
+            "formatString": "#,0",
+            "lineageTag": "8c17d690-e29b-4204-a1d3-bed6c135036e",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Horas resolución",
+            "dataType": "double",
+            "sourceColumn": "Horas resolución",
+            "formatString": "#,0.00",
+            "lineageTag": "42c07946-e5b0-4afb-81ae-5f36a25f3e85",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Días resolución",
+            "dataType": "double",
+            "sourceColumn": "Días resolución",
+            "formatString": "#,0.00",
+            "lineageTag": "6bd8962e-9203-4b41-aeb8-24f3fbc4840e",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SLA horas",
+            "dataType": "int64",
+            "sourceColumn": "SLA horas",
+            "formatString": "#,0",
+            "lineageTag": "24b57715-3d61-42da-92ac-26434dcd56e9",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "SLA días",
+            "dataType": "int64",
+            "sourceColumn": "SLA días",
+            "formatString": "#,0",
+            "lineageTag": "1a735fb1-2a49-4fb6-b417-b01548ce9bf6",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "En SLA",
+            "dataType": "int64",
+            "sourceColumn": "En SLA",
+            "formatString": "#,0",
+            "lineageTag": "e0dbd978-db22-4e9f-895b-72baf2bf6c9b",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Horas en espera",
+            "dataType": "double",
+            "sourceColumn": "Horas en espera",
+            "formatString": "#,0.00",
+            "lineageTag": "21643fa3-2072-42a9-97c5-b14216c2b2e7",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Resuelto",
+            "dataType": "int64",
+            "sourceColumn": "Resuelto",
+            "formatString": "#,0",
+            "lineageTag": "a71fa735-15c7-4a59-939b-db6baa5246c3",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Cancelado",
+            "dataType": "int64",
+            "sourceColumn": "Cancelado",
+            "formatString": "#,0",
+            "lineageTag": "ab094807-2bb4-4c2c-8463-1c92ac4e8919",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Pendiente equipo",
+            "dataType": "int64",
+            "sourceColumn": "Pendiente equipo",
+            "formatString": "#,0",
+            "lineageTag": "bb059305-1e69-47c6-986f-a91040787d0f",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Vencido",
+            "dataType": "int64",
+            "sourceColumn": "Vencido",
+            "formatString": "#,0",
+            "lineageTag": "f261b22b-b15d-42da-9e72-af39696e1d05",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Días abierto",
+            "dataType": "double",
+            "sourceColumn": "Días abierto",
+            "lineageTag": "fe7a597d-40ac-4d4d-bd07-0c5f464ad4f5",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Antigüedad",
+            "dataType": "string",
+            "sourceColumn": "Antigüedad",
+            "lineageTag": "c1f64c75-c4ec-4d22-8037-530a66e6492b",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Reaperturas",
+            "dataType": "int64",
+            "sourceColumn": "Reaperturas",
+            "formatString": "#,0",
+            "lineageTag": "64d0a309-ba5b-4ae2-8390-abd5bbb9496e",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Veces en espera",
+            "dataType": "int64",
+            "sourceColumn": "Veces en espera",
+            "formatString": "#,0",
+            "lineageTag": "2971c6ae-f03a-422e-a673-6167d645e1f3",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Primer contacto",
+            "dataType": "int64",
+            "sourceColumn": "Primer contacto",
+            "formatString": "#,0",
+            "lineageTag": "f1db4dbd-08ae-4158-a15f-cf38a3eb7c96",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Conformidad",
+            "dataType": "string",
+            "sourceColumn": "Conformidad",
+            "lineageTag": "8a2f91ae-3260-4504-8e45-6686a67e715a",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CSAT",
+            "dataType": "int64",
+            "sourceColumn": "CSAT",
+            "formatString": "#,0",
+            "lineageTag": "e02c684c-d6fc-4f05-9695-11afdeddb392",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Mail solicitante (enmascarado)",
+            "dataType": "string",
+            "sourceColumn": "Mail solicitante (enmascarado)",
+            "summarizeBy": "none",
+            "lineageTag": "bceef304-eef0-403a-b32e-475e9d460c19"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Tickets",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Excel.Workbook(File.Contents(CarpetaDatos & \"Tickets_Excelencia_Comercial_y_Digital.xlsx\"), true){[Item=\"Tickets\", Kind=\"Sheet\"]}[Data],",
+                "    Tipos = Table.TransformColumnTypes(Origen, {{\"Número\", type text}, {\"Asunto\", type text}, {\"Solicitante\", type text}, {\"Mail solicitante\", type text}, {\"Área solicitante\", type text}, {\"País\", type text}, {\"Tipo de ticket\", type text}, {\"Subtipo\", type text}, {\"Prioridad\", type text}, {\"Orden prioridad\", Int64.Type}, {\"Canal\", type text}, {\"ATC\", type text}, {\"ATC nivel 1\", type text}, {\"Área terapéutica\", type text}, {\"Unidad de negocio\", type text}, {\"Mercado\", type text}, {\"Fuente de datos\", type text}, {\"Tablero\", type text}, {\"Estado\", type text}, {\"Orden estado\", Int64.Type}, {\"Subestado\", type text}, {\"Equipo resolutor\", type text}, {\"Analista\", type text}, {\"Fecha creación\", type datetime}, {\"Fecha\", type datetime}, {\"Fecha asignación\", type datetime}, {\"Fecha primera respuesta\", type datetime}, {\"Fecha resolución\", type datetime}, {\"Fecha resolución día\", type datetime}, {\"Fecha cierre\", type datetime}, {\"Fecha cancelación\", type datetime}, {\"Fecha salida backlog\", type datetime}, {\"Horas primera respuesta\", type number}, {\"Respuesta en SLA\", Int64.Type}, {\"Horas resolución\", type number}, {\"Días resolución\", type number}, {\"SLA horas\", Int64.Type}, {\"SLA días\", Int64.Type}, {\"En SLA\", Int64.Type}, {\"Horas en espera\", type number}, {\"Resuelto\", Int64.Type}, {\"Cancelado\", Int64.Type}, {\"Pendiente equipo\", Int64.Type}, {\"Vencido\", Int64.Type}, {\"Días abierto\", type number}, {\"Antigüedad\", type text}, {\"Reaperturas\", Int64.Type}, {\"Veces en espera\", Int64.Type}, {\"Primer contacto\", Int64.Type}, {\"Conformidad\", type text}, {\"CSAT\", Int64.Type}}),",
+                "    Mascara1 = Table.AddColumn(Tipos, \"Mail solicitante (enmascarado)\", each let t = if [Mail solicitante] = null then null else Text.From([Mail solicitante]), a = if t = null then -1 else Text.PositionOf(t, \"@\") in if t = null then null else if a > 2 then Text.Start(t, 2) & \"•••\" & Text.Middle(t, a) else \"•••\", type text)",
+                "in",
+                "    Mascara1"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "d49ffb40-5e5e-419f-8582-aa365748143c"
+      },
+      {
+        "name": "Estados",
+        "columns": [
+          {
+            "name": "Número",
+            "dataType": "string",
+            "sourceColumn": "Número",
+            "isHidden": true,
+            "lineageTag": "02eca87f-2330-42f2-b1f4-fa84961e8d70",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Estado desde",
+            "dataType": "string",
+            "sourceColumn": "Estado desde",
+            "lineageTag": "5591236e-a6f4-4462-afdb-46691a945b87",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Estado",
+            "dataType": "string",
+            "sourceColumn": "Estado",
+            "sortByColumn": "Orden estado",
+            "lineageTag": "9cfd1657-5233-4634-9fbd-892d9b3b3940",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Orden estado",
+            "dataType": "int64",
+            "sourceColumn": "Orden estado",
+            "formatString": "#,0",
+            "lineageTag": "4a9a4f8c-76ed-4301-9060-a2c336a0c6ee",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha cambio",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha cambio",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "a6432b15-52b5-4225-809f-8599c7be13e8",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Horas en estado",
+            "dataType": "double",
+            "sourceColumn": "Horas en estado",
+            "formatString": "#,0.00",
+            "lineageTag": "b2e7cd54-1394-4862-9746-35c1aa01e7f2",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Usuario",
+            "dataType": "string",
+            "sourceColumn": "Usuario",
+            "lineageTag": "c12649e8-d3ec-4ec5-ab88-9e16bfa0c964",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Estados",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Excel.Workbook(File.Contents(CarpetaDatos & \"Tickets_Excelencia_Comercial_y_Digital.xlsx\"), true){[Item=\"Estados\", Kind=\"Sheet\"]}[Data],",
+                "    Tipos = Table.TransformColumnTypes(Origen, {{\"Número\", type text}, {\"Estado desde\", type text}, {\"Estado\", type text}, {\"Orden estado\", Int64.Type}, {\"Fecha cambio\", type datetime}, {\"Horas en estado\", type number}, {\"Usuario\", type text}})",
+                "in",
+                "    Tipos"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "34925e8f-1e34-42b6-8230-abb60158ac10"
+      },
+      {
+        "name": "Encuestas",
+        "columns": [
+          {
+            "name": "Número",
+            "dataType": "string",
+            "sourceColumn": "Número",
+            "isHidden": true,
+            "lineageTag": "68eeea4b-e99e-453f-a7af-ba112c2cb9e1",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Ronda",
+            "dataType": "int64",
+            "sourceColumn": "Ronda",
+            "formatString": "#,0",
+            "lineageTag": "a62eb437-de71-4080-9cd0-4a00a72c5f34",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha envío",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha envío",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "4482baca-37fc-464b-ae9c-0148e72199d7",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Fecha respuesta",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha respuesta",
+            "formatString": "dd/mm/yyyy",
+            "lineageTag": "001d12d5-4dbd-4be6-9b5d-b4a5e174c4af",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Resultado",
+            "dataType": "string",
+            "sourceColumn": "Resultado",
+            "lineageTag": "decedd63-eba6-4470-b8b6-72446e4555af",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "CSAT",
+            "dataType": "int64",
+            "sourceColumn": "CSAT",
+            "formatString": "#,0",
+            "lineageTag": "d5932c21-e2aa-4e2b-a7d1-886aa3abc378",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Comentario",
+            "dataType": "string",
+            "sourceColumn": "Comentario",
+            "lineageTag": "a9e4f695-d838-4aee-94fd-f17597d62ab3",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Respondida",
+            "dataType": "int64",
+            "sourceColumn": "Respondida",
+            "formatString": "#,0",
+            "lineageTag": "339f45af-5c7f-407c-87a4-525b077a3906",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Horas para responder",
+            "dataType": "double",
+            "sourceColumn": "Horas para responder",
+            "formatString": "#,0.00",
+            "lineageTag": "715cc7b3-d79a-4369-bfce-3b3e6f3d5ded",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Encuestas",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Excel.Workbook(File.Contents(CarpetaDatos & \"Tickets_Excelencia_Comercial_y_Digital.xlsx\"), true){[Item=\"Encuestas\", Kind=\"Sheet\"]}[Data],",
+                "    Tipos = Table.TransformColumnTypes(Origen, {{\"Número\", type text}, {\"Ronda\", Int64.Type}, {\"Fecha envío\", type datetime}, {\"Fecha respuesta\", type datetime}, {\"Resultado\", type text}, {\"CSAT\", Int64.Type}, {\"Comentario\", type text}, {\"Respondida\", Int64.Type}, {\"Horas para responder\", type number}})",
+                "in",
+                "    Tipos"
+              ]
+            }
+          }
+        ],
+        "lineageTag": "809b924e-919b-46d4-b651-7e77e41e2d43"
+      },
+      {
+        "name": "Calendario",
+        "columns": [
+          {
+            "name": "Fecha",
+            "dataType": "dateTime",
+            "sourceColumn": "Fecha",
+            "isKey": true,
+            "lineageTag": "e3dcb3a5-4391-44f4-a7c9-cec37a0639fb",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Año",
+            "dataType": "int64",
+            "sourceColumn": "Año",
+            "formatString": "0",
+            "lineageTag": "4f3525a0-0ae3-4880-b12a-5bd270c20a81",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Período",
+            "dataType": "string",
+            "sourceColumn": "Período",
+            "lineageTag": "d0052888-16b6-46ff-82d5-c4e045895815",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Mes nombre",
+            "dataType": "string",
+            "sourceColumn": "Mes nombre",
+            "sortByColumn": "Mes orden",
+            "lineageTag": "fbc5c312-f29a-4764-aafa-483f5d561d5f",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Mes orden",
+            "dataType": "int64",
+            "sourceColumn": "Mes orden",
+            "formatString": "0",
+            "lineageTag": "6403c3e1-b489-463a-b74f-b35e8deccf47",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Día hábil",
+            "dataType": "int64",
+            "sourceColumn": "Día hábil",
+            "formatString": "#,0",
+            "lineageTag": "77c1cdd6-b48e-4c4c-8a10-6c8ab876e8ea",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Calendario",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Origen = Excel.Workbook(File.Contents(CarpetaDatos & \"Tickets_Excelencia_Comercial_y_Digital.xlsx\"), true){[Item=\"Calendario\", Kind=\"Sheet\"]}[Data],",
+                "    Tipos = Table.TransformColumnTypes(Origen, {{\"Fecha\", type datetime}, {\"Año\", Int64.Type}, {\"Período\", type text}, {\"Mes nombre\", type text}, {\"Mes orden\", Int64.Type}, {\"Día hábil\", Int64.Type}})",
+                "in",
+                "    Tipos"
+              ]
+            }
+          }
+        ],
+        "dataCategory": "Time",
+        "lineageTag": "7845ebc7-c80c-430c-8e30-3cd96733c68d"
+      },
+      {
+        "name": "_Medidas",
+        "columns": [
+          {
+            "name": "Orden",
+            "dataType": "int64",
+            "sourceColumn": "Orden",
+            "isHidden": true,
+            "lineageTag": "2c4cedd8-8bf7-4f58-86f5-d7ac0388f2b0",
+            "summarizeBy": "none"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "_Medidas",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let Origen = #table({\"Orden\"}, {{1}}) in Origen"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Tickets recibidos",
+            "expression": "COUNTROWS('Tickets') + 0",
+            "displayFolder": "01 · Volumen",
+            "formatString": "#,0",
+            "description": "Pedidos que entraron en el período (por fecha de creación)."
+          },
+          {
+            "name": "Tickets resueltos",
+            "expression": "VAR ini = MIN('Calendario'[Fecha]) VAR fin = MAX('Calendario'[Fecha]) RETURN CALCULATE(COUNTROWS('Tickets'), REMOVEFILTERS('Calendario'), KEEPFILTERS(NOT ISBLANK('Tickets'[Fecha resolución día]) && 'Tickets'[Fecha resolución día] >= ini && 'Tickets'[Fecha resolución día] <= fin)) + 0",
+            "displayFolder": "01 · Volumen",
+            "formatString": "#,0",
+            "description": "Pedidos resueltos en el período (por fecha de resolución, entren cuando entren)."
+          },
+          {
+            "name": "Backlog fin de período",
+            "expression": "VAR fin = MAX('Calendario'[Fecha]) RETURN CALCULATE(COUNTROWS('Tickets'), REMOVEFILTERS('Calendario'), KEEPFILTERS('Tickets'[Fecha] <= fin), KEEPFILTERS(ISBLANK('Tickets'[Fecha salida backlog]) || 'Tickets'[Fecha salida backlog] > fin)) + 0",
+            "displayFolder": "01 · Volumen",
+            "formatString": "#,0",
+            "description": "Pedidos que al último día del período habían entrado y todavía no estaban resueltos ni cancelados."
+          },
+          {
+            "name": "Pendientes del equipo",
+            "expression": "SUM('Tickets'[Pendiente equipo]) + 0",
+            "displayFolder": "01 · Volumen",
+            "formatString": "#,0",
+            "description": "Hoy en Nuevo, Asignado, En curso o Reabierto (corre el reloj del SLA)."
+          },
+          {
+            "name": "Pendientes por antigüedad",
+            "expression": "VAR n = [Pendientes del equipo] RETURN IF(n > 0, n)",
+            "displayFolder": "01 · Volumen",
+            "formatString": "#,0",
+            "description": "Pendientes del equipo, sin las categorías vacías (para el gráfico por antigüedad)."
+          },
+          {
+            "name": "Vencidos sin resolver",
+            "expression": "SUM('Tickets'[Vencido]) + 0",
+            "displayFolder": "01 · Volumen",
+            "formatString": "#,0",
+            "description": "Pendientes del equipo que ya pasaron su SLA."
+          },
+          {
+            "name": "Vencido (pendientes)",
+            "expression": "IF([Pendientes del equipo] > 0, [Vencidos sin resolver])",
+            "displayFolder": "01 · Volumen",
+            "formatString": "#,0",
+            "description": "Vencidos sin resolver, en blanco para lo que no está pendiente: la tabla de abiertos muestra sólo abiertos."
+          },
+          {
+            "name": "Cancelados",
+            "expression": "SUM('Tickets'[Cancelado]) + 0",
+            "displayFolder": "01 · Volumen",
+            "formatString": "#,0",
+            "description": "Pedidos cancelados (duplicados, fuera de alcance o retirados)."
+          },
+          {
+            "name": "Solicitantes",
+            "expression": "DISTINCTCOUNT('Tickets'[Mail solicitante]) + 0",
+            "displayFolder": "01 · Volumen",
+            "formatString": "#,0",
+            "description": "Personas distintas que pidieron."
+          },
+          {
+            "name": "Áreas que piden",
+            "expression": "DISTINCTCOUNT('Tickets'[Área solicitante]) + 0",
+            "displayFolder": "01 · Volumen",
+            "formatString": "#,0",
+            "description": "Áreas solicitantes distintas con al menos un pedido."
+          },
+          {
+            "name": "% en SLA",
+            "expression": "AVERAGE('Tickets'[En SLA])",
+            "displayFolder": "02 · Tiempos y SLA",
+            "formatString": "0.0%",
+            "description": "De los resueltos, cuántos en el plazo de su tipo y prioridad (horas hábiles, sin el tiempo en espera del solicitante)."
+          },
+          {
+            "name": "% respuesta en SLA",
+            "expression": "AVERAGE('Tickets'[Respuesta en SLA])",
+            "displayFolder": "02 · Tiempos y SLA",
+            "formatString": "0.0%",
+            "description": "Primera respuesta del equipo dentro del plazo de su prioridad."
+          },
+          {
+            "name": "Horas primera respuesta",
+            "expression": "AVERAGE('Tickets'[Horas primera respuesta])",
+            "displayFolder": "02 · Tiempos y SLA",
+            "formatString": "#,0.0",
+            "description": "Horas hábiles hasta que el equipo respondió o empezó."
+          },
+          {
+            "name": "Días de resolución",
+            "expression": "AVERAGE('Tickets'[Días resolución])",
+            "displayFolder": "02 · Tiempos y SLA",
+            "formatString": "#,0.0",
+            "description": "Días hábiles efectivos de la creación a la resolución (sin la espera del solicitante)."
+          },
+          {
+            "name": "Días de resolución (mediana)",
+            "expression": "PERCENTILEX.INC(CALCULATETABLE('Tickets', KEEPFILTERS(NOT ISBLANK('Tickets'[Días resolución]))), 'Tickets'[Días resolución], 0.5)",
+            "displayFolder": "02 · Tiempos y SLA",
+            "formatString": "#,0.0",
+            "description": "La mitad se resolvió en menos de esto: no la mueven los pocos pedidos larguísimos."
+          },
+          {
+            "name": "SLA en días",
+            "expression": "AVERAGE('Tickets'[SLA días])",
+            "displayFolder": "02 · Tiempos y SLA",
+            "formatString": "#,0.0",
+            "description": "El plazo de resolución acordado (matriz tipo × prioridad)."
+          },
+          {
+            "name": "Días abierto",
+            "expression": "AVERAGE('Tickets'[Días abierto])",
+            "displayFolder": "02 · Tiempos y SLA",
+            "formatString": "#,0.0",
+            "description": "Días hábiles efectivos que llevan abiertos los pendientes."
+          },
+          {
+            "name": "Horas en estado",
+            "expression": "AVERAGE('Estados'[Horas en estado])",
+            "displayFolder": "02 · Tiempos y SLA",
+            "formatString": "#,0.0",
+            "description": "Horas hábiles promedio que un ticket pasa en cada estado."
+          },
+          {
+            "name": "Pasos por el estado",
+            "expression": "COUNTROWS('Estados') + 0",
+            "displayFolder": "02 · Tiempos y SLA",
+            "formatString": "#,0",
+            "description": "Cuántas veces un ticket entró al estado."
+          },
+          {
+            "name": "Tasa de reapertura",
+            "expression": "DIVIDE(CALCULATE(COUNTROWS('Tickets'), KEEPFILTERS('Tickets'[Resuelto] = 1), KEEPFILTERS('Tickets'[Reaperturas] > 0)), CALCULATE(COUNTROWS('Tickets'), KEEPFILTERS('Tickets'[Resuelto] = 1)))",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "0.0%",
+            "description": "Resueltos que el solicitante devolvió al menos una vez («No conforme»)."
+          },
+          {
+            "name": "% sin idas y vueltas",
+            "expression": "AVERAGE('Tickets'[Primer contacto])",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "0.0%",
+            "description": "Resueltos sin pedir datos al solicitante y sin reaperturas."
+          },
+          {
+            "name": "Encuestas enviadas",
+            "expression": "COUNTROWS('Encuestas') + 0",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "#,0",
+            "description": "Encuestas de conformidad enviadas (una por cada resolución, incluidas las de tickets reabiertos)."
+          },
+          {
+            "name": "Conformes",
+            "expression": "CALCULATE(COUNTROWS('Encuestas'), KEEPFILTERS('Encuestas'[Resultado] = \"Conforme\")) + 0",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "#,0",
+            "description": "Encuestas respondidas «Sí, conforme»."
+          },
+          {
+            "name": "No conformes",
+            "expression": "CALCULATE(COUNTROWS('Encuestas'), KEEPFILTERS('Encuestas'[Resultado] = \"No conforme\")) + 0",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "#,0",
+            "description": "Encuestas respondidas «No, falta algo»: cada una reabre el ticket."
+          },
+          {
+            "name": "Conformidad tácita",
+            "expression": "CALCULATE(COUNTROWS('Encuestas'), KEEPFILTERS('Encuestas'[Resultado] = \"Tácita\")) + 0",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "#,0",
+            "description": "Cerrados sin respuesta a la encuesta en los días hábiles de gracia."
+          },
+          {
+            "name": "% de respuesta a la encuesta",
+            "expression": "DIVIDE([Conformes] + [No conformes], [Conformes] + [No conformes] + [Conformidad tácita])",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "0.0%",
+            "description": "Encuestas respondidas sobre encuestas cerradas (respondidas + tácitas)."
+          },
+          {
+            "name": "% conformidad",
+            "expression": "DIVIDE([Conformes], [Conformes] + [No conformes])",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "0.0%",
+            "description": "De los que respondieron la encuesta, cuántos quedaron conformes."
+          },
+          {
+            "name": "% conformidad con tácita",
+            "expression": "DIVIDE([Conformes] + [Conformidad tácita], [Conformes] + [No conformes] + [Conformidad tácita])",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "0.0%",
+            "description": "Cuenta como conforme el silencio después de los días de gracia."
+          },
+          {
+            "name": "Satisfacción (1 a 5)",
+            "expression": "AVERAGE('Encuestas'[CSAT])",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "0.00",
+            "description": "Promedio de la nota de 1 a 5 que dejó el solicitante en la encuesta."
+          },
+          {
+            "name": "% satisfechos (4 y 5)",
+            "expression": "DIVIDE(CALCULATE(COUNT('Encuestas'[CSAT]), KEEPFILTERS('Encuestas'[CSAT] >= 4)), COUNT('Encuestas'[CSAT]))",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "0.0%",
+            "description": "De las notas de satisfacción, cuántas fueron 4 o 5."
+          },
+          {
+            "name": "Índice de efectividad",
+            "expression": "VAR s = [% en SLA] VAR c = [% conformidad con tácita] VAR r = [Tasa de reapertura] RETURN IF(NOT ISBLANK(s) && NOT ISBLANK(c) && NOT ISBLANK(r), 0.4 * s + 0.4 * c + 0.2 * (1 - r))",
+            "displayFolder": "03 · Conformidad",
+            "formatString": "0.0%",
+            "description": "40 % cumplir el plazo + 40 % conformidad (con tácita) + 20 % que no vuelva (1 − reapertura)."
+          },
+          {
+            "name": "Nota recibidos",
+            "expression": "FORMAT([Tickets resueltos], \"#,0\") & \" resueltos en el período\"",
+            "displayFolder": "04 · Notas",
+            "description": "Texto debajo de la tarjeta de recibidos."
+          },
+          {
+            "name": "Signo flujo",
+            "expression": "[Tickets resueltos] - [Tickets recibidos]",
+            "displayFolder": "04 · Notas",
+            "formatString": "#,0",
+            "description": "Positivo: salió más de lo que entró (el backlog baja)."
+          },
+          {
+            "name": "Nota backlog",
+            "expression": "FORMAT([Vencidos sin resolver], \"#,0\") & \" vencidos sin resolver\"",
+            "displayFolder": "04 · Notas",
+            "description": "Texto debajo de la tarjeta de backlog."
+          },
+          {
+            "name": "Signo vencidos",
+            "expression": "0 - [Vencidos sin resolver]",
+            "displayFolder": "04 · Notas",
+            "formatString": "#,0",
+            "description": "Negativo si hay vencidos: pinta de rojo la nota."
+          },
+          {
+            "name": "Nota SLA",
+            "expression": "FORMAT([% respuesta en SLA], \"0%\") & \" de primeras respuestas en plazo · meta 85 %\"",
+            "displayFolder": "04 · Notas",
+            "description": "Texto debajo de la tarjeta de SLA."
+          },
+          {
+            "name": "Signo SLA",
+            "expression": "[% en SLA] - 0.85",
+            "displayFolder": "04 · Notas",
+            "formatString": "0.0%",
+            "description": "Distancia a la meta de 85 %: pinta la nota de verde o rojo."
+          },
+          {
+            "name": "Nota resolución",
+            "expression": "\"mediana \" & FORMAT([Días de resolución (mediana)], \"0.0\") & \" días hábiles\"",
+            "displayFolder": "04 · Notas",
+            "description": "Texto debajo de la tarjeta de días de resolución."
+          },
+          {
+            "name": "Nota conformidad",
+            "expression": "FORMAT([% de respuesta a la encuesta], \"0%\") & \" respondió la encuesta\"",
+            "displayFolder": "04 · Notas",
+            "description": "Texto debajo de la tarjeta de conformidad."
+          },
+          {
+            "name": "Signo conformidad",
+            "expression": "[% conformidad con tácita] - 0.85",
+            "displayFolder": "04 · Notas",
+            "formatString": "0.0%",
+            "description": "Distancia a la meta de 85 %."
+          },
+          {
+            "name": "Nota índice",
+            "expression": "\"40 % SLA · 40 % conformidad · 20 % sin reapertura\"",
+            "displayFolder": "04 · Notas",
+            "description": "Cómo se arma el índice de efectividad."
+          },
+          {
+            "name": "Signo índice",
+            "expression": "[Índice de efectividad] - 0.85",
+            "displayFolder": "04 · Notas",
+            "formatString": "0.0%",
+            "description": "Distancia a la meta de 85 %."
+          },
+          {
+            "name": "Nota satisfacción",
+            "expression": "FORMAT([% satisfechos (4 y 5)], \"0%\") & \" puso 4 o 5\"",
+            "displayFolder": "04 · Notas",
+            "description": "Texto debajo de la tarjeta de satisfacción."
+          },
+          {
+            "name": "Filtros activos",
+            "expression": "VAR F1 = IF ( ISFILTERED ( 'Calendario'[Año] ), \"Año: \" & IF ( COUNTROWS ( VALUES ( 'Calendario'[Año] ) ) > 3, COUNTROWS ( VALUES ( 'Calendario'[Año] ) ) & \" elegidos\", CONCATENATEX ( VALUES ( 'Calendario'[Año] ), 'Calendario'[Año], \", \", 'Calendario'[Año], ASC ) ) )\nVAR S1 = F1\nVAR F2 = IF ( ISFILTERED ( 'Calendario'[Período] ), \"Período: \" & IF ( COUNTROWS ( VALUES ( 'Calendario'[Período] ) ) > 3, COUNTROWS ( VALUES ( 'Calendario'[Período] ) ) & \" elegidos\", CONCATENATEX ( VALUES ( 'Calendario'[Período] ), 'Calendario'[Período], \", \", 'Calendario'[Período], ASC ) ) )\nVAR S2 = IF ( F2 = \"\", S1, IF ( S1 = \"\", F2, S1 & \"  ·  \" & F2 ) )\nVAR F3 = IF ( ISFILTERED ( 'Tickets'[Número] ), \"Número: \" & IF ( COUNTROWS ( VALUES ( 'Tickets'[Número] ) ) > 3, COUNTROWS ( VALUES ( 'Tickets'[Número] ) ) & \" elegidos\", CONCATENATEX ( VALUES ( 'Tickets'[Número] ), 'Tickets'[Número], \", \", 'Tickets'[Número], ASC ) ) )\nVAR S3 = IF ( F3 = \"\", S2, IF ( S2 = \"\", F3, S2 & \"  ·  \" & F3 ) )\nVAR F4 = IF ( ISFILTERED ( 'Tickets'[Asunto] ), \"Asunto: \" & IF ( COUNTROWS ( VALUES ( 'Tickets'[Asunto] ) ) > 3, COUNTROWS ( VALUES ( 'Tickets'[Asunto] ) ) & \" elegidos\", CONCATENATEX ( VALUES ( 'Tickets'[Asunto] ), 'Tickets'[Asunto], \", \", 'Tickets'[Asunto], ASC ) ) )\nVAR S4 = IF ( F4 = \"\", S3, IF ( S3 = \"\", F4, S3 & \"  ·  \" & F4 ) )\nVAR F5 = IF ( ISFILTERED ( 'Tickets'[Solicitante] ), \"Solicitante: \" & IF ( COUNTROWS ( VALUES ( 'Tickets'[Solicitante] ) ) > 3, COUNTROWS ( VALUES ( 'Tickets'[Solicitante] ) ) & \" elegidos\", CONCATENATEX ( VALUES ( 'Tickets'[Solicitante] ), 'Tickets'[Solicitante], \", \", 'Tickets'[Solicitante], ASC ) ) )\nVAR S5 = IF ( F5 = \"\", S4, IF ( S4 = \"\", F5, S4 & \"  ·  \" & F5 ) )\nRETURN IF ( S5 = \"\", \"Sin filtros\", \"Filtros: \" & S5 )",
+            "displayFolder": "00 · Navegación",
+            "description": "Qué está filtrado ahora, en una línea."
+          }
+        ],
+        "lineageTag": "5f658644-06ca-492d-b701-deaa924d85bf"
+      }
+    ],
+    "relationships": [
+      {
+        "name": "rel_0",
+        "fromTable": "Tickets",
+        "fromColumn": "Fecha",
+        "toTable": "Calendario",
+        "toColumn": "Fecha"
+      },
+      {
+        "name": "rel_1",
+        "fromTable": "Estados",
+        "fromColumn": "Número",
+        "toTable": "Tickets",
+        "toColumn": "Número"
+      },
+      {
+        "name": "rel_2",
+        "fromTable": "Encuestas",
+        "fromColumn": "Número",
+        "toTable": "Tickets",
+        "toColumn": "Número"
+      }
+    ],
+    "expressions": [
+      {
+        "name": "CarpetaDatos",
+        "kind": "m",
+        "expression": [
+          "\"C:\\TicketsEC\\datos\\powerbi\\\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]"
+        ],
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Text"
+          }
+        ]
+      }
+    ],
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "es-ES",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"Tickets\", \"Estados\", \"Encuestas\", \"Calendario\", \"_Medidas\"]"
+      },
+      {
+        "name": "MVDaxLab_Gobernanza",
+        "value": "{\"formato\":1,\"generador\":\"MV DAX Lab\",\"generado\":\"2026-10-21 13:01 UTC\",\"idioma\":\"es\",\"empresa_propia\":\"\",\"tablas\":[{\"nombre\":\"Tickets\",\"filas\":null,\"columnas\":52,\"papel\":\"dimension\",\"origen\":\"parametro\",\"oculta\":false},{\"nombre\":\"Estados\",\"filas\":null,\"columnas\":7,\"papel\":\"hecho\",\"origen\":\"parametro\",\"oculta\":false},{\"nombre\":\"Encuestas\",\"filas\":null,\"columnas\":9,\"papel\":\"hecho\",\"origen\":\"parametro\",\"oculta\":false},{\"nombre\":\"Calendario\",\"filas\":null,\"columnas\":6,\"papel\":\"calendario\",\"origen\":\"parametro\",\"oculta\":false},{\"nombre\":\"_Medidas\",\"filas\":null,\"columnas\":1,\"papel\":\"suelta\",\"origen\":\"calculada\",\"oculta\":false}],\"medidas\":[{\"nombre\":\"% conformidad\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"porque\":\"Divide con DIVIDE y no con «/»: si el denominador es cero devuelve vacío en vez de un error que rompe el visual.\"},{\"nombre\":\"% conformidad con tácita\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"porque\":\"Divide con DIVIDE y no con «/»: si el denominador es cero devuelve vacío en vez de un error que rompe el visual.\"},{\"nombre\":\"% de respuesta a la encuesta\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"porque\":\"Divide con DIVIDE y no con «/»: si el denominador es cero devuelve vacío en vez de un error que rompe el visual.\"},{\"nombre\":\"% en SLA\",\"tabla\":\"_Medidas\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"0.0%\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"% respuesta en SLA\",\"tabla\":\"_Medidas\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"0.0%\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"% satisfechos (4 y 5)\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"porque\":\"Agrega la condición SIN pisar el filtro de la fila: se intersecan, así la medida sigue variando con el eje. Divide con DIVIDE y no con «/»: si el denominador es cero devuelve vacío en vez de un error que rompe el visual. Aplica una condición extra al contexto de filtro que trae el visual.\"},{\"nombre\":\"% sin idas y vueltas\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Backlog fin de período\",\"tabla\":\"_Medidas\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"porque\":\"Quita un filtro a propósito para que el denominador sea el TOTAL ABSOLUTO y no se mueva con el corte del usuario. Agrega la condición SIN pisar el filtro de la fila: se intersecan, así la medida sigue variando con el eje. Cuenta filas de la tabla: el volumen de operaciones del período.\"},{\"nombre\":\"Cancelados\",\"tabla\":\"_Medidas\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"porque\":\"Suma una columna: es la medida base sobre la que se construyen las demás.\"},{\"nombre\":\"Conformes\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"#,0\",\"porque\":\"Agrega la condición SIN pisar el filtro de la fila: se intersecan, así la medida sigue variando con el eje. Cuenta filas de la tabla: el volumen de operaciones del período. Aplica una condición extra al contexto de filtro que trae el visual.\"},{\"nombre\":\"Conformidad tácita\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"#,0\",\"porque\":\"Agrega la condición SIN pisar el filtro de la fila: se intersecan, así la medida sigue variando con el eje. Cuenta filas de la tabla: el volumen de operaciones del período. Aplica una condición extra al contexto de filtro que trae el visual.\"},{\"nombre\":\"Días abierto\",\"tabla\":\"_Medidas\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Días de resolución\",\"tabla\":\"_Medidas\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Días de resolución (mediana)\",\"tabla\":\"_Medidas\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"porque\":\"Agrega la condición SIN pisar el filtro de la fila: se intersecan, así la medida sigue variando con el eje.\"},{\"nombre\":\"Encuestas enviadas\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"#,0\",\"porque\":\"Cuenta filas de la tabla: el volumen de operaciones del período.\"},{\"nombre\":\"Filtros activos\",\"tabla\":\"_Medidas\",\"carpeta\":\"00 · Navegación\",\"formato\":\"\",\"porque\":\"Cuenta filas de la tabla: el volumen de operaciones del período.\"},{\"nombre\":\"Horas en estado\",\"tabla\":\"_Medidas\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Horas primera respuesta\",\"tabla\":\"_Medidas\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"No conformes\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"#,0\",\"porque\":\"Agrega la condición SIN pisar el filtro de la fila: se intersecan, así la medida sigue variando con el eje. Cuenta filas de la tabla: el volumen de operaciones del período. Aplica una condición extra al contexto de filtro que trae el visual.\"},{\"nombre\":\"Nota SLA\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"porque\":\"Devuelve TEXTO, no un número: se recalcula con los filtros, así que la conclusión que escribe cambia con lo que el usuario elige.\"},{\"nombre\":\"Nota backlog\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"porque\":\"Devuelve TEXTO, no un número: se recalcula con los filtros, así que la conclusión que escribe cambia con lo que el usuario elige.\"},{\"nombre\":\"Nota conformidad\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"porque\":\"Devuelve TEXTO, no un número: se recalcula con los filtros, así que la conclusión que escribe cambia con lo que el usuario elige.\"},{\"nombre\":\"Nota recibidos\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"porque\":\"Devuelve TEXTO, no un número: se recalcula con los filtros, así que la conclusión que escribe cambia con lo que el usuario elige.\"},{\"nombre\":\"Nota resolución\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"porque\":\"Devuelve TEXTO, no un número: se recalcula con los filtros, así que la conclusión que escribe cambia con lo que el usuario elige.\"},{\"nombre\":\"Nota satisfacción\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"porque\":\"Devuelve TEXTO, no un número: se recalcula con los filtros, así que la conclusión que escribe cambia con lo que el usuario elige.\"},{\"nombre\":\"Nota índice\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Pasos por el estado\",\"tabla\":\"_Medidas\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0\",\"porque\":\"Cuenta filas de la tabla: el volumen de operaciones del período.\"},{\"nombre\":\"Pendientes del equipo\",\"tabla\":\"_Medidas\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"porque\":\"Suma una columna: es la medida base sobre la que se construyen las demás.\"},{\"nombre\":\"Pendientes por antigüedad\",\"tabla\":\"_Medidas\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"SLA en días\",\"tabla\":\"_Medidas\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Satisfacción (1 a 5)\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.00\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Signo SLA\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"0.0%\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Signo conformidad\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"0.0%\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Signo flujo\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"#,0\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Signo vencidos\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"#,0\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Signo índice\",\"tabla\":\"_Medidas\",\"carpeta\":\"04 · Notas\",\"formato\":\"0.0%\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Solicitantes\",\"tabla\":\"_Medidas\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"porque\":\"Cuenta valores DISTINTOS: mide alcance, no volumen. Un médico con diez visitas cuenta una vez.\"},{\"nombre\":\"Tasa de reapertura\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"porque\":\"Agrega la condición SIN pisar el filtro de la fila: se intersecan, así la medida sigue variando con el eje. Divide con DIVIDE y no con «/»: si el denominador es cero devuelve vacío en vez de un error que rompe el visual. Cuenta filas de la tabla: el volumen de operaciones del período.\"},{\"nombre\":\"Tickets recibidos\",\"tabla\":\"_Medidas\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"porque\":\"Cuenta filas de la tabla: el volumen de operaciones del período.\"},{\"nombre\":\"Tickets resueltos\",\"tabla\":\"_Medidas\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"porque\":\"Quita un filtro a propósito para que el denominador sea el TOTAL ABSOLUTO y no se mueva con el corte del usuario. Agrega la condición SIN pisar el filtro de la fila: se intersecan, así la medida sigue variando con el eje. Cuenta filas de la tabla: el volumen de operaciones del período.\"},{\"nombre\":\"Vencido (pendientes)\",\"tabla\":\"_Medidas\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"},{\"nombre\":\"Vencidos sin resolver\",\"tabla\":\"_Medidas\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"porque\":\"Suma una columna: es la medida base sobre la que se construyen las demás.\"},{\"nombre\":\"Áreas que piden\",\"tabla\":\"_Medidas\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"porque\":\"Cuenta valores DISTINTOS: mide alcance, no volumen. Un médico con diez visitas cuenta una vez.\"},{\"nombre\":\"Índice de efectividad\",\"tabla\":\"_Medidas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"porque\":\"Cálculo directo, sin modificar el contexto de filtro.\"}],\"relaciones\":3}"
+      },
+      {
+        "name": "MVDaxLab_PrepIA",
+        "value": "{\"formato\":1,\"generador\":\"MV DAX Lab\",\"generado\":\"2026-10-21 13:01 UTC\",\"idioma\":\"es\",\"esquema\":{\"tablas\":[{\"nombre\":\"Tickets\",\"papel\":\"dimension\",\"columnas\":[{\"nombre\":\"Número\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Asunto\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Solicitante\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Área solicitante\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"País\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Tipo de ticket\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Subtipo\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Prioridad\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Orden prioridad\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Canal\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"ATC\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"ATC nivel 1\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Área terapéutica\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Unidad de negocio\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Mercado\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Fuente de datos\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Tablero\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Estado\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Orden estado\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Subestado\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Equipo resolutor\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Analista\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Fecha creación\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Fecha asignación\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Fecha primera respuesta\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Fecha resolución\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Fecha resolución día\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Fecha cierre\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Fecha cancelación\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Fecha salida backlog\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Horas primera respuesta\",\"tipo\":\"double\",\"descripcion\":\"\"},{\"nombre\":\"Respuesta en SLA\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Horas resolución\",\"tipo\":\"double\",\"descripcion\":\"\"},{\"nombre\":\"Días resolución\",\"tipo\":\"double\",\"descripcion\":\"\"},{\"nombre\":\"SLA horas\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"SLA días\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"En SLA\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Horas en espera\",\"tipo\":\"double\",\"descripcion\":\"\"},{\"nombre\":\"Resuelto\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Cancelado\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Pendiente equipo\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Vencido\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Días abierto\",\"tipo\":\"double\",\"descripcion\":\"\"},{\"nombre\":\"Antigüedad\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Reaperturas\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Veces en espera\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Primer contacto\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Conformidad\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"CSAT\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Mail solicitante (enmascarado)\",\"tipo\":\"string\",\"descripcion\":\"\"}],\"medidas\":[],\"ocultas_col\":2,\"ocultas_med\":0},{\"nombre\":\"Estados\",\"papel\":\"hecho\",\"columnas\":[{\"nombre\":\"Estado desde\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Estado\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Orden estado\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Fecha cambio\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Horas en estado\",\"tipo\":\"double\",\"descripcion\":\"\"},{\"nombre\":\"Usuario\",\"tipo\":\"string\",\"descripcion\":\"\"}],\"medidas\":[],\"ocultas_col\":1,\"ocultas_med\":0},{\"nombre\":\"Encuestas\",\"papel\":\"hecho\",\"columnas\":[{\"nombre\":\"Ronda\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Fecha envío\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Fecha respuesta\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Resultado\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"CSAT\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Comentario\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Respondida\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Horas para responder\",\"tipo\":\"double\",\"descripcion\":\"\"}],\"medidas\":[],\"ocultas_col\":1,\"ocultas_med\":0},{\"nombre\":\"Calendario\",\"papel\":\"calendario\",\"columnas\":[{\"nombre\":\"Fecha\",\"tipo\":\"dateTime\",\"descripcion\":\"\"},{\"nombre\":\"Año\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Período\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Mes nombre\",\"tipo\":\"string\",\"descripcion\":\"\"},{\"nombre\":\"Mes orden\",\"tipo\":\"int64\",\"descripcion\":\"\"},{\"nombre\":\"Día hábil\",\"tipo\":\"int64\",\"descripcion\":\"\"}],\"medidas\":[],\"ocultas_col\":0,\"ocultas_med\":0},{\"nombre\":\"_Medidas\",\"papel\":\"suelta\",\"columnas\":[],\"medidas\":[{\"nombre\":\"Tickets recibidos\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"descripcion\":\"Pedidos que entraron en el período (por fecha de creación).\"},{\"nombre\":\"Tickets resueltos\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"descripcion\":\"Pedidos resueltos en el período (por fecha de resolución, entren cuando entren).\"},{\"nombre\":\"Backlog fin de período\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"descripcion\":\"Pedidos que al último día del período habían entrado y todavía no estaban resueltos ni cancelados.\"},{\"nombre\":\"Pendientes del equipo\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"descripcion\":\"Hoy en Nuevo, Asignado, En curso o Reabierto (corre el reloj del SLA).\"},{\"nombre\":\"Pendientes por antigüedad\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"descripcion\":\"Pendientes del equipo, sin las categorías vacías (para el gráfico por antigüedad).\"},{\"nombre\":\"Vencidos sin resolver\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"descripcion\":\"Pendientes del equipo que ya pasaron su SLA.\"},{\"nombre\":\"Vencido (pendientes)\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"descripcion\":\"Vencidos sin resolver, en blanco para lo que no está pendiente: la tabla de abiertos muestra sólo abiertos.\"},{\"nombre\":\"Cancelados\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"descripcion\":\"Pedidos cancelados (duplicados, fuera de alcance o retirados).\"},{\"nombre\":\"Solicitantes\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"descripcion\":\"Personas distintas que pidieron.\"},{\"nombre\":\"Áreas que piden\",\"carpeta\":\"01 · Volumen\",\"formato\":\"#,0\",\"descripcion\":\"Áreas solicitantes distintas con al menos un pedido.\"},{\"nombre\":\"% en SLA\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"0.0%\",\"descripcion\":\"De los resueltos, cuántos en el plazo de su tipo y prioridad (horas hábiles, sin el tiempo en espera del solicitante).\"},{\"nombre\":\"% respuesta en SLA\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"0.0%\",\"descripcion\":\"Primera respuesta del equipo dentro del plazo de su prioridad.\"},{\"nombre\":\"Horas primera respuesta\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"descripcion\":\"Horas hábiles hasta que el equipo respondió o empezó.\"},{\"nombre\":\"Días de resolución\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"descripcion\":\"Días hábiles efectivos de la creación a la resolución (sin la espera del solicitante).\"},{\"nombre\":\"Días de resolución (mediana)\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"descripcion\":\"La mitad se resolvió en menos de esto: no la mueven los pocos pedidos larguísimos.\"},{\"nombre\":\"SLA en días\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"descripcion\":\"El plazo de resolución acordado (matriz tipo × prioridad).\"},{\"nombre\":\"Días abierto\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"descripcion\":\"Días hábiles efectivos que llevan abiertos los pendientes.\"},{\"nombre\":\"Horas en estado\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0.0\",\"descripcion\":\"Horas hábiles promedio que un ticket pasa en cada estado.\"},{\"nombre\":\"Pasos por el estado\",\"carpeta\":\"02 · Tiempos y SLA\",\"formato\":\"#,0\",\"descripcion\":\"Cuántas veces un ticket entró al estado.\"},{\"nombre\":\"Tasa de reapertura\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"descripcion\":\"Resueltos que el solicitante devolvió al menos una vez («No conforme»).\"},{\"nombre\":\"% sin idas y vueltas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"descripcion\":\"Resueltos sin pedir datos al solicitante y sin reaperturas.\"},{\"nombre\":\"Encuestas enviadas\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"#,0\",\"descripcion\":\"Encuestas de conformidad enviadas (una por cada resolución, incluidas las de tickets reabiertos).\"},{\"nombre\":\"Conformes\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"#,0\",\"descripcion\":\"Encuestas respondidas «Sí, conforme».\"},{\"nombre\":\"No conformes\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"#,0\",\"descripcion\":\"Encuestas respondidas «No, falta algo»: cada una reabre el ticket.\"},{\"nombre\":\"Conformidad tácita\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"#,0\",\"descripcion\":\"Cerrados sin respuesta a la encuesta en los días hábiles de gracia.\"},{\"nombre\":\"% de respuesta a la encuesta\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"descripcion\":\"Encuestas respondidas sobre encuestas cerradas (respondidas + tácitas).\"},{\"nombre\":\"% conformidad\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"descripcion\":\"De los que respondieron la encuesta, cuántos quedaron conformes.\"},{\"nombre\":\"% conformidad con tácita\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"descripcion\":\"Cuenta como conforme el silencio después de los días de gracia.\"},{\"nombre\":\"Satisfacción (1 a 5)\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.00\",\"descripcion\":\"Promedio de la nota de 1 a 5 que dejó el solicitante en la encuesta.\"},{\"nombre\":\"% satisfechos (4 y 5)\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"descripcion\":\"De las notas de satisfacción, cuántas fueron 4 o 5.\"},{\"nombre\":\"Índice de efectividad\",\"carpeta\":\"03 · Conformidad\",\"formato\":\"0.0%\",\"descripcion\":\"40 % cumplir el plazo + 40 % conformidad (con tácita) + 20 % que no vuelva (1 − reapertura).\"},{\"nombre\":\"Nota recibidos\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"descripcion\":\"Texto debajo de la tarjeta de recibidos.\"},{\"nombre\":\"Signo flujo\",\"carpeta\":\"04 · Notas\",\"formato\":\"#,0\",\"descripcion\":\"Positivo: salió más de lo que entró (el backlog baja).\"},{\"nombre\":\"Nota backlog\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"descripcion\":\"Texto debajo de la tarjeta de backlog.\"},{\"nombre\":\"Signo vencidos\",\"carpeta\":\"04 · Notas\",\"formato\":\"#,0\",\"descripcion\":\"Negativo si hay vencidos: pinta de rojo la nota.\"},{\"nombre\":\"Nota SLA\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"descripcion\":\"Texto debajo de la tarjeta de SLA.\"},{\"nombre\":\"Signo SLA\",\"carpeta\":\"04 · Notas\",\"formato\":\"0.0%\",\"descripcion\":\"Distancia a la meta de 85 %: pinta la nota de verde o rojo.\"},{\"nombre\":\"Nota resolución\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"descripcion\":\"Texto debajo de la tarjeta de días de resolución.\"},{\"nombre\":\"Nota conformidad\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"descripcion\":\"Texto debajo de la tarjeta de conformidad.\"},{\"nombre\":\"Signo conformidad\",\"carpeta\":\"04 · Notas\",\"formato\":\"0.0%\",\"descripcion\":\"Distancia a la meta de 85 %.\"},{\"nombre\":\"Nota índice\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"descripcion\":\"Cómo se arma el índice de efectividad.\"},{\"nombre\":\"Signo índice\",\"carpeta\":\"04 · Notas\",\"formato\":\"0.0%\",\"descripcion\":\"Distancia a la meta de 85 %.\"},{\"nombre\":\"Nota satisfacción\",\"carpeta\":\"04 · Notas\",\"formato\":\"\",\"descripcion\":\"Texto debajo de la tarjeta de satisfacción.\"},{\"nombre\":\"Filtros activos\",\"carpeta\":\"00 · Navegación\",\"formato\":\"\",\"descripcion\":\"Qué está filtrado ahora, en una línea.\"}],\"ocultas_col\":1,\"ocultas_med\":0}],\"relaciones\":[{\"desde\":\"Tickets[Fecha]\",\"hacia\":\"Calendario[Fecha]\",\"activa\":true,\"bidireccional\":false},{\"desde\":\"Estados[Número]\",\"hacia\":\"Tickets[Número]\",\"activa\":true,\"bidireccional\":false},{\"desde\":\"Encuestas[Número]\",\"hacia\":\"Tickets[Número]\",\"activa\":true,\"bidireccional\":false}],\"calendario\":\"Calendario\"},\"cobertura\":{\"tablas\":5,\"medidas\":44,\"medidas_descritas\":44,\"columnas\":70,\"columnas_descritas\":0,\"pct_medidas\":1.0,\"pct_columnas\":0.0,\"listo\":true},\"instrucciones\":[\"Para cualquier análisis por tiempo usá Calendario[Fecha] de la tabla Calendario. No uses las fechas de las tablas de hechos: no tienen inteligencia de tiempo.\",\"Usá las 44 medidas del modelo en vez de sumar columnas a mano: son la definición oficial de cada indicador.\",\"Hay más de una tabla de hechos (Estados, Encuestas) y cada una tiene su grano: no mezcles sus medidas en un mismo total sin decir cuál es cuál.\"],\"instrucciones_propias\":[],\"respuestas\":[{\"pregunta\":\"De los que respondieron la encuesta, cuántos quedaron conformes.\",\"medida\":\"% conformidad\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"% conformidad\\\", [% conformidad])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"% conformidad\\\", [% conformidad] )\"},{\"pregunta\":\"Cuenta como conforme el silencio después de los días de gracia.\",\"medida\":\"% conformidad con tácita\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"% conformidad con tácita\\\", [% conformidad con tácita])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"% conformidad con tácita\\\", [% conformidad con tácita] )\"},{\"pregunta\":\"Encuestas respondidas sobre encuestas cerradas (respondidas + tácitas).\",\"medida\":\"% de respuesta a la encuesta\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"% de respuesta a la encuesta\\\", [% de respuesta a la encuesta])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"% de respuesta a la encuesta\\\", [% de respuesta a la encuesta] )\"},{\"pregunta\":\"De los resueltos, cuántos en el plazo de su tipo y prioridad (horas hábiles, sin el tiempo en espera del solicitante).\",\"medida\":\"% en SLA\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"% en SLA\\\", [% en SLA])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"% en SLA\\\", [% en SLA] )\"},{\"pregunta\":\"Primera respuesta del equipo dentro del plazo de su prioridad.\",\"medida\":\"% respuesta en SLA\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"% respuesta en SLA\\\", [% respuesta en SLA])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"% respuesta en SLA\\\", [% respuesta en SLA] )\"},{\"pregunta\":\"De las notas de satisfacción, cuántas fueron 4 o 5.\",\"medida\":\"% satisfechos (4 y 5)\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"% satisfechos (4 y 5)\\\", [% satisfechos (4 y 5)])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"% satisfechos (4 y 5)\\\", [% satisfechos (4 y 5)] )\"},{\"pregunta\":\"Resueltos sin pedir datos al solicitante y sin reaperturas.\",\"medida\":\"% sin idas y vueltas\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"% sin idas y vueltas\\\", [% sin idas y vueltas])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"% sin idas y vueltas\\\", [% sin idas y vueltas] )\"},{\"pregunta\":\"Pedidos que al último día del período habían entrado y todavía no estaban resueltos ni cancelados.\",\"medida\":\"Backlog fin de período\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Backlog fin de período\\\", [Backlog fin de período])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Backlog fin de período\\\", [Backlog fin de período] )\"},{\"pregunta\":\"Pedidos cancelados (duplicados, fuera de alcance o retirados).\",\"medida\":\"Cancelados\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Cancelados\\\", [Cancelados])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Cancelados\\\", [Cancelados] )\"},{\"pregunta\":\"Encuestas respondidas «Sí, conforme».\",\"medida\":\"Conformes\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Conformes\\\", [Conformes])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Conformes\\\", [Conformes] )\"},{\"pregunta\":\"Cerrados sin respuesta a la encuesta en los días hábiles de gracia.\",\"medida\":\"Conformidad tácita\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Conformidad tácita\\\", [Conformidad tácita])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Conformidad tácita\\\", [Conformidad tácita] )\"},{\"pregunta\":\"Días hábiles efectivos que llevan abiertos los pendientes.\",\"medida\":\"Días abierto\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Días abierto\\\", [Días abierto])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Días abierto\\\", [Días abierto] )\"},{\"pregunta\":\"Días hábiles efectivos de la creación a la resolución (sin la espera del solicitante).\",\"medida\":\"Días de resolución\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Días de resolución\\\", [Días de resolución])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Días de resolución\\\", [Días de resolución] )\"},{\"pregunta\":\"La mitad se resolvió en menos de esto: no la mueven los pocos pedidos larguísimos.\",\"medida\":\"Días de resolución (mediana)\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Días de resolución (mediana)\\\", [Días de resolución (mediana)])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Días de resolución (mediana)\\\", [Días de resolución (mediana)] )\"},{\"pregunta\":\"Encuestas de conformidad enviadas (una por cada resolución, incluidas las de tickets reabiertos).\",\"medida\":\"Encuestas enviadas\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Encuestas enviadas\\\", [Encuestas enviadas])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Encuestas enviadas\\\", [Encuestas enviadas] )\"},{\"pregunta\":\"Qué está filtrado ahora, en una línea.\",\"medida\":\"Filtros activos\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Filtros activos\\\", [Filtros activos])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Filtros activos\\\", [Filtros activos] )\"},{\"pregunta\":\"Horas hábiles promedio que un ticket pasa en cada estado.\",\"medida\":\"Horas en estado\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Horas en estado\\\", [Horas en estado])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Horas en estado\\\", [Horas en estado] )\"},{\"pregunta\":\"Horas hábiles hasta que el equipo respondió o empezó.\",\"medida\":\"Horas primera respuesta\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Horas primera respuesta\\\", [Horas primera respuesta])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Horas primera respuesta\\\", [Horas primera respuesta] )\"},{\"pregunta\":\"Encuestas respondidas «No, falta algo»: cada una reabre el ticket.\",\"medida\":\"No conformes\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"No conformes\\\", [No conformes])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"No conformes\\\", [No conformes] )\"},{\"pregunta\":\"Texto debajo de la tarjeta de SLA.\",\"medida\":\"Nota SLA\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Nota SLA\\\", [Nota SLA])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Nota SLA\\\", [Nota SLA] )\"},{\"pregunta\":\"Texto debajo de la tarjeta de backlog.\",\"medida\":\"Nota backlog\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Nota backlog\\\", [Nota backlog])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Nota backlog\\\", [Nota backlog] )\"},{\"pregunta\":\"Texto debajo de la tarjeta de conformidad.\",\"medida\":\"Nota conformidad\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Nota conformidad\\\", [Nota conformidad])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Nota conformidad\\\", [Nota conformidad] )\"},{\"pregunta\":\"Texto debajo de la tarjeta de recibidos.\",\"medida\":\"Nota recibidos\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Nota recibidos\\\", [Nota recibidos])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Nota recibidos\\\", [Nota recibidos] )\"},{\"pregunta\":\"Texto debajo de la tarjeta de días de resolución.\",\"medida\":\"Nota resolución\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Nota resolución\\\", [Nota resolución])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Nota resolución\\\", [Nota resolución] )\"},{\"pregunta\":\"Texto debajo de la tarjeta de satisfacción.\",\"medida\":\"Nota satisfacción\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Nota satisfacción\\\", [Nota satisfacción])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Nota satisfacción\\\", [Nota satisfacción] )\"},{\"pregunta\":\"Cómo se arma el índice de efectividad.\",\"medida\":\"Nota índice\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Nota índice\\\", [Nota índice])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Nota índice\\\", [Nota índice] )\"},{\"pregunta\":\"Cuántas veces un ticket entró al estado.\",\"medida\":\"Pasos por el estado\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Pasos por el estado\\\", [Pasos por el estado])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Pasos por el estado\\\", [Pasos por el estado] )\"},{\"pregunta\":\"Hoy en Nuevo, Asignado, En curso o Reabierto (corre el reloj del SLA).\",\"medida\":\"Pendientes del equipo\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Pendientes del equipo\\\", [Pendientes del equipo])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Pendientes del equipo\\\", [Pendientes del equipo] )\"},{\"pregunta\":\"Pendientes del equipo, sin las categorías vacías (para el gráfico por antigüedad).\",\"medida\":\"Pendientes por antigüedad\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Pendientes por antigüedad\\\", [Pendientes por antigüedad])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Pendientes por antigüedad\\\", [Pendientes por antigüedad] )\"},{\"pregunta\":\"El plazo de resolución acordado (matriz tipo × prioridad).\",\"medida\":\"SLA en días\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"SLA en días\\\", [SLA en días])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"SLA en días\\\", [SLA en días] )\"},{\"pregunta\":\"Promedio de la nota de 1 a 5 que dejó el solicitante en la encuesta.\",\"medida\":\"Satisfacción (1 a 5)\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Satisfacción (1 a 5)\\\", [Satisfacción (1 a 5)])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Satisfacción (1 a 5)\\\", [Satisfacción (1 a 5)] )\"},{\"pregunta\":\"Distancia a la meta de 85 %: pinta la nota de verde o rojo.\",\"medida\":\"Signo SLA\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Signo SLA\\\", [Signo SLA])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Signo SLA\\\", [Signo SLA] )\"},{\"pregunta\":\"Distancia a la meta de 85 %.\",\"medida\":\"Signo conformidad\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Signo conformidad\\\", [Signo conformidad])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Signo conformidad\\\", [Signo conformidad] )\"},{\"pregunta\":\"Positivo: salió más de lo que entró (el backlog baja).\",\"medida\":\"Signo flujo\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Signo flujo\\\", [Signo flujo])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Signo flujo\\\", [Signo flujo] )\"},{\"pregunta\":\"Negativo si hay vencidos: pinta de rojo la nota.\",\"medida\":\"Signo vencidos\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Signo vencidos\\\", [Signo vencidos])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Signo vencidos\\\", [Signo vencidos] )\"},{\"pregunta\":\"Distancia a la meta de 85 %.\",\"medida\":\"Signo índice\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Signo índice\\\", [Signo índice])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Signo índice\\\", [Signo índice] )\"},{\"pregunta\":\"Personas distintas que pidieron.\",\"medida\":\"Solicitantes\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Solicitantes\\\", [Solicitantes])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Solicitantes\\\", [Solicitantes] )\"},{\"pregunta\":\"Resueltos que el solicitante devolvió al menos una vez («No conforme»).\",\"medida\":\"Tasa de reapertura\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Tasa de reapertura\\\", [Tasa de reapertura])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Tasa de reapertura\\\", [Tasa de reapertura] )\"},{\"pregunta\":\"Pedidos que entraron en el período (por fecha de creación).\",\"medida\":\"Tickets recibidos\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Tickets recibidos\\\", [Tickets recibidos])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Tickets recibidos\\\", [Tickets recibidos] )\"},{\"pregunta\":\"Pedidos resueltos en el período (por fecha de resolución, entren cuando entren).\",\"medida\":\"Tickets resueltos\",\"tabla\":\"_Medidas\",\"dax\":\"EVALUATE ROW(\\\"Tickets resueltos\\\", [Tickets resueltos])\",\"por_tiempo\":\"EVALUATE SUMMARIZECOLUMNS ( Calendario[Fecha], \\\"Tickets resueltos\\\", [Tickets resueltos] )\"}]}"
+      }
+    ]
+  }
+}

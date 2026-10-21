@@ -1,0 +1,37 @@
+# Linter + tests en cada push y PR. El test del tablero de Power BI y el que
+# compara la marca con la suite se saltan solos: necesitan el repo de la suite
+# al lado, que es privado y no se clona acá.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  calidad:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Instalar
+        run: pip install pytest ruff pandas openpyxl
+      - name: Linter
+        run: ruff check .
+      - name: Tests
+        run: python -m pytest -q tests
+      - name: El paquete de Power Platform está al día
+        run: |
+          python scripts/generar_powerplatform.py
+          git diff --exit-code powerapps/

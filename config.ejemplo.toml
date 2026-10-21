@@ -1,0 +1,28 @@
+# Copiar a config.toml y ajustar. Los SECRETOS van por variable de entorno
+# (TICKETS_GRAPH_SECRETO, TICKETS_IMAP_CLAVE, TICKETS_SMTP_CLAVE, TICKETS_SECRETO):
+# si aparecen acá, la app no arranca.
+
+casilla = "tickets.excelenciacomercial@adium.com.uy"
+nombre_casilla = "Tickets · Excelencia Comercial & Digital"
+prefijo = "EC"
+url_app = "http://localhost:8750"
+
+# De dónde se leen los correos: "carpeta" (los .eml que deja Power Automate),
+# "graph" (Microsoft Graph, app de Entra ID) o "imap".
+fuente = "carpeta"
+carpeta_entrada = "datos/entrada"
+
+# El envío sale APAGADO: cada correo se escribe en datos/salida/ como .eml.
+envio_activo = false
+envio = "graph"                    # "graph" o "smtp"
+graph_tenant = ""                  # id del tenant de Adium
+graph_cliente = ""                 # id de la app registrada
+
+# Camino Power Platform: el sitio de SharePoint de la mesa.
+sharepoint_host = ""               # p. ej. "adium.sharepoint.com"
+sharepoint_sitio = "/sites/TicketsEC"
+
+hora_inicio = 9
+hora_fin = 18
+dias_conformidad_tacita = 3
+# feriados = ["2027-01-01", "2027-01-06"]   # reemplaza los de Uruguay 2025-2026
