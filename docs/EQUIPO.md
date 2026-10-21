@@ -96,7 +96,7 @@ MSAL, la biblioteca oficial de Microsoft.
 2. Cargar a los integrantes en **Personas** con su rol (paso 3).
 3. El coordinador copia `config.equipo.ejemplo.toml` a **`config.equipo.toml`** en la carpeta de la mesa y
    completa `entra_tenant`, `entra_cliente` y `sharepoint_host`. No tiene secretos (la app los rechaza), así
-   que puede viajar en el paquete de la suite o commitearse en el repo privado.
+   que viaja en el paquete de la suite (el armado copia la carpeta del disco). **No se commitea**: está en `.gitignore` porque este repo es público, y el tenant y el id de la app, aunque no autorizan nada, son datos internos de Adium.
 4. Cada integrante abre la suite (pestaña de la mesa) o «Abrir Tickets EC.bat», toca **Ingresar con mi cuenta
    de Adium** y listo. El `.bat` instala `msal` si falta.
 5. Cuando IT confirme *Enviar como*, poner `envio_activo = true` en `config.equipo.toml`. Hasta entonces los

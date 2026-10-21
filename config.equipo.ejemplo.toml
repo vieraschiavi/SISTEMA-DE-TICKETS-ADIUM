@@ -1,6 +1,8 @@
 # La configuración del EQUIPO: lo mismo en las seis PCs. Copiala a
 # config.equipo.toml, completala y repartila con la suite (el paquete la lleva;
 # config.toml no, porque es de cada PC).
+# config.equipo.toml NO se commitea (.gitignore): el repo es público y el tenant
+# y el id de la app son datos internos de Adium.
 #
 # NO tiene secretos y no los acepta: el tenant y el id de una app de cliente
 # público identifican la app, no la autorizan. Lo que autoriza es la cuenta de
