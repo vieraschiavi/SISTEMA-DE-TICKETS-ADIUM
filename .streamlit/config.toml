@@ -13,6 +13,7 @@ gatherUsageStats = false
 
 [server]
 port = 8750
-# Sólo esta PC. Para compartirla en la red, ponerla detrás del proxy/SSO
-# corporativo (ver docs/DESPLIEGUE.md): la app no tiene login propio.
+# Sólo esta PC: cada integrante abre la suya. Para trabajar todos sobre la
+# misma mesa no se comparte la app en la red: se usa el modo compartido, con
+# la cuenta de Adium de cada uno y las listas de SharePoint (docs/EQUIPO.md).
 address = "127.0.0.1"

@@ -14,7 +14,9 @@ ella.
 from __future__ import annotations
 
 import hashlib
+import re
 import secrets
+import urllib.parse
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -38,6 +40,16 @@ class ResultadoCorreo:
     message_id: str
     resultado: str          # nuevo | respuesta | ignorado: <motivo>
     numero: str | None = None
+
+
+def voto_por_correo(asunto: str) -> bool | None:
+    """«RE: [EC-00042] Conforme» → True; «… No conforme» → False; otra cosa → None."""
+    limpio = clasificador.normalizar(re.sub(r"\[[^\]]*\]", " ", CO.asunto_limpio(asunto or "")))
+    if re.match(r"\s*no\s+conforme\b", limpio):
+        return False
+    if re.match(r"\s*(conforme|si,?\s+conforme)\b", limpio):
+        return True
+    return None
 
 
 class Mesa:
@@ -383,13 +395,24 @@ class Mesa:
         token = secrets.token_urlsafe(24)
         ronda = 1 + len(self.db.consulta("SELECT id FROM encuestas WHERE ticket_id = ?", (t["id"],)))
         self.db.agregar_encuesta(t["id"], ronda, self._hash(token), self.ahora())
-        base = f"{self.cfg.url_app}/?encuesta={token}"
+        si, no = self._links_encuesta(t, token)
         self._mandar(t["solicitante_mail"],
-                     plantillas.resuelto(t, resolucion, f"{base}&r=si", f"{base}&r=no",
-                                         self.cfg.dias_conformidad_tacita, self.cfg),
+                     plantillas.resuelto(t, resolucion, si, no, self.cfg.dias_conformidad_tacita, self.cfg),
                      en_respuesta_a=t["message_id"] or "", ticket=t)
         t["_token"] = token        # sólo para quien llamó (la demo, un test): no se guarda
         return t
+
+    def _links_encuesta(self, t: dict, token: str) -> tuple[str, str]:
+        """Los dos botones del correo de resuelto. En modo compartido la app
+        vive en la PC de cada analista y el solicitante no la alcanza: los
+        botones arman un correo a la casilla («[EC-00042] Conforme») y lo
+        responde la casilla (ver `procesar_correo`)."""
+        if self.cfg.compartida:
+            def correo(asunto: str) -> str:
+                return f"mailto:{self.cfg.casilla}?subject=" + urllib.parse.quote(f"[{t['numero']}] {asunto}")
+            return correo("Conforme"), correo("No conforme")
+        base = f"{self.cfg.url_app}/?encuesta={token}"
+        return f"{base}&r=si", f"{base}&r=no"
 
     def encuesta(self, token: str) -> tuple[dict, dict]:
         """(encuesta, ticket) de un link, o ErrorMesa si no vale."""
@@ -401,6 +424,9 @@ class Mesa:
 
     def responder_encuesta(self, token: str, conforme: bool, csat: int | None = None, comentario: str = "") -> dict:
         e, t = self.encuesta(token)
+        return self._responder(e, t, conforme, csat, comentario)
+
+    def _responder(self, e: dict, t: dict, conforme: bool, csat: int | None, comentario: str) -> dict:
         if e["resultado"] != C.PENDIENTE:
             raise ErrorMesa(f"Esta encuesta ya se respondió ({e['resultado']}). ¡Gracias!")
         if t["estado"] != C.RESUELTO:
@@ -436,11 +462,15 @@ class Mesa:
                 continue
             if S.horas_habiles(e["enviada_en"], self.ahora(), self.cfg) < limite:
                 continue
-            with self.db.transaccion():
-                self.db.responder_encuesta(e["id"], self.ahora(), C.TACITA, None, "")
-                self._cambiar(t, C.CERRADO, SISTEMA,
-                              f"Sin respuesta en {self.cfg.dias_conformidad_tacita} días hábiles",
-                              sistema=True, subestado="Conformidad tácita", extra={"conformidad": C.TACITA})
+            try:
+                with self.db.transaccion():
+                    # Primero el ticket: en modo compartido es lo que puede chocar con otra PC.
+                    self._cambiar(t, C.CERRADO, SISTEMA,
+                                  f"Sin respuesta en {self.cfg.dias_conformidad_tacita} días hábiles",
+                                  sistema=True, subestado="Conformidad tácita", extra={"conformidad": C.TACITA})
+                    self.db.responder_encuesta(e["id"], self.ahora(), C.TACITA, None, "")
+            except ErrorMesa:
+                continue        # otra PC lo cerró (o lo movió) primero: la próxima sincronización lo trae
             cerrados.append(t["numero"])
         return cerrados
 
@@ -451,8 +481,15 @@ class Mesa:
         # Sin fecha, el registro del Message-ID fallaría en silencio (INSERT OR
         # IGNORE también ignora el NOT NULL) y el mismo correo entraría dos veces.
         m.fecha = m.fecha or self.ahora()
-        if self.db.correo_visto(m.message_id):
+        if not self.db.reclamar_correo(m.message_id):
             return ResultadoCorreo(m.message_id, "ignorado: ya procesado")
+        try:
+            return self._procesar(m)
+        except BaseException:
+            self.db.soltar_correo(m.message_id)
+            raise
+
+    def _procesar(self, m: CO.Mensaje) -> ResultadoCorreo:
         motivo = ""
         if m.remitente == self.cfg.casilla.lower():
             motivo = "lo mandó la propia casilla"
@@ -470,6 +507,9 @@ class Mesa:
             for ref in [m.in_reply_to, *m.referencias]:
                 if ref and (t := self.db.ticket_por_message_id(ref)):
                     break
+        if t and t["estado"] == C.RESUELTO and m.remitente == t["solicitante_mail"] \
+                and (voto := voto_por_correo(m.asunto)) is not None:
+            return self._encuesta_por_correo(t, m, voto)
         if t and t["estado"] not in C.FINALES:
             return self._respuesta(t, m)
         asunto = CO.asunto_limpio(m.asunto)
@@ -481,6 +521,26 @@ class Mesa:
                            adjuntos=m.adjuntos)
         self.db.registrar_correo(m.message_id, nuevo["id"], m.fecha, m.remitente, m.asunto, "nuevo")
         return ResultadoCorreo(m.message_id, "nuevo", nuevo["numero"])
+
+    def _encuesta_por_correo(self, t: dict, m: CO.Mensaje, conforme: bool) -> ResultadoCorreo:
+        """El solicitante tocó «Conforme» / «No conforme» en el correo de
+        resuelto (o lo escribió en el asunto). La primera línea del cuerpo
+        puede traer la satisfacción («5», «4/5», «★★★★»)."""
+        pendientes = self.db.consulta("SELECT * FROM encuestas WHERE ticket_id = ? AND resultado = ? "
+                                      "ORDER BY ronda DESC LIMIT 1", (t["id"], C.PENDIENTE))
+        if not pendientes:
+            return self._respuesta(t, m)
+        texto = (m.cuerpo or "").strip()
+        primera = texto.splitlines()[0] if texto else ""
+        estrellas = primera.count("★")
+        nota = re.match(r"\s*([1-5])\b", primera)
+        csat = int(nota.group(1)) if nota else (estrellas if 1 <= estrellas <= 5 else None)
+        comentario = texto if (texto and not nota and not estrellas) else "\n".join(texto.splitlines()[1:]).strip()
+        if not conforme and not comentario:
+            comentario = "No conforme (respondió por correo sin comentario)"
+        self._responder(pendientes[0], t, conforme, csat, comentario)
+        self.db.registrar_correo(m.message_id, t["id"], m.fecha, m.remitente, m.asunto, "encuesta")
+        return ResultadoCorreo(m.message_id, "encuesta", t["numero"])
 
     def _respuesta(self, t: dict, m: CO.Mensaje) -> ResultadoCorreo:
         with self.db.transaccion():

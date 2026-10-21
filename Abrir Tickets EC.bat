@@ -111,7 +111,7 @@ set "PYW=%VENV%\Scripts\python.exe"
 REM --- 3. Dependencias --------------------------------------------------------
 REM  Se instala si falta algo o si la version de Streamlit es vieja. Asi un
 REM  Streamlit de antes no hace caer la app con un TypeError al abrir.
-"%PYW%" -c "import streamlit, pandas, openpyxl; v = tuple(int(x) for x in streamlit.__version__.split('.')[:2]); raise SystemExit(0 if v >= (1, 50) else 1)" >nul 2>&1
+"%PYW%" -c "import streamlit, pandas, openpyxl, msal; v = tuple(int(x) for x in streamlit.__version__.split('.')[:2]); raise SystemExit(0 if v >= (1, 50) else 1)" >nul 2>&1
 if errorlevel 1 (
     echo   Instalando lo que necesita la app...
     if exist "!AQUI!ruedas\." (

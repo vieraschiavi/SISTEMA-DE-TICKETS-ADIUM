@@ -21,4 +21,5 @@ def test_progreso_y_markdown():
     assert (hechos, total, siguiente) == (2, len(guia.PASOS), guia.PASOS[2].titulo)
     assert guia.progreso({p.clave for p in guia.PASOS})[2] == ""
     md = guia.a_markdown()
-    assert "## 4. Crear los 6 flujos de Power Automate" in md and "Correo → ticket" in md and "scrDetalle" in md
+    assert "## 4. Conectar la app de cada integrante a la misma mesa" in md
+    assert "## 5. Crear los 6 flujos de Power Automate" in md and "Correo → ticket" in md and "scrDetalle" in md

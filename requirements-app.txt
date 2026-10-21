@@ -5,3 +5,5 @@ streamlit>=1.50
 pandas>=2.0
 # pandas no lee ni escribe Excel solo: el export a Power BI lo pide.
 openpyxl>=3.1
+# El ingreso con la cuenta de Microsoft de Adium (modo compartido, docs/EQUIPO.md).
+msal>=1.28

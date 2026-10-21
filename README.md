@@ -31,15 +31,19 @@ Lab).
 
 ## Dos formas de correrla
 
-| | **Power Platform** (corporativo, recomendado) | **App de Python** (piloto, sin pedirle nada a IT más que la casilla) |
-|---|---|---|
-| Dónde corre | Microsoft 365: Power Apps + Power Automate + listas de SharePoint | Una PC o VM del equipo |
-| Login | El de Microsoft | Detrás del proxy/SSO corporativo |
-| Licencias | Las de M365 (sólo conectores estándar) | Ninguna |
-| Guía | [`powerapps/`](powerapps/README.md) | Este README |
-| Tablero | `exportar_powerbi.py --origen sharepoint` | `exportar_powerbi.py` |
+| | **Power Platform** (corporativo) | **App en cada PC del equipo** (modo compartido) | **App en una PC** (modo local: piloto y demo) |
+|---|---|---|---|
+| Dónde corre | Microsoft 365: Power Apps + Power Automate + listas de SharePoint | La suite (o el `.bat`) en la PC de cada integrante, sobre las mismas listas | Una PC |
+| Login | El de Microsoft | El de Microsoft: cada uno con su cuenta de Adium | No tiene: el que actúa se elige en la barra |
+| Dónde viven los tickets | Listas de SharePoint | Listas de SharePoint (cada PC con su copia) | Un SQLite en esa PC |
+| Guía | [`powerapps/`](powerapps/README.md) | [`docs/EQUIPO.md`](docs/EQUIPO.md) | Este README |
+| Tablero | `exportar_powerbi.py --origen sharepoint` | ídem, o 📤 Power BI desde cualquier PC | `exportar_powerbi.py` |
 
-Las dos comparten **una sola definición** de catálogos, estados, SLA e
+Las dos primeras conviven: la app de Power Apps y las seis PCs leen y escriben
+los mismos ítems, con el mismo número de ticket. Lo que cambia entre local y
+compartido es una línea de `config.equipo.toml` (`modo = "compartida"`).
+
+Las tres comparten **una sola definición** de catálogos, estados, SLA e
 indicadores (`tickets_ec/`). El paquete de Power Platform (listas, opciones,
 reglas del clasificador, fórmulas de Power Apps) **se genera** desde ahí con
 `python scripts/generar_powerplatform.py`.
@@ -69,7 +73,7 @@ motivo. Sin salida a PyPI: carpeta `ruedas/` al lado del `.bat`
 | 📨 Casilla | Procesar la casilla, subir un `.eml` y ver la bandeja de salida |
 | 📊 Indicadores | Los KPIs con semáforo, mes a mes y abiertos por área, tipo, unidad de negocio, analista y país |
 | 📤 Power BI | Exportar los datos y bajar el `.pbit`, el proyecto PBIP para Fabric y la réplica HTML |
-| 🧭 Guía Power Platform | Los 8 pasos para llevarla a Power Apps + Power Automate + SharePoint: qué pedirle a IT, el script de las listas, cada flujo y cada pantalla, con las descargas y el avance marcado |
+| 🧭 Guía Power Platform | Los 9 pasos para llevarla a Power Apps + Power Automate + SharePoint: qué pedirle a IT, el script de las listas, cada flujo y cada pantalla, con las descargas y el avance marcado |
 | ⚙️ Configuración | Alta de analistas de cada equipo, matriz de SLA, tipos y subtipos |
 
 La **encuesta** es la única página que ve el solicitante: entra desde el link
@@ -100,7 +104,7 @@ integración con Git de Fabric. Todos los pasos están en
 ## Estructura
 
 ```
-tickets_ec/       el motor, sólo con la biblioteca estándar
+tickets_ec/       el motor, con la biblioteca estándar (más msal para el ingreso)
   catalogos.py      estados, transiciones, tipos y subtipos, SLA, áreas, unidades de negocio, ATC
   servicio.py       la mesa (Mesa): crear, asignar, tomar, pedir dato, resolver, encuesta, cierre tácito
   correo.py         leer correos (carpeta / Graph / IMAP), anti-bucles, hilos por [EC-00042]
@@ -109,20 +113,22 @@ tickets_ec/       el motor, sólo con la biblioteca estándar
   exportar.py       el modelo estrella (Tickets, Estados, Encuestas, Calendario)
   indicadores.py    los KPIs en Python (la misma definición que el DAX)
   sharepoint.py     las listas de Power Platform: esquema y lectura por Graph o CSV
+  compartida.py     el modo compartido: la copia local que escribe primero en las listas (eTag, cola, candado)
+  acceso.py         el ingreso con la cuenta de Microsoft de Adium (MSAL) y lo que puede cada rol
   demo.py           18 meses simulados pasando por la misma mesa
 app/app.py        la app Streamlit
 powerbi/          medidas DAX, páginas, build verificado, publicación en Fabric
 powerapps/        guía, flujos, pantallas, script PnP y catálogos generados
 sql/              el mismo esquema para SQL Server (se genera, no se aplica)
 scripts/          procesar la casilla, exportar a Power BI, generar Power Platform, E2E
-docs/             casilla, indicadores, Power BI / Fabric
+docs/             casilla, equipo (modo compartido), indicadores, Power BI / Fabric
 ```
 
 ## Tests
 
 ```bash
 ruff check .
-python -m pytest -q tests                  # 66 tests; el del tablero necesita la suite al lado
+python -m pytest -q tests                  # 97 tests; el del tablero necesita la suite al lado
 python scripts/e2e_ui.py                   # la app de verdad, en Chromium
 ```
 

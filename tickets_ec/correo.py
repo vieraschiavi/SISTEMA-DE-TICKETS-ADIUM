@@ -300,14 +300,25 @@ class FuenteGraph:
 
     BASE = "https://graph.microsoft.com/v1.0"
 
-    def __init__(self, tenant: str, cliente: str, secreto: str, buzon: str, abrir=urllib.request.urlopen):
-        if not (tenant and cliente and secreto and buzon):
+    def __init__(self, tenant: str, cliente: str, secreto: str, buzon: str, abrir=urllib.request.urlopen,
+                 token=None):
+        if not buzon or not (token or (tenant and cliente and secreto)):
             raise ValueError("Graph necesita tenant, cliente, secreto (TICKETS_GRAPH_SECRETO) y buzón.")
         self.tenant, self.cliente, self.secreto, self.buzon = tenant, cliente, secreto, buzon
         self.abrir = abrir
         self._token = ""
+        self._delegado = token
+
+    @classmethod
+    def delegada(cls, buzon: str, token, abrir=urllib.request.urlopen) -> FuenteGraph:
+        """El buzón con la cuenta de la persona que usa la app (modo compartido):
+        `token` es `acceso.Sesion.token`. Necesita Acceso total al buzón
+        compartido (y «Enviar como» para mandar), que da IT."""
+        return cls("", "", "", buzon, abrir, token=token)
 
     def token(self) -> str:
+        if self._delegado:
+            return self._delegado()
         if not self._token:
             cuerpo = urllib.parse.urlencode({
                 "client_id": self.cliente, "client_secret": self.secreto, "grant_type": "client_credentials",

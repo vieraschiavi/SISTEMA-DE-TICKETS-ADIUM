@@ -81,9 +81,17 @@ def pedido_de_informacion(t: dict, pregunta: str, analista: str, cfg) -> tuple[s
 
 
 def resuelto(t: dict, resolucion: str, link_si: str, link_no: str, dias: int, cfg) -> tuple[str, str, str]:
-    """Resuelto + la encuesta de conformidad, en el mismo correo."""
+    """Resuelto + la encuesta de conformidad, en el mismo correo.
+
+    Los links son de la página de la encuesta o, en modo compartido,
+    `mailto:` a la casilla con «Conforme» / «No conforme» en el asunto."""
+    por_correo = link_si.startswith("mailto:")
+    como = ("Tocá un botón: se abre un correo ya armado a la casilla; mandalo tal cual (en la primera línea podés "
+            "poner del 1 al 5 qué tan satisfecho quedaste)." if por_correo else "")
     texto = (f"Hola:\n\nResolvimos {t['numero']} · {t['asunto']}.\n\n{resolucion}\n\n"
-             f"¿Quedó conforme con la resolución?\n  Sí, conforme: {link_si}\n  No, falta algo: {link_no}\n\n"
+             f"¿Quedó conforme con la resolución?\n  Sí, conforme: {link_si}\n  No, falta algo: {link_no}\n"
+             + (f"{como}\nO respondé este correo con «Conforme» o «No conforme» en el asunto.\n" if por_correo else "")
+             + "\n"
              f"Si no respondés en {dias} días hábiles, el ticket se cierra como conforme.\n\n{cfg.nombre_casilla}")
     boton = ("display:inline-block;padding:10px 18px;border-radius:6px;text-decoration:none;"
              "font-weight:600;margin-right:8px")
@@ -92,6 +100,7 @@ def resuelto(t: dict, resolucion: str, link_si: str, link_no: str, dias: int, cf
         f"<p style='margin-top:18px'><b>¿Quedó conforme con la resolución?</b></p>"
         f"<p><a href='{escapar(link_si)}' style='{boton};background:{M.VERDE_TEXTO};color:{M.BLANCO}'>Sí, conforme</a>"
         f"<a href='{escapar(link_no)}' style='{boton};background:{M.ROJO_TEXTO};color:{M.BLANCO}'>No, falta algo</a></p>"
+        + (f"<p style='color:{M.GRIS};font-size:12px'>{escapar(como)}</p>" if por_correo else "") +
         f"<p style='color:{M.GRIS};font-size:12px'>Si no respondés en {dias} días hábiles, el ticket se cierra "
         "como conforme (conformidad tácita).</p>"), _pie(cfg))
     return asunto(t, f"Resuelto: {t['asunto']}"), texto, html

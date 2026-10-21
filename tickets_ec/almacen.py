@@ -262,6 +262,14 @@ class Almacen:
     def correo_visto(self, message_id: str) -> bool:
         return bool(self.consulta("SELECT 1 FROM correos WHERE message_id = ?", (message_id,)))
 
+    def reclamar_correo(self, message_id: str) -> bool:
+        """True si este proceso se queda con el correo. En una PC sola es «no
+        lo vi»; en modo compartido es un candado en la lista Correos."""
+        return not self.correo_visto(message_id)
+
+    def soltar_correo(self, message_id: str) -> None:
+        """Lo procesado falló a la mitad: el correo vuelve a estar libre."""
+
     def registrar_correo(self, message_id: str, ticket_id: int | None, recibido_en: datetime,
                          remitente: str, asunto: str, resultado: str) -> None:
         self._ejecutar("INSERT OR IGNORE INTO correos(message_id, ticket_id, recibido_en, remitente, asunto, "

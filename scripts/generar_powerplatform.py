@@ -5,7 +5,7 @@ Genera el paquete de Power Platform desde los catálogos de la mesa:
 
 Escribe en `powerapps/sharepoint/`:
 
-* `Provisionar-Listas.ps1` — PnP PowerShell que crea las nueve listas con sus
+* `Provisionar-Listas.ps1` — PnP PowerShell que crea las diez listas con sus
   columnas, opciones e índices, y carga las listas de referencia.
 * `esquema.json` — las mismas listas, para leerlas sin PowerShell.
 * `reglas_clasificacion.csv`, `subtipos.csv`, `sla.csv`, `mercados.csv`,
@@ -29,7 +29,7 @@ sys.path.insert(0, str(RAIZ))
 from tickets_ec import catalogos as C  # noqa: E402
 from tickets_ec import clasificador  # noqa: E402
 from tickets_ec.config import Config  # noqa: E402
-from tickets_ec.sharepoint import INDEXADAS, LISTAS, TITULOS, VISIBLES  # noqa: E402
+from tickets_ec.sharepoint import INDEXADAS, LISTAS, TITULOS, UNICAS, VISIBLES  # noqa: E402
 
 DESTINO = RAIZ / "powerapps" / "sharepoint"
 
@@ -123,6 +123,9 @@ def powershell() -> str:
         for col in INDEXADAS.get(lista, ()):
             lineas.append(f"Set-PnPField -List {_ps(lista)} -Identity {_ps(col)} -Values @{{ Indexed = $true }} "
                           "| Out-Null")
+        for col in UNICAS.get(lista, ()):
+            lineas.append(f"Set-PnPField -List {_ps(lista)} -Identity {_ps(col)} "
+                          "-Values @{ EnforceUniqueValues = $true } | Out-Null")
         lineas.append("")
     lineas += [
         "# ---- Listas de referencia (se cargan sólo si están vacías) ----------",
