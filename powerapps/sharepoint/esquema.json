@@ -445,6 +445,12 @@
       "visible": "Comentario",
       "tipo": "Note",
       "opciones": null
+    },
+    {
+      "interno": "TokenHash",
+      "visible": "Hash del link",
+      "tipo": "Text",
+      "opciones": null
     }
   ],
   "Personas": [
@@ -516,6 +522,44 @@
       "interno": "Activo",
       "visible": "Activo",
       "tipo": "Boolean",
+      "opciones": null
+    }
+  ],
+  "Correos": [
+    {
+      "interno": "Title",
+      "visible": "Message-ID",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "TicketNumero",
+      "visible": "Ticket",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "RecibidoEn",
+      "visible": "Recibido",
+      "tipo": "DateTime",
+      "opciones": null
+    },
+    {
+      "interno": "Remitente",
+      "visible": "Remitente",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Asunto",
+      "visible": "Asunto",
+      "tipo": "Text",
+      "opciones": null
+    },
+    {
+      "interno": "Resultado",
+      "visible": "Resultado",
+      "tipo": "Text",
       "opciones": null
     }
   ],

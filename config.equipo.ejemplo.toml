@@ -1,0 +1,34 @@
+# La configuración del EQUIPO: lo mismo en las seis PCs. Copiala a
+# config.equipo.toml, completala y repartila con la suite (el paquete la lleva;
+# config.toml no, porque es de cada PC).
+# config.equipo.toml NO se commitea (.gitignore): el repo es público y el tenant
+# y el id de la app son datos internos de Adium.
+#
+# NO tiene secretos y no los acepta: el tenant y el id de una app de cliente
+# público identifican la app, no la autorizan. Lo que autoriza es la cuenta de
+# Adium de cada persona, que entra por la página de Microsoft.
+# Paso a paso, con lo que hay que pedirle a IT: docs/EQUIPO.md.
+
+modo = "compartida"
+
+# La app «Tickets EC» registrada en Entra ID (cliente público, redirección
+# http://localhost, permisos delegados Sites.ReadWrite.All,
+# Mail.ReadWrite.Shared y Mail.Send.Shared).
+entra_tenant = ""                  # id del directorio (tenant) de Adium
+entra_cliente = ""                 # id de aplicación (cliente)
+
+# El sitio de SharePoint con las listas de la mesa (powerapps/sharepoint/).
+sharepoint_host = ""               # p. ej. "adium.sharepoint.com"
+sharepoint_sitio = "/sites/TicketsEC"
+
+casilla = "tickets.excelenciacomercial@adium.com.uy"
+
+# Cada cuánto trae lo que hicieron los demás y lee la casilla.
+segundos_sync = 60
+casilla_automatica = true
+
+# Sale APAGADO también en modo compartido: con false, los acuses y las
+# encuestas quedan como .eml en datos/salida/ de cada PC y no le llegan a
+# nadie. Prendelo cuando IT confirme «Enviar como» sobre la casilla.
+envio_activo = false
+envio = "graph"

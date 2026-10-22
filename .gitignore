@@ -4,6 +4,8 @@ __pycache__/
 .ruff_cache/
 .venv/
 /config.toml
+# La del equipo tampoco: viaja en el paquete de la suite, no en el repo (es público).
+/config.equipo.toml
 .env
 # Datos de la mesa: reales, nunca al repo.
 /datos/

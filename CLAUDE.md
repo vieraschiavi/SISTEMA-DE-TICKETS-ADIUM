@@ -29,5 +29,10 @@ tablero de Power BI y paquete de Power Platform. Leé `README.md` primero.
   regla R01-R26, se corrige la medida, no la regla.
 - **Conectores apagados por defecto.** El envío de correo sale apagado y los
   secretos van sólo por entorno (`TICKETS_*`).
+- **Modo compartido: la verdad está en las listas.** En `modo = "compartida"`
+  toda escritura va primero a SharePoint con el eTag leído (`compartida.py`);
+  un 412 es `Conflicto` y se muestra, nunca se reintenta pisando. La app no
+  ve contraseñas: el token lo da MSAL y vive en memoria. `config.equipo.toml`
+  no acepta secretos.
 - **Demo sintética.** Nada de personas ni correos reales.
 - Español rioplatense en textos, comentarios y commits.

@@ -2,10 +2,12 @@
 La configuración de la mesa: casilla, URL de la app, calendario laboral y
 conectores de correo.
 
-Se lee de tres lados, en este orden y ganando el último: los valores por
-defecto de acá, un `config.toml` (ver `config.ejemplo.toml`) y variables de
+Se lee de cuatro lados, en este orden y ganando el último: los valores por
+defecto de acá, `config.equipo.toml` (lo mismo para todo el equipo: el modo
+compartido, el tenant, el sitio; viaja en el paquete de la suite), un
+`config.toml` (el de esta PC, ver `config.ejemplo.toml`) y variables de
 entorno `TICKETS_*`. Los secretos (clave de Graph, contraseña IMAP, la sal de
-las encuestas) van SÓLO por entorno: un `config.toml` termina commiteado.
+las encuestas) van SÓLO por entorno: un `.toml` termina commiteado.
 
 Lo que este módulo NO hace: prender un conector. El envío de correos sale
 apagado (`envio_activo = False`): con él apagado, cada correo se escribe como
@@ -59,6 +61,24 @@ class Config:
     carpeta_entrada: Path = RAIZ / "datos" / "entrada"
     directorio: Path = RAIZ / "datos" / "directorio.csv"
 
+    # --- Modo de trabajo ------------------------------------------------------
+    #: "local": la base es un SQLite en esta PC (una persona, o la demo).
+    #: "compartida": cada integrante abre la app (o la suite) en SU PC, entra
+    #: con su cuenta de Microsoft de Adium y todos leen y escriben las mismas
+    #: listas de SharePoint; la casilla las alimenta. Ver docs/EQUIPO.md.
+    modo: str = "local"
+    #: La app de Entra ID de la mesa: cliente PÚBLICO (sin secreto), con
+    #: `http://localhost` como URI de redirección. Ninguno de los dos es un
+    #: secreto: identifican la app, no la autorizan.
+    entra_tenant: str = ""
+    entra_cliente: str = ""
+    #: Cada cuánto se trae lo que cambiaron los demás (y se lee la casilla).
+    segundos_sync: int = 60
+    #: En modo compartido, cada sincronización lee también la casilla y cierra
+    #: lo tácito. Dos PCs que leen el mismo correo no lo duplican: la primera
+    #: que lo reclama en la lista Correos se lo queda.
+    casilla_automatica: bool = True
+
     # --- Calendario laboral --------------------------------------------------
     hora_inicio: int = 9
     hora_fin: int = 18
@@ -102,6 +122,17 @@ class Config:
         puede firmar contra manipulación del número de ticket."""
         return os.environ.get("TICKETS_SECRETO", "")
 
+    @property
+    def compartida(self) -> bool:
+        return self.modo == "compartida"
+
+    def faltantes_compartida(self) -> list[str]:
+        """Lo que el modo compartido necesita y no está configurado."""
+        if not self.compartida:
+            return []
+        return [k for k in ("entra_tenant", "entra_cliente", "sharepoint_host", "sharepoint_sitio")
+                if not getattr(self, k)]
+
 
 _SECRETOS = {"graph_secreto", "imap_clave", "smtp_clave", "secreto"}
 
@@ -121,19 +152,27 @@ def _convertir(campo, valor):
     return valor
 
 
-def cargar(ruta: Path | str | None = None, entorno: dict | None = None) -> Config:
-    """Defaults → `config.toml` → `TICKETS_<CAMPO>`. Un secreto en el toml se
-    rechaza con nombre: si está ahí, ya está en un lugar que se comparte."""
+MODOS = ("local", "compartida")
+
+
+def cargar(ruta: Path | str | None = None, entorno: dict | None = None,
+           equipo: Path | str | None = None) -> Config:
+    """Defaults → `config.equipo.toml` → `config.toml` → `TICKETS_<CAMPO>`.
+    Un secreto en un toml se rechaza con nombre: si está ahí, ya está en un
+    lugar que se comparte."""
     entorno = os.environ if entorno is None else entorno
     cfg = Config()
     ruta = Path(ruta) if ruta else Path(entorno.get("TICKETS_CONFIG", RAIZ / "config.toml"))
+    equipo = Path(equipo) if equipo else Path(entorno.get("TICKETS_CONFIG_EQUIPO", RAIZ / "config.equipo.toml"))
     cambios: dict = {}
     campos = {f.name: f for f in fields(Config)}
-    if ruta.is_file():
-        datos = tomllib.loads(ruta.read_text(encoding="utf-8"))
+    for archivo in (equipo, ruta):
+        if not archivo.is_file():
+            continue
+        datos = tomllib.loads(archivo.read_text(encoding="utf-8"))
         secretos = _SECRETOS & set(datos)
         if secretos:
-            raise ValueError(f"{ruta.name} trae secretos ({', '.join(sorted(secretos))}): "
+            raise ValueError(f"{archivo.name} trae secretos ({', '.join(sorted(secretos))}): "
                              "van por variable de entorno TICKETS_*, nunca en un archivo.")
         for k, v in datos.items():
             if k in campos:
@@ -142,4 +181,7 @@ def cargar(ruta: Path | str | None = None, entorno: dict | None = None) -> Confi
         v = entorno.get(f"TICKETS_{k.upper()}")
         if v not in (None, ""):
             cambios[k] = _convertir(f, v)
-    return replace(cfg, **cambios)
+    cfg = replace(cfg, **cambios)
+    if cfg.modo not in MODOS:
+        raise ValueError(f"modo = «{cfg.modo}»: tiene que ser {' o '.join(MODOS)}.")
+    return cfg

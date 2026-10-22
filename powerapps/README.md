@@ -50,7 +50,7 @@ SharePoint (no Dataverse). Si en el futuro se pasa a Dataverse, el esquema de
 
 | # | Paso | Dónde | Tiempo |
 |---|---|---|---|
-| 1 | Crear las 9 listas con sus columnas, opciones, índices y catálogos | `sharepoint/Provisionar-Listas.ps1` (PnP PowerShell) | 10 min |
+| 1 | Crear las 10 listas con sus columnas, opciones, índices y catálogos | `sharepoint/Provisionar-Listas.ps1` (PnP PowerShell) | 10 min |
 | 2 | Cargar el equipo en la lista **Personas**: rol `analista` o `coordinador`, Área = `Excelencia Comercial` o `Digital` | SharePoint | 10 min |
 | 3 | Crear los 6 flujos | [`FLUJOS.md`](FLUJOS.md) | 2-3 h |
 | 4 | Armar la app y pegar las fórmulas | [`APP.md`](APP.md) + `app/Formulas.fx` | 1 día |

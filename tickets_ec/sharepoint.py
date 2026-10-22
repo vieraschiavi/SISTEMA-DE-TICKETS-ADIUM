@@ -18,6 +18,10 @@ Un solo esquema (`LISTAS`) para tres usos que no pueden desincronizarse:
 
 Permiso de Graph para leer: `Sites.Selected` sobre el sitio de la mesa (lo
 otorga IT), con credenciales de aplicación. Sólo lectura.
+
+4. El modo compartido (`compartida.py`) lee y ESCRIBE estas mismas listas con
+   la cuenta de cada integrante: la app de Python en seis PCs, Power Apps y
+   los flujos trabajan sobre los mismos ítems.
 """
 from __future__ import annotations
 
@@ -93,6 +97,9 @@ LISTAS: dict[str, list[tuple]] = {
         ("Resultado", "Choice", (C.PENDIENTE, C.CONFORME, C.NO_CONFORME, C.TACITA), "resultado"),
         ("CSAT", "Number", None, "csat"),
         ("Comentario", "Note", None, "comentario"),
+        # sha256 del token del link: con él cualquier PC del equipo valida una
+        # respuesta. Nunca el token en sí.
+        ("TokenHash", "Text", None, "token_hash"),
     ],
     "Personas": [
         ("Title", "Text", None, "nombre"),
@@ -102,7 +109,18 @@ LISTAS: dict[str, list[tuple]] = {
         ("Rol", "Choice", ("solicitante", "analista", "coordinador"), "rol"),
         ("Activo", "Boolean", None, "activo"),
     ],
-    # Las tres que siguen las usan los flujos y la app; Power BI no las lee.
+    # Un ítem por correo de la casilla: es el candado de la ingesta. La PC
+    # que crea el ítem (Title = Message-ID, con valores únicos) procesa el
+    # correo; la que llega segunda recibe un 409 y lo saltea.
+    "Correos": [
+        ("Title", "Text", None, "message_id"),
+        ("TicketNumero", "Text", None, "_numero"),
+        ("RecibidoEn", "DateTime", None, "recibido_en"),
+        ("Remitente", "Text", None, "remitente"),
+        ("Asunto", "Text", None, "asunto"),
+        ("Resultado", "Text", None, "resultado"),
+    ],
+    # Las que siguen las usan los flujos y la app; Power BI no las lee.
     "ReglasClasificacion": [
         ("Title", "Text", None, None),          # la palabra, sin acentos y en minúscula
         ("Tipo", "Choice", tuple(t.nombre for t in C.TIPOS), None),
@@ -143,15 +161,21 @@ VISIBLES = {"Title": "Asunto", "Numero": "Número", "Descripcion": "Descripción
             "VecesEnEspera": "Veces en espera", "Resolucion": "Resolución", "VenceEn": "Vence", "TicketNumero": "Ticket",
             "EstadoDesde": "Estado desde", "EstadoHasta": "Estado hasta", "Publico": "Público",
             "EnviadaEn": "Enviada", "RespondidaEn": "Respondida", "DiasResolucion": "Días de resolución",
-            "HorasRespuesta": "Horas a la primera respuesta", "CTs": "Clases terapéuticas"}
+            "HorasRespuesta": "Horas a la primera respuesta", "CTs": "Clases terapéuticas",
+            "TokenHash": "Hash del link", "RecibidoEn": "Recibido"}
 #: El nombre visible de `Title` en cada lista.
 TITULOS = {"Tickets": "Asunto", "Eventos": "Tipo de evento", "Encuestas": "Ticket", "Personas": "Nombre",
+           "Correos": "Message-ID",
            "ReglasClasificacion": "Palabra", "Mercados": "Mercado", "Feriados": "Feriado", "Subtipos": "Subtipo",
            "SLA": "Tipo de ticket"}
 #: Las columnas por las que filtran la app y los flujos: indexadas, para
-#: que una lista de más de 5.000 ítems siga respondiendo.
-INDEXADAS = {"Tickets": ("Numero", "Estado", "SolicitanteMail", "AnalistaMail", "Equipo", "CreadoEn"),
-             "Eventos": ("TicketNumero",), "Encuestas": ("Title",), "Personas": ("Mail",)}
+#: que una lista de más de 5.000 ítems siga respondiendo. `Modified` es la
+#: de la sincronización del modo compartido («lo que cambió desde las 10:42»).
+INDEXADAS = {"Tickets": ("Numero", "Estado", "SolicitanteMail", "AnalistaMail", "Equipo", "CreadoEn", "Modified"),
+             "Eventos": ("TicketNumero", "Modified"), "Encuestas": ("Title", "Modified"),
+             "Personas": ("Mail", "Modified"), "Correos": ("Title",)}
+#: Columnas con valores únicos (SharePoint las exige indexadas).
+UNICAS = {"Correos": ("Title",)}
 
 
 class ClienteGraph:
@@ -264,8 +288,9 @@ def cargar(cliente: ClienteGraph | ClienteCarpeta, sitio: str = "") -> Almacen:
             fila = {col: _valor(t, f.get(interno)) for interno, t, _o, col in LISTAS["Encuestas"] if col}
             tid = ids.get(fila.pop("_numero") or "")
             if tid and fila.get("enviada_en"):
-                db.agregar_encuesta(tid, int(fila.get("ronda") or 1), f"sharepoint-{i}", fila["enviada_en"])
-                e = db.consulta("SELECT id FROM encuestas WHERE token_hash = ?", (f"sharepoint-{i}",))[0]
+                token_hash = fila.get("token_hash") or f"sharepoint-{i}"
+                db.agregar_encuesta(tid, int(fila.get("ronda") or 1), token_hash, fila["enviada_en"])
+                e = db.consulta("SELECT id FROM encuestas WHERE token_hash = ?", (token_hash,))[0]
                 if fila.get("resultado") and fila["resultado"] != C.PENDIENTE:
                     db.responder_encuesta(e["id"], fila.get("respondida_en") or fila["enviada_en"],
                                           fila["resultado"], fila.get("csat"), fila.get("comentario") or "")

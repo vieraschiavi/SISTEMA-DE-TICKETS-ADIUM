@@ -83,6 +83,7 @@ Set-PnPField -List 'Tickets' -Identity 'SolicitanteMail' -Values @{ Indexed = $t
 Set-PnPField -List 'Tickets' -Identity 'AnalistaMail' -Values @{ Indexed = $true } | Out-Null
 Set-PnPField -List 'Tickets' -Identity 'Equipo' -Values @{ Indexed = $true } | Out-Null
 Set-PnPField -List 'Tickets' -Identity 'CreadoEn' -Values @{ Indexed = $true } | Out-Null
+Set-PnPField -List 'Tickets' -Identity 'Modified' -Values @{ Indexed = $true } | Out-Null
 
 # ---- Eventos -----------------------------------------------------
 Asegurar-Lista 'Eventos' 'Tipo de evento'
@@ -94,6 +95,7 @@ Asegurar-Columna 'Eventos' 'EstadoHasta' 'Estado hasta' 'Choice' @('Nuevo', 'Asi
 Asegurar-Columna 'Eventos' 'Publico' 'Público' 'Boolean' @()
 Asegurar-Columna 'Eventos' 'Detalle' 'Detalle' 'Note' @()
 Set-PnPField -List 'Eventos' -Identity 'TicketNumero' -Values @{ Indexed = $true } | Out-Null
+Set-PnPField -List 'Eventos' -Identity 'Modified' -Values @{ Indexed = $true } | Out-Null
 
 # ---- Encuestas ---------------------------------------------------
 Asegurar-Lista 'Encuestas' 'Ticket'
@@ -103,7 +105,9 @@ Asegurar-Columna 'Encuestas' 'RespondidaEn' 'Respondida' 'DateTime' @()
 Asegurar-Columna 'Encuestas' 'Resultado' 'Resultado' 'Choice' @('Pendiente', 'Conforme', 'No conforme', 'Tácita')
 Asegurar-Columna 'Encuestas' 'CSAT' 'CSAT' 'Number' @()
 Asegurar-Columna 'Encuestas' 'Comentario' 'Comentario' 'Note' @()
+Asegurar-Columna 'Encuestas' 'TokenHash' 'Hash del link' 'Text' @()
 Set-PnPField -List 'Encuestas' -Identity 'Title' -Values @{ Indexed = $true } | Out-Null
+Set-PnPField -List 'Encuestas' -Identity 'Modified' -Values @{ Indexed = $true } | Out-Null
 
 # ---- Personas ----------------------------------------------------
 Asegurar-Lista 'Personas' 'Nombre'
@@ -113,6 +117,17 @@ Asegurar-Columna 'Personas' 'Pais' 'País' 'Choice' @('Uruguay (HQ)', 'Argentina
 Asegurar-Columna 'Personas' 'Rol' 'Rol' 'Choice' @('solicitante', 'analista', 'coordinador')
 Asegurar-Columna 'Personas' 'Activo' 'Activo' 'Boolean' @()
 Set-PnPField -List 'Personas' -Identity 'Mail' -Values @{ Indexed = $true } | Out-Null
+Set-PnPField -List 'Personas' -Identity 'Modified' -Values @{ Indexed = $true } | Out-Null
+
+# ---- Correos -----------------------------------------------------
+Asegurar-Lista 'Correos' 'Message-ID'
+Asegurar-Columna 'Correos' 'TicketNumero' 'Ticket' 'Text' @()
+Asegurar-Columna 'Correos' 'RecibidoEn' 'Recibido' 'DateTime' @()
+Asegurar-Columna 'Correos' 'Remitente' 'Remitente' 'Text' @()
+Asegurar-Columna 'Correos' 'Asunto' 'Asunto' 'Text' @()
+Asegurar-Columna 'Correos' 'Resultado' 'Resultado' 'Text' @()
+Set-PnPField -List 'Correos' -Identity 'Title' -Values @{ Indexed = $true } | Out-Null
+Set-PnPField -List 'Correos' -Identity 'Title' -Values @{ EnforceUniqueValues = $true } | Out-Null
 
 # ---- ReglasClasificacion -----------------------------------------
 Asegurar-Lista 'ReglasClasificacion' 'Palabra'

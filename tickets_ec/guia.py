@@ -42,14 +42,14 @@ PASOS = (
           "Opcional: una app de Entra ID con Sites.Selected (sólo lectura) para el export diario a Power BI."),
          "IT confirma el buzón y el sitio, y la cuenta de servicio entra a los dos.",
          ("docs/CASILLA.md",)),
-    Paso("listas", "Crear las 9 listas de SharePoint", "PowerShell 7 + PnP.PowerShell", "10 min",
+    Paso("listas", "Crear las 10 listas de SharePoint", "PowerShell 7 + PnP.PowerShell", "10 min",
          ("Install-Module PnP.PowerShell -Scope CurrentUser",
           "./powerapps/sharepoint/Provisionar-Listas.ps1 -Sitio https://<tenant>.sharepoint.com/sites/TicketsEC "
           "-ClientId <guid>",
           "El script crea las columnas, las opciones, los índices y carga los catálogos (reglas del clasificador, "
           "subtipos, SLA, mercados de HQ, feriados). Es idempotente: se puede volver a correr."),
-         "En el sitio aparecen Tickets, Eventos, Encuestas, Personas, ReglasClasificacion, Mercados, Feriados, "
-         "Subtipos y SLA, y las cinco de referencia tienen filas.",
+         "En el sitio aparecen Tickets, Eventos, Encuestas, Personas, Correos, ReglasClasificacion, Mercados, "
+         "Feriados, Subtipos y SLA, y las cinco de referencia tienen filas.",
          ("powerapps/sharepoint/Provisionar-Listas.ps1", "powerapps/sharepoint/esquema.json",
           "powerapps/sharepoint/reglas_clasificacion.csv", "powerapps/sharepoint/subtipos.csv",
           "powerapps/sharepoint/sla.csv", "powerapps/sharepoint/mercados.csv", "powerapps/sharepoint/feriados.csv")),
@@ -59,6 +59,20 @@ PASOS = (
           "Opcional: los solicitantes frecuentes con su área y país (si no, los completa el equipo en el primer "
           "ticket y el siguiente ya viene bien)."),
          "Cada analista aparece en Personas con su rol y su equipo."),
+    Paso("suites", "Conectar la app de cada integrante a la misma mesa", "IT (Entra ID) + config.equipo.toml",
+         "30 min",
+         ("IT registra la app «Tickets EC» en Entra ID: cliente público (sin secreto), URI de redirección "
+          "http://localhost, permisos delegados Sites.ReadWrite.All, Mail.ReadWrite.Shared y Mail.Send.Shared, con "
+          "consentimiento de administrador.",
+          "El coordinador copia config.equipo.ejemplo.toml a config.equipo.toml y completa tenant, cliente y sitio: "
+          "no tiene secretos, viaja en el paquete de la suite.",
+          "Cada integrante abre la suite (o «Abrir Tickets EC.bat») y entra con su cuenta de Adium: la contraseña la "
+          "pide Microsoft, no la app.",
+          "Con la app así, los flujos 1 a 5 son opcionales: cada PC lee la casilla y la que llega primero a un "
+          "correo se lo queda (lista Correos). El flujo 6 y la app de Power Apps conviven sobre las mismas listas."),
+         "Dos integrantes, en dos PCs: uno toma un ticket y el otro lo ve tomado al minuto; si los dos lo toman a la "
+         "vez, el segundo recibe «otro integrante cambió este ticket».",
+         ("docs/EQUIPO.md", "config.equipo.ejemplo.toml")),
     Paso("flujos", "Crear los 6 flujos de Power Automate", "Power Automate (con la cuenta de servicio)", "2-3 h",
          ("1 · Correo → ticket: crea el ticket o lo suma a uno abierto, clasifica y manda el acuse.",
           "2 · Avisos por evento: al analista, al solicitante y la reapertura.",
@@ -99,7 +113,7 @@ PASOS = (
           "Asignarlo, pedir un dato, responder desde la otra cuenta: vuelve a «En curso».",
           "Resolverlo y contestar la encuesta por correo; otro, desde la app.",
           "Correr el export y ver los dos en el tablero."),
-         "Los pasos 1 a 7 dan lo esperado. Recién ahí la guía deja de ser «· REVISAR».",
+         "Los pasos 1 a 8 dan lo esperado. Recién ahí la guía deja de ser «· REVISAR».",
          ("powerapps/APP.md",), (("APP.md", "Probar antes de compartir"),)),
 )
 

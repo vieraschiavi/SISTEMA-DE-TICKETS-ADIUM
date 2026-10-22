@@ -11,12 +11,21 @@ el link de su correo.
 
 La app no tiene reglas propias: todo lo que cambia un ticket pasa por
 `tickets_ec.servicio.Mesa`.
+
+Dos modos (`modo` en `config.equipo.toml`, ver docs/EQUIPO.md):
+
+* **local** — la base es un SQLite en esta PC y el que actúa se elige en la
+  barra lateral. Para una persona sola o para recorrer la demo.
+* **compartida** — cada integrante la abre en SU PC (sola o dentro de la
+  suite) y entra con su cuenta de Microsoft de Adium. Todos trabajan sobre
+  las mismas listas de SharePoint, que alimenta la casilla: lo que toma o
+  resuelve uno lo ven los demás en la siguiente sincronización.
 """
 from __future__ import annotations
 
 import re
 import sys
-from datetime import date, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 
 import pandas as pd
@@ -25,8 +34,8 @@ import streamlit as st
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
 
+from tickets_ec import acceso, clasificador, compartida, demo, exportar, guia  # noqa: E402
 from tickets_ec import catalogos as C  # noqa: E402
-from tickets_ec import clasificador, demo, exportar, guia  # noqa: E402
 from tickets_ec import correo as CO  # noqa: E402
 from tickets_ec import indicadores as I  # noqa: E402
 from tickets_ec import marca as M  # noqa: E402
@@ -59,8 +68,24 @@ st.markdown(f"""<style>
 # Estado
 # ==========================================================================
 @st.cache_resource
-def _mesa() -> Mesa:
+def _sesion() -> acceso.Sesion:
+    """La sesión de Microsoft de quien usa ESTA PC (modo compartido)."""
+    return acceso.Sesion(cargar())
+
+
+@st.cache_resource
+def _mesa(mail: str = "") -> Mesa:
     cfg = cargar()
+    if cfg.compartida:
+        ses = _sesion()
+        enviar = (compartida.enviador_tolerante(CO.FuenteGraph.delegada(cfg.casilla, ses.token).enviar)
+                  if cfg.envio_activo else None)
+        listas = compartida.ListasGraph(cfg.sharepoint_host, cfg.sharepoint_sitio, ses.token)
+        # Una copia por persona: dos cuentas en la misma PC no comparten caché.
+        copia = Path(cfg.base).parent / f"compartida-{re.sub(r'[^a-z0-9]+', '_', mail)}.db"
+        db = compartida.AlmacenCompartido(copia, listas)
+        db.sincronizar(completa=db.ultima_sincronizacion is None)
+        return Mesa(db, cfg, CO.BuzonSalida(cfg.carpeta_salida, enviar))
     salida = CO.BuzonSalida(cfg.carpeta_salida, _enviador(cfg) if cfg.envio_activo else None)
     return Mesa(Almacen(cfg.base), cfg, salida)
 
@@ -71,7 +96,38 @@ def _enviador(cfg):
     return CO.FuenteGraph(cfg.graph_tenant, cfg.graph_cliente, cfg.graph_secreto, cfg.casilla).enviar
 
 
-mesa = _mesa()
+def pantalla_ingreso() -> acceso.Identidad:
+    """En modo compartido, nadie pasa sin su cuenta de Adium."""
+    try:
+        ses = _sesion()
+    except acceso.ErrorAcceso as err:
+        st.error(str(err))
+        st.stop()
+    if ses.quien:
+        return ses.quien
+    st.image(str(M.LOGO), width=70)
+    st.title(M.NOMBRE)
+    st.markdown("Entrá con tu **cuenta de Microsoft de Adium**, la misma del correo y de Teams. Se abre la página "
+                "de inicio de sesión de Microsoft en el navegador: **la app no ve tu contraseña**.")
+    if st.button("🔑 Ingresar con mi cuenta de Adium", type="primary"):
+        try:
+            with st.spinner("Esperando el inicio de sesión de Microsoft (en la pestaña que se abrió)…"):
+                ses.ingresar()
+            st.rerun()
+        except acceso.ErrorAcceso as err:
+            st.error(str(err))
+    st.caption("Los tickets, los estados y quién tiene cada uno viven en las listas de SharePoint de la mesa: "
+               "cualquier integrante ve lo mismo desde su PC.")
+    st.stop()
+
+
+_cfg = cargar()
+quien = pantalla_ingreso() if _cfg.compartida else None
+try:
+    mesa = _mesa(quien.mail if quien else "")
+except (ErrorMesa, acceso.ErrorAcceso) as _err:
+    st.error(f"No se pudo abrir la mesa compartida: {_err}")
+    st.stop()
 cfg = mesa.cfg
 
 
@@ -133,7 +189,7 @@ def pagina_encuesta(token: str) -> None:
                 st.error(str(err))
 
 
-if st.query_params.get("encuesta"):
+if st.query_params.get("encuesta") and not cfg.compartida:
     pagina_encuesta(st.query_params["encuesta"])
     st.stop()
 
@@ -150,16 +206,89 @@ with st.sidebar:
     if "pagina" not in st.session_state:
         st.session_state["pagina"] = "🎫 Ticket" if st.query_params.get("ticket") else paginas[0]
     pagina = st.radio("Ir a", paginas, key="pagina", label_visibility="collapsed")
-    equipo = mesa.db.analistas()
-    if equipo:
-        opciones = {f"{a['nombre']} · {a['area']}": a["mail"] for a in equipo}
-        actor = opciones[st.selectbox("Actuás como", list(opciones))]
+    if cfg.compartida:
+        actor = quien.mail
+        mi_rol = acceso.rol(mesa.db, actor)
+        st.markdown(f"👤 **{quien.nombre}** · {mi_rol or 'sin rol en la mesa'}")
+        forzar = st.button("🔄 Sincronizar", width="stretch")
     else:
-        actor = ""
-        st.warning("Todavía no hay equipo: dalo de alta en ⚙️ Configuración o cargá la demo.")
+        equipo = mesa.db.analistas()
+        # Una PC sola: el que actúa se elige acá y puede todo.
+        mi_rol = acceso.COORDINADOR
+        if equipo:
+            opciones = {f"{a['nombre']} · {a['area']}": a["mail"] for a in equipo}
+            actor = opciones[st.selectbox("Actuás como", list(opciones))]
+        else:
+            actor = ""
+            st.warning("Todavía no hay equipo: dalo de alta en ⚙️ Configuración o cargá la demo.")
     st.caption(f"Casilla: {cfg.casilla}")
     st.caption("✉️ Envío de correos: " + ("**activo**" if cfg.envio_activo else
                                           f"apagado — se guardan en `{Path(cfg.carpeta_salida).name}/`"))
+
+
+
+def sincronizar(forzar: bool = False) -> str:
+    """Trae lo que hicieron los demás y lee la casilla, cada `segundos_sync`
+    (o ya, si una escritura chocó con la de otro). Devuelve el error, si lo
+    hubo: la app sigue con lo que tiene."""
+    db = mesa.db
+    ultima = db.ultima_sincronizacion
+    # 0.8: el fragmento que llama cada `segundos_sync` no se saltea una vuelta por milisegundos.
+    if not (forzar or db.desactualizado or not ultima
+            or (datetime.now(UTC) - ultima).total_seconds() >= cfg.segundos_sync * 0.8):
+        return ""
+    try:
+        db.sincronizar()
+        if cfg.casilla_automatica:
+            res = mesa.procesar_bandeja(CO.FuenteGraph.delegada(cfg.casilla, _sesion().token))
+            mesa.cierre_tacito()
+            nuevos = [r.numero for r in res if r.resultado == "nuevo"]
+            if nuevos:
+                st.toast(f"Entraron {len(nuevos)} pedidos por la casilla: {', '.join(nuevos[:5])}")
+    except (ErrorMesa, acceso.ErrorAcceso, ValueError) as err:
+        return f"No se pudo sincronizar: {err}"
+    return ""
+
+
+def _huella() -> tuple:
+    """Cambia si entró o se movió algo: decide si hace falta redibujar la pantalla."""
+    t = mesa.db.consulta("SELECT COUNT(*) AS n, MAX(actualizado_en) AS m FROM tickets")[0]
+    return t["n"], t["m"], mesa.db.consulta("SELECT COUNT(*) AS n FROM eventos")[0]["n"]
+
+
+if cfg.compartida:
+    if forzar or mesa.db.desactualizado:
+        if error := sincronizar(forzar=True):
+            st.sidebar.warning(error)
+    with st.sidebar:
+        @st.fragment(run_every=timedelta(seconds=cfg.segundos_sync))
+        def estado_sincronizacion() -> None:
+            """Corre sola cada `segundos_sync`: si entró algo, redibuja la app entera."""
+            antes = _huella()
+            error = sincronizar()
+            if _huella() != antes:
+                st.rerun()
+            cuando = mesa.db.ultima_sincronizacion
+            st.caption(f"Sincronizado {cuando.astimezone():%H:%M:%S}" if cuando else "Sin sincronizar")
+            if error:
+                st.warning(error)
+            if mesa.db.pendientes:
+                st.caption(f"⏳ {mesa.db.pendientes} cambios esperando red para subir"
+                           + (f" ({mesa.db.error_subida})" if mesa.db.error_subida else ""))
+            errores = getattr(mesa.salida.enviar, "errores", [])
+            if errores:
+                st.caption(f"✉️ {len(errores)} correos no salieron (quedaron en la carpeta de salida): {errores[-1]}")
+
+        estado_sincronizacion()
+        if st.button("Salir", width="stretch"):
+            _sesion().salir()
+            st.cache_resource.clear()
+            st.rerun()
+    if not mi_rol:
+        st.error(f"Tu cuenta ({actor}) no está en la lista **Personas** de la mesa como analista o coordinador. "
+                 "Pedile a un coordinador que te dé de alta (⚙️ Configuración). Si tenés un pedido para el equipo, "
+                 f"escribilo a {cfg.casilla}.")
+        st.stop()
 
 if st.session_state.get("_aviso"):
     st.success(st.session_state.pop("_aviso"))
@@ -202,7 +331,7 @@ def inicio() -> None:
     df = _tickets_df()
     if df.empty:
         st.info("La mesa está vacía. Cargá la demo para recorrerla, o procesá la casilla en 📨 Casilla.")
-        if st.button("Cargar la demo (18 meses simulados, ~30 s)", type="primary"):
+        if not cfg.compartida and st.button("Cargar la demo (18 meses simulados, ~30 s)", type="primary"):
             with st.spinner("Simulando dieciocho meses de pedidos…"):
                 demo.generar(cfg.base)
             st.cache_resource.clear()
@@ -303,6 +432,11 @@ def ticket() -> None:
                    f"{s['horas_efectivas']:.1f} de {s['sla_horas']:.0f} horas hábiles · vence {s['vence']:%d/%m %H:%M}"
                    if t["estado"] in C.PENDIENTES_EQUIPO else "") + "</div>", unsafe_allow_html=True)
     st.markdown(f"## #{t['numero']} &nbsp; {t['asunto']}")
+    puedo = acceso.puede_actuar(mi_rol, actor, t)
+    asigna = acceso.puede_asignar(mi_rol)
+    if not puedo and t["estado"] not in C.FINALES:
+        st.info(f"Lo tiene {mesa._nombre(t['analista_mail'])}. Podés dejarle una nota; para tomarlo, pedile a un "
+                "coordinador que te lo asigne.")
     izq, der = st.columns([3, 2], gap="large")
 
     with izq:
@@ -315,12 +449,12 @@ def ticket() -> None:
         st.markdown("#### Acciones")
         a1, a2, a3, a4 = st.columns(4)
         try:
-            if t["estado"] in (C.NUEVO, C.ASIGNADO, C.REABIERTO) and a1.button("▶️ Tomarlo", width="stretch"):
+            if puedo and t["estado"] in (C.NUEVO, C.ASIGNADO, C.REABIERTO) and a1.button("▶️ Tomarlo", width="stretch"):
                 mesa.tomar(numero, actor)
                 ok(f"{numero} en curso.")
                 st.rerun()
             with a2.popover("❓ Pedir información", width="stretch",
-                            disabled=t["estado"] not in (C.NUEVO, C.ASIGNADO, C.EN_CURSO, C.REABIERTO)):
+                            disabled=not puedo or t["estado"] not in (C.NUEVO, C.ASIGNADO, C.EN_CURSO, C.REABIERTO)):
                 pregunta = st.text_area("¿Qué le falta al pedido?", key="preg")
                 sub = st.selectbox("Subestado", C.SUBESTADOS[C.EN_ESPERA], key="sub_esp")
                 if st.button("Enviar al solicitante", type="primary"):
@@ -328,13 +462,13 @@ def ticket() -> None:
                     ok("Le escribimos al solicitante: el reloj del SLA queda detenido.")
                     st.rerun()
             with a3.popover("✅ Resolver", width="stretch",
-                            disabled=t["estado"] in (C.RESUELTO, *C.FINALES)):
+                            disabled=not puedo or t["estado"] in (C.RESUELTO, *C.FINALES)):
                 resol = st.text_area("Qué se hizo (lo lee el solicitante)", key="resol")
                 if st.button("Resolver y pedir conformidad", type="primary"):
                     mesa.resolver(numero, resol, actor)
                     ok("Resuelto: le llegó la encuesta de conformidad al solicitante.")
                     st.rerun()
-            with a4.popover("✖️ Cancelar", width="stretch", disabled=t["estado"] in C.FINALES):
+            with a4.popover("✖️ Cancelar", width="stretch", disabled=not puedo or t["estado"] in C.FINALES):
                 motivo = st.text_area("Motivo", key="motivo")
                 sub = st.selectbox("Subestado", C.SUBESTADOS[C.CANCELADO], key="sub_can")
                 if st.button("Cancelar el ticket"):
@@ -381,7 +515,7 @@ def ticket() -> None:
             asignado = c1.selectbox("Asignado a", ["(sin asignar)"] + list(equipo_mails),
                                     index=(list(equipo_mails).index(t["analista_mail"]) + 1)
                                     if t["analista_mail"] in equipo_mails else 0,
-                                    format_func=lambda m: equipo_mails.get(m, m), key="d_asig")
+                                    format_func=lambda m: equipo_mails.get(m, m), key="d_asig", disabled=not asigna)
             subestado = _sel(c2, "Subestado", C.SUBESTADOS.get(t["estado"], ()), t["subestado"], "d_subest")
             area = _sel(c1, "Área solicitante", C.AREAS, t["area"], "d_area")
             pais = _sel(c2, "País", C.PAISES, t["pais"], "d_pais")
@@ -392,7 +526,7 @@ def ticket() -> None:
             unidad = _sel(c2, "Unidad de negocio", C.UNIDADES_NEGOCIO, t["unidad_negocio"], "d_un")
             fuente = _sel(c1, "Fuente de datos", C.FUENTES, t["fuente_datos"], "d_fuente")
             tablero = c2.text_input("Tablero / informe", value=t["tablero"] or "", key="d_tab")
-            if st.form_submit_button("Actualizar", type="primary", width="stretch"):
+            if st.form_submit_button("Actualizar", type="primary", width="stretch", disabled=not puedo):
                 try:
                     if equipo_r != t["equipo"]:
                         mesa.derivar(numero, equipo_r, actor)
@@ -472,13 +606,17 @@ def nuevo() -> None:
 # ==========================================================================
 def casilla() -> None:
     st.title("📨 Casilla")
-    st.markdown(f"**{cfg.nombre_casilla}** · `{cfg.casilla}` · fuente: **{cfg.fuente}**")
+    st.markdown(f"**{cfg.nombre_casilla}** · `{cfg.casilla}` · fuente: "
+                + ("**la casilla compartida, con tu cuenta** (cada sincronización la lee sola)" if cfg.compartida
+                   else f"**{cfg.fuente}**"))
     st.caption("La casilla la crea IT como buzón compartido de Microsoft 365. Cómo pedirla y cómo conectarla: "
                "`docs/CASILLA.md`.")
     c1, c2 = st.columns(2)
     if c1.button("Procesar la casilla ahora", type="primary"):
         try:
-            if cfg.fuente == "graph":
+            if cfg.compartida:
+                fuente = CO.FuenteGraph.delegada(cfg.casilla, _sesion().token)
+            elif cfg.fuente == "graph":
                 fuente = CO.FuenteGraph(cfg.graph_tenant, cfg.graph_cliente, cfg.graph_secreto, cfg.casilla)
             elif cfg.fuente == "imap":
                 fuente = CO.FuenteIMAP(cfg.imap_host, cfg.imap_usuario, clave=cfg.imap_clave)
@@ -617,13 +755,15 @@ def configuracion() -> None:
     st.title("⚙️ Configuración")
     st.subheader("Equipos resolutores")
     st.dataframe(pd.DataFrame(mesa.db.analistas(solo_activos=False)), hide_index=True, width="stretch")
+    if not acceso.puede_configurar(mi_rol):
+        st.caption("Las altas y bajas del equipo las hace un coordinador.")
     with st.form("alta"):
         c1, c2, c3, c4 = st.columns(4)
         mail = c1.text_input("Correo")
         nombre = c2.text_input("Nombre")
         equipo_n = c3.selectbox("Equipo", C.EQUIPOS)
         coord = c4.toggle("Coordina")
-        if st.form_submit_button("Dar de alta"):
+        if st.form_submit_button("Dar de alta", disabled=not acceso.puede_configurar(mi_rol)):
             try:
                 mesa.alta_analista(mail, nombre, coordinador=coord, equipo=equipo_n)
                 ok(f"{nombre} sumado a {equipo_n}.")
@@ -669,7 +809,7 @@ def guia_power_platform() -> None:
                 "licencias premium ni servidor. Las listas, los catálogos y las fórmulas se generan desde los "
                 "mismos catálogos que usa esta app.")
     st.warning("**· REVISAR** — los flujos y las pantallas todavía no se armaron en el tenant de Adium. "
-               "La guía deja de estar en revisión cuando pasa la prueba de punta a punta (paso 8).")
+               f"La guía deja de estar en revisión cuando pasa la prueba de punta a punta (paso {len(guia.PASOS)}).")
     hechos = _progreso()
     listos = sum(bool(hechos.get(p.clave)) for p in guia.PASOS)
     st.progress(listos / len(guia.PASOS), text=f"{listos} de {len(guia.PASOS)} pasos hechos")
