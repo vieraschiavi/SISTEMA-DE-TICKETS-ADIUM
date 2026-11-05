@@ -42,6 +42,10 @@ class ResultadoCorreo:
     numero: str | None = None
 
 
+def _copias(t: dict) -> set[str]:
+    return {c.strip().lower() for c in (t.get("cc") or "").split(",") if c.strip()}
+
+
 def voto_por_correo(asunto: str) -> bool | None:
     """«RE: [EC-00042] Conforme» → True; «… No conforme» → False; otra cosa → None."""
     limpio = clasificador.normalizar(re.sub(r"\[[^\]]*\]", " ", CO.asunto_limpio(asunto or "")))
@@ -364,6 +368,64 @@ class Mesa:
                              en_respuesta_a=t["message_id"] or "", ticket=t)
         return self.db.ticket(numero)
 
+    # ======================================================================
+    # El solicitante, desde el portal
+    # ======================================================================
+    def _del_solicitante(self, numero: str, mail: str, *, con_copia: bool = True) -> dict:
+        """El ticket, si es de `mail` (o, con `con_copia`, si `mail` va en copia). Si no, ErrorMesa:
+        en el portal cada uno ve y toca sólo lo suyo."""
+        t = self._ticket(numero)
+        mail = (mail or "").strip().lower()
+        if mail != t["solicitante_mail"] and not (con_copia and mail in _copias(t)):
+            raise ErrorMesa(f"{numero} no es un pedido tuyo.")
+        return t
+
+    def mis_tickets(self, mail: str) -> list[dict]:
+        """Los pedidos de `mail` y los que lleva en copia, del más nuevo al más viejo."""
+        mail = (mail or "").strip().lower()
+        return [t for t in reversed(self.db.tickets()) if t["solicitante_mail"] == mail or mail in _copias(t)]
+
+    def conversacion(self, numero: str, mail: str) -> list[dict]:
+        """Lo que el solicitante ve de su ticket: los cambios de estado, las respuestas públicas y la
+        encuesta. Nunca las notas internas ni las derivaciones."""
+        t = self._del_solicitante(numero, mail)
+        return [e for e in self.db.eventos(t["id"])
+                if e["publico"] and e["tipo"] in ("estado", "comentario", "correo_entrante", "encuesta")]
+
+    def responder_como_solicitante(self, numero: str, texto: str, mail: str,
+                                   adjuntos: list[CO.Adjunto] | None = None) -> dict:
+        """Lo mismo que contestar el correo, pero desde el portal: si el ticket esperaba al
+        solicitante, vuelve a «En curso» y el reloj del SLA sigue."""
+        t = self._del_solicitante(numero, mail)
+        if t["estado"] in C.FINALES:
+            raise ErrorMesa(f"{numero} está {t['estado'].lower()}: abrí un pedido nuevo y nombralo en la descripción.")
+        if not (texto or "").strip() and not adjuntos:
+            raise ErrorMesa("Escribí tu respuesta o adjuntá un archivo.")
+        mail = mail.strip().lower()
+        with self.db.transaccion():
+            self.db.agregar_evento(t["id"], self.ahora(), mail, "comentario", publico=True,
+                                   detalle=(texto or "").strip() or "(adjuntos)")
+            self.db.actualizar_ticket(t["id"], actualizado_en=self.ahora())
+            self._adjuntos(t, adjuntos or [])
+            if t["estado"] == C.EN_ESPERA:
+                self._cambiar(self.db.ticket(numero), C.EN_CURSO, mail, "El solicitante respondió (portal)",
+                              sistema=True)
+        return self.db.ticket(numero)
+
+    def conformidad_desde_el_portal(self, numero: str, mail: str, conforme: bool, csat: int | None = None,
+                                    comentario: str = "") -> dict:
+        """La encuesta de conformidad contestada en el portal. La contesta el solicitante, no quien va en copia."""
+        t = self._del_solicitante(numero, mail, con_copia=False)
+        pendiente = self._encuesta_pendiente(t)
+        if not pendiente:
+            raise ErrorMesa(f"{numero} no está esperando tu conformidad.")
+        return self._responder(pendiente, t, conforme, csat, comentario)
+
+    def _encuesta_pendiente(self, t: dict) -> dict | None:
+        filas = self.db.consulta("SELECT * FROM encuestas WHERE ticket_id = ? AND resultado = ? "
+                                 "ORDER BY ronda DESC LIMIT 1", (t["id"], C.PENDIENTE))
+        return filas[0] if filas else None
+
     def pedir_informacion(self, numero: str, pregunta: str, actor: str, subestado: str | None = None) -> dict:
         if not (pregunta or "").strip():
             raise ErrorMesa("¿Qué dato le falta al pedido? La pregunta es lo que recibe el solicitante.")
@@ -526,9 +588,8 @@ class Mesa:
         """El solicitante tocó «Conforme» / «No conforme» en el correo de
         resuelto (o lo escribió en el asunto). La primera línea del cuerpo
         puede traer la satisfacción («5», «4/5», «★★★★»)."""
-        pendientes = self.db.consulta("SELECT * FROM encuestas WHERE ticket_id = ? AND resultado = ? "
-                                      "ORDER BY ronda DESC LIMIT 1", (t["id"], C.PENDIENTE))
-        if not pendientes:
+        pendiente = self._encuesta_pendiente(t)
+        if not pendiente:
             return self._respuesta(t, m)
         texto = (m.cuerpo or "").strip()
         primera = texto.splitlines()[0] if texto else ""
@@ -538,7 +599,7 @@ class Mesa:
         comentario = texto if (texto and not nota and not estrellas) else "\n".join(texto.splitlines()[1:]).strip()
         if not conforme and not comentario:
             comentario = "No conforme (respondió por correo sin comentario)"
-        self._responder(pendientes[0], t, conforme, csat, comentario)
+        self._responder(pendiente, t, conforme, csat, comentario)
         self.db.registrar_correo(m.message_id, t["id"], m.fecha, m.remitente, m.asunto, "encuesta")
         return ResultadoCorreo(m.message_id, "encuesta", t["numero"])
 
@@ -552,6 +613,32 @@ class Mesa:
                 self._cambiar(t, C.EN_CURSO, m.remitente, "El solicitante respondió", sistema=True)
             self.db.registrar_correo(m.message_id, t["id"], m.fecha, m.remitente, m.asunto, "respuesta")
         return ResultadoCorreo(m.message_id, "respuesta", t["numero"])
+
+    # ======================================================================
+    # Lo que entra por otro sistema (FreshService)
+    # ======================================================================
+    def crear_externo(self, origen: str, recibido_en: datetime | None, asunto: str, descripcion: str,
+                      solicitante_mail: str, solicitante_nombre: str = "", *, canal: str,
+                      cc: list[str] | None = None) -> ResultadoCorreo:
+        """Un pedido que viene de otro sistema, una sola vez: `origen` es su identificador (con forma de
+        Message-ID) y pasa por el mismo candado que los correos, así dos PCs no lo importan dos veces.
+        Sin acuse por correo: el sistema de origen ya le avisa al solicitante."""
+        if not self.db.reclamar_correo(origen):
+            return ResultadoCorreo(origen, "ignorado: ya importado")
+        try:
+            t = self.crear(asunto, descripcion, solicitante_mail, solicitante_nombre, canal=canal, cc=cc,
+                           message_id=origen, acusar=False)
+            self.db.registrar_correo(origen, t["id"], recibido_en or self.ahora(), t["solicitante_mail"],
+                                     asunto, "nuevo")
+        except BaseException:
+            self.db.soltar_correo(origen)
+            raise
+        return ResultadoCorreo(origen, "nuevo", t["numero"])
+
+    def anotar(self, numero: str, tipo: str, detalle: str) -> None:
+        """Una marca del sistema en el historial (p. ej. qué estado se le devolvió a FreshService)."""
+        t = self._ticket(numero)
+        self.db.agregar_evento(t["id"], self.ahora(), SISTEMA, tipo, detalle=detalle)
 
     def procesar_bandeja(self, fuente) -> list[ResultadoCorreo]:
         """Lee la fuente, procesa cada correo y lo confirma recién después de

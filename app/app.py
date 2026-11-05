@@ -34,7 +34,7 @@ import streamlit as st
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
 
-from tickets_ec import acceso, clasificador, compartida, demo, exportar, guia  # noqa: E402
+from tickets_ec import acceso, clasificador, compartida, demo, exportar, freshservice, guia  # noqa: E402
 from tickets_ec import catalogos as C  # noqa: E402
 from tickets_ec import correo as CO  # noqa: E402
 from tickets_ec import indicadores as I  # noqa: E402
@@ -42,6 +42,9 @@ from tickets_ec import marca as M  # noqa: E402
 from tickets_ec.almacen import Almacen  # noqa: E402
 from tickets_ec.config import cargar  # noqa: E402
 from tickets_ec.servicio import ErrorMesa, Mesa  # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import portal_solicitante  # noqa: E402
 
 st.set_page_config(page_title=M.NOMBRE, page_icon=str(M.SIMBOLO), layout="wide")
 
@@ -201,20 +204,21 @@ with st.sidebar:
     st.image(str(M.LOGO), width=70)
     st.markdown(f"### {M.NOMBRE}")
     st.caption(M.LEMA)
-    paginas = ["🏠 Inicio", "📥 Bandeja", "🎫 Ticket", "➕ Nuevo pedido", "📨 Casilla", "📊 Indicadores",
-               "📤 Power BI", "🧭 Guía Power Platform", "⚙️ Configuración"]
-    if "pagina" not in st.session_state:
-        st.session_state["pagina"] = "🎫 Ticket" if st.query_params.get("ticket") else paginas[0]
+    # Una PC sola: el que actúa se elige abajo y puede todo. Con la cuenta de Adium, el rol sale de
+    # la lista Personas; quien no es del equipo ve sólo el portal para pedir.
+    mi_rol = acceso.rol(mesa.db, quien.mail) if cfg.compartida else acceso.COORDINADOR
+    paginas = (["🏠 Inicio", "📥 Bandeja", "🎫 Ticket", "➕ Nuevo pedido", "📨 Casilla", "📊 Indicadores",
+                "📤 Power BI", "🧭 Guía Power Platform", "⚙️ Configuración", "🌐 Portal"] if mi_rol
+               else ["🌐 Portal"])
+    if st.session_state.get("pagina") not in paginas:
+        st.session_state["pagina"] = "🎫 Ticket" if st.query_params.get("ticket") and mi_rol else paginas[0]
     pagina = st.radio("Ir a", paginas, key="pagina", label_visibility="collapsed")
     if cfg.compartida:
         actor = quien.mail
-        mi_rol = acceso.rol(mesa.db, actor)
-        st.markdown(f"👤 **{quien.nombre}** · {mi_rol or 'sin rol en la mesa'}")
+        st.markdown(f"👤 **{quien.nombre}** · {mi_rol or 'solicitante'}")
         forzar = st.button("🔄 Sincronizar", width="stretch")
     else:
         equipo = mesa.db.analistas()
-        # Una PC sola: el que actúa se elige acá y puede todo.
-        mi_rol = acceso.COORDINADOR
         if equipo:
             opciones = {f"{a['nombre']} · {a['area']}": a["mail"] for a in equipo}
             actor = opciones[st.selectbox("Actuás como", list(opciones))]
@@ -239,10 +243,16 @@ def sincronizar(forzar: bool = False) -> str:
         return ""
     try:
         db.sincronizar()
-        if cfg.casilla_automatica:
+        # La casilla, los cierres tácitos y FreshService los corre el equipo: quien sólo pide no tiene
+        # acceso a la casilla compartida (y no tiene por qué).
+        if cfg.casilla_automatica and mi_rol:
             res = mesa.procesar_bandeja(CO.FuenteGraph.delegada(cfg.casilla, _sesion().token))
             mesa.cierre_tacito()
             nuevos = [r.numero for r in res if r.resultado == "nuevo"]
+            # FreshService sólo desde la PC que tiene la API key en su entorno (una alcanza: el candado
+            # de la lista Correos evita que dos lo importen dos veces).
+            if cfg.freshservice_activo and cfg.freshservice_clave:
+                nuevos += [r.numero for r in freshservice.sincronizar(mesa, cfg) if r.resultado == "nuevo"]
             if nuevos:
                 st.toast(f"Entraron {len(nuevos)} pedidos por la casilla: {', '.join(nuevos[:5])}")
     except (ErrorMesa, acceso.ErrorAcceso, ValueError) as err:
@@ -284,11 +294,6 @@ if cfg.compartida:
             _sesion().salir()
             st.cache_resource.clear()
             st.rerun()
-    if not mi_rol:
-        st.error(f"Tu cuenta ({actor}) no está en la lista **Personas** de la mesa como analista o coordinador. "
-                 "Pedile a un coordinador que te dé de alta (⚙️ Configuración). Si tenés un pedido para el equipo, "
-                 f"escribilo a {cfg.casilla}.")
-        st.stop()
 
 if st.session_state.get("_aviso"):
     st.success(st.session_state.pop("_aviso"))
@@ -574,7 +579,7 @@ def nuevo() -> None:
         c1, c2, c3 = st.columns(3)
         tipo = c1.selectbox("Tipo de ticket", ["(detectar automáticamente)"] + [t.nombre for t in C.TIPOS])
         prioridad = c2.selectbox("Prioridad", ["(la del tipo)"] + [p.nombre for p in C.PRIORIDADES])
-        canal = c3.selectbox("Canal", [c for c in C.CANALES if c != "Correo"])
+        canal = c3.selectbox("Canal", [c for c in C.CANALES if c not in ("Correo", "Portal", "FreshService")])
         c1, c2, c3 = st.columns(3)
         mercado = c1.selectbox("Mercado conformado", [""] + sorted({m["mercado"] for m in clasificador.mercados()}))
         atc = c2.text_input("ATC (si no hay mercado)")
@@ -629,6 +634,21 @@ def casilla() -> None:
         except Exception as err:      # noqa: BLE001 — se muestra, no se esconde
             st.error(f"No se pudo leer la casilla: {err}")
     archivo = c2.file_uploader("…o subir un correo (.eml)", type=["eml"])
+    st.subheader("FreshService de IT")
+    if not cfg.freshservice_activo:
+        st.caption("Apagado. Lo que alguien carga en el portal de IT con la opción de la mesa («Incidencia en = "
+                   f"{cfg.freshservice_valor}») entra acá cuando se prende: ver `docs/PORTAL.md`.")
+    elif not cfg.freshservice_clave:
+        st.warning("Prendido, pero esta PC no tiene la API key (variable TICKETS_FRESHSERVICE_CLAVE).")
+    elif st.button("Traer de FreshService y devolver los estados"):
+        try:
+            res = freshservice.sincronizar(mesa, cfg)
+            st.success(f"{sum(r.resultado == 'nuevo' for r in res)} pedidos nuevos · "
+                       f"{sum(r.resultado.startswith('estado') for r in res)} estados devueltos.")
+            if res:
+                st.dataframe(pd.DataFrame([r.__dict__ for r in res]), hide_index=True, width="stretch")
+        except ErrorMesa as err:
+            st.error(str(err))
     if archivo and c2.button("Procesar este correo"):
         r = mesa.procesar_correo(CO.leer(archivo.getvalue()))
         st.success(f"{r.resultado} · {r.numero or ''}")
@@ -850,6 +870,18 @@ def guia_power_platform() -> None:
                 st.markdown(f"#### {titulo}\n{bloque.group(1)}")
 
 
+# ==========================================================================
+# Portal del solicitante
+# ==========================================================================
+def portal() -> None:
+    if cfg.compartida:
+        portal_solicitante.mostrar(mesa, quien.mail, quien.nombre, chip, hace)
+        return
+    # Modo local (demo): se elige quién pide. Por defecto, el último que pidió algo.
+    ultimo = next((t["solicitante_mail"] for t in reversed(mesa.db.tickets())), "")
+    portal_solicitante.mostrar(mesa, ultimo, "", chip, hace, mail_editable=True)
+
+
 {"🏠 Inicio": inicio, "📥 Bandeja": bandeja, "🎫 Ticket": ticket, "➕ Nuevo pedido": nuevo, "📨 Casilla": casilla,
  "📊 Indicadores": indicadores, "📤 Power BI": powerbi, "🧭 Guía Power Platform": guia_power_platform,
- "⚙️ Configuración": configuracion}[pagina]()
+ "⚙️ Configuración": configuracion, "🌐 Portal": portal}[pagina]()

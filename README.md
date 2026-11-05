@@ -48,6 +48,26 @@ indicadores (`tickets_ec/`). El paquete de Power Platform (listas, opciones,
 reglas del clasificador, fórmulas de Power Apps) **se genera** desde ahí con
 `python scripts/generar_powerplatform.py`.
 
+## Cómo pide la gente
+
+Cuatro entradas que crean el mismo ticket ([`docs/PORTAL.md`](docs/PORTAL.md)):
+
+- **El portal de la mesa** (🌐 Portal, en la app y en la suite), al estilo del portal de FreshService de IT:
+  Enviar un ticket, Mis tickets y la conformidad. Quien entra con su cuenta de Adium y no es del equipo ve sólo
+  el portal, y cada uno ve únicamente lo suyo.
+- **FreshService de IT**, con una opción propia en «Incidencia en» («Reportería Excelencia Comercial»). OJO:
+  «Excelencia Comercial» en ese desplegable es un pedido **nuestro** que resuelve IT, no un pedido para la mesa.
+  El conector (apagado por defecto) trae esos tickets y les devuelve el estado.
+- **La casilla** de correo y **la app de Power Apps** (`powerapps/`).
+
+## Presentar el proyecto
+
+[`docs/PROYECTO.html`](docs/PROYECTO.html) (para proyectar o imprimir a PDF) y [`docs/PROYECTO.md`](docs/PROYECTO.md)
+cuentan el proyecto entero: qué resuelve, cómo entra un pedido, estados y plazos, indicadores, el tablero, los
+modos, la seguridad, los módulos y el historial. **Se generan desde el programa** con
+`python scripts/documentar.py`, y un test falla si quedaron viejos: cada versión suma su entrada en
+[`docs/CAMBIOS.md`](docs/CAMBIOS.md) y regenera los dos.
+
 ## Correr la app
 
 ```bash
@@ -115,20 +135,21 @@ tickets_ec/       el motor, con la biblioteca estándar (más msal para el ingre
   sharepoint.py     las listas de Power Platform: esquema y lectura por Graph o CSV
   compartida.py     el modo compartido: la copia local que escribe primero en las listas (eTag, cola, candado)
   acceso.py         el ingreso con la cuenta de Microsoft de Adium (MSAL) y lo que puede cada rol
+  freshservice.py   el conector con FreshService de IT: trae la opción de la mesa y devuelve el estado
   demo.py           18 meses simulados pasando por la misma mesa
-app/app.py        la app Streamlit
+app/app.py        la app Streamlit (app/portal_solicitante.py: el portal del que pide)
 powerbi/          medidas DAX, páginas, build verificado, publicación en Fabric
 powerapps/        guía, flujos, pantallas, script PnP y catálogos generados
 sql/              el mismo esquema para SQL Server (se genera, no se aplica)
-scripts/          procesar la casilla, exportar a Power BI, generar Power Platform, E2E
-docs/             casilla, equipo (modo compartido), indicadores, Power BI / Fabric
+scripts/          procesar la casilla, exportar a Power BI, generar Power Platform, documentar, E2E
+docs/             casilla, equipo, portal y FreshService, indicadores, Power BI / Fabric, PROYECTO y CAMBIOS
 ```
 
 ## Tests
 
 ```bash
 ruff check .
-python -m pytest -q tests                  # 97 tests; el del tablero necesita la suite al lado
+python -m pytest -q tests                  # 113 tests; el del tablero necesita la suite al lado
 python scripts/e2e_ui.py                   # la app de verdad, en Chromium
 ```
 

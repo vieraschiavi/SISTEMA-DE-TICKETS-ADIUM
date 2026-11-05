@@ -205,6 +205,25 @@ POR_TIPO = {t.nombre: t for t in TIPOS}
 TIPO_DEFECTO = "Otro"
 SUBTIPOS = {t.nombre: tuple(t.subtipos) for t in TIPOS}
 
+#: Lo que el portal le muestra al que pide, al lado del formulario (lo que en
+#: FreshService son los «artículos relacionados»): qué dato nos falta casi
+#: siempre para cada tipo. Un pedido completo no pasa por «En espera».
+AYUDA = {
+    "Incidente / dato incorrecto": "Decinos qué tablero o informe, qué filtro tenías puesto, qué número ves y cuál "
+                                   "esperabas. Una captura ayuda mucho.",
+    "Solicitud de permisos": "Decinos a qué tablero o workspace, para quién (mail) y con qué rol (lectura o "
+                             "edición). Si es para un equipo, la lista de mails.",
+    "Nuevo desarrollo": "Contanos para qué decisión es, quién lo va a usar, qué indicadores necesitás, con qué "
+                        "fuente (IQVIA, Close Up, venta interna…) y para cuándo.",
+    "Cambio en tablero existente": "Nombrá el tablero y la página, qué querés cambiar y por qué. Si es un indicador "
+                                   "nuevo, cómo se calcula.",
+    "Pedido de información": "Decinos el mercado o ATC, el país, el período (MAT, YTD, mes) y la fuente, y en qué "
+                             "formato lo necesitás (Excel, tabla, gráfico).",
+    "Pedido digital": "Contanos qué canal o campaña, qué necesitás (landing, CRM, métricas digitales) y para cuándo.",
+    "Capacitación / consulta": "Decinos sobre qué tablero o herramienta, cuántas personas y qué días te quedan bien.",
+    "Otro": "Contanos qué necesitás con el mayor detalle posible: el equipo lo clasifica al recibirlo.",
+}
+
 
 def sla_horas(tipo: str, prioridad: str) -> float:
     """Horas hábiles para resolver, según el tipo de ticket y la prioridad."""
@@ -232,7 +251,8 @@ PAISES = ("Uruguay (HQ)", "Argentina", "Bolivia", "Brasil", "Centroamérica", "C
           "Ecuador", "México", "Paraguay", "Perú", "Venezuela", "Regional", "Sin país")
 PAIS_DEFECTO = "Sin país"
 
-CANALES = ("Correo", "Portal", "Manual", "Teams", "Teléfono")
+#: FreshService: lo que entra por la opción de la mesa en el portal de IT (`freshservice.py`).
+CANALES = ("Correo", "Portal", "Manual", "Teams", "Teléfono", "FreshService")
 
 
 # ==========================================================================
