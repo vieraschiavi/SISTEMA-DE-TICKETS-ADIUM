@@ -210,6 +210,10 @@ with st.sidebar:
     paginas = (["🏠 Inicio", "📥 Bandeja", "🎫 Ticket", "➕ Nuevo pedido", "📨 Casilla", "📊 Indicadores",
                 "📤 Power BI", "🧭 Guía Power Platform", "⚙️ Configuración", "🌐 Portal"] if mi_rol
                else ["🌐 Portal"])
+    # Un «Abrir» de la corrida anterior: se aplica ANTES de dibujar el selector, porque Streamlit no deja
+    # cambiar el valor de un widget que ya se dibujó (StreamlitWidgetAlreadyInstantiatedError).
+    if (destino := st.session_state.pop("_ir_a", None)) in paginas:
+        st.session_state["pagina"] = destino
     if st.session_state.get("pagina") not in paginas:
         st.session_state["pagina"] = "🎫 Ticket" if st.query_params.get("ticket") and mi_rol else paginas[0]
     pagina = st.radio("Ir a", paginas, key="pagina", label_visibility="collapsed")
@@ -324,8 +328,9 @@ def _tickets_df() -> pd.DataFrame:
 
 
 def abrir(numero: str) -> None:
+    """Lleva a la página del ticket en la próxima corrida (el que llama hace `st.rerun()`)."""
     st.session_state["ticket"] = numero
-    st.session_state["pagina"] = "🎫 Ticket"
+    st.session_state["_ir_a"] = "🎫 Ticket"
 
 
 # ==========================================================================
@@ -388,14 +393,19 @@ def bandeja() -> None:
     terapeuticas = g3.multiselect("Área terapéutica", C.AREAS_TERAPEUTICAS)
     unidades = g4.multiselect("Unidad de negocio", C.UNIDADES_NEGOCIO)
     buscar = st.text_input("Buscar (número, asunto, solicitante, ATC, mercado)")
-    v = df[df["Equipo"].isin(equipos) & df["Estado"].isin(estados)]
-    for col, sel in (("Tipo", tipos), ("Área", areas), ("Analista", analistas), ("Prioridad", prioridades),
-                     ("Área terapéutica", terapeuticas), ("Unidad de negocio", unidades)):
+    # Un filtro vacío no filtra (vaciar «Estado» es ver todos), igual que en los demás.
+    v = df
+    for col, sel in (("Equipo", equipos), ("Estado", estados), ("Tipo", tipos), ("Área", areas),
+                     ("Analista", analistas), ("Prioridad", prioridades), ("Área terapéutica", terapeuticas),
+                     ("Unidad de negocio", unidades)):
         if sel:
             v = v[v[col].isin(sel)]
-    if buscar:
-        q = buscar.lower()
-        v = v[v.apply(lambda r: q in " ".join(str(x) for x in r.values).lower(), axis=1)]
+    if buscar.strip():
+        # Una máscara de filas, no `apply(axis=1)`: sobre una tabla vacía `apply` devuelve una Series vacía
+        # que pandas toma como lista de COLUMNAS, y la bandeja se quedaba sin «Creado» (KeyError).
+        q = buscar.strip().lower()
+        filas = v.drop(columns=["_analista"]).itertuples(index=False)
+        v = v[[q in " ".join(str(x) for x in fila).lower() for fila in filas]]
     v = v.sort_values(["Creado"], ascending=False)
     st.caption(f"{len(v)} tickets · seleccioná una fila para abrirlo")
     sel = st.dataframe(v.drop(columns=["_analista"]), hide_index=True, width="stretch", on_select="rerun",

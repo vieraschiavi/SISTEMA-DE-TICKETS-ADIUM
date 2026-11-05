@@ -149,7 +149,7 @@ docs/             casilla, equipo, portal y FreshService, indicadores, Power BI 
 
 ```bash
 ruff check .
-python -m pytest -q tests                  # 113 tests; el del tablero necesita la suite al lado
+python -m pytest -q tests                  # 116 tests; el del tablero necesita la suite al lado
 python scripts/e2e_ui.py                   # la app de verdad, en Chromium
 ```
 

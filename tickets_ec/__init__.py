@@ -10,4 +10,4 @@ El motor (este paquete) usa sólo la biblioteca estándar: se importa y se
 prueba sin Streamlit, sin pandas y sin red.
 """
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"

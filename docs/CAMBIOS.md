@@ -4,6 +4,16 @@ Cada cambio que llega a `main` suma acá su entrada (la versión de arriba es la
 regenera la documentación del proyecto con `python scripts/documentar.py`. Un test avisa si una de las dos cosas
 quedó vieja.
 
+## 1.2.1 · 2026-11-05 · Arreglos de Inicio y Bandeja
+
+- «Abrir» en Inicio y elegir una fila de la Bandeja rompían con `StreamlitWidgetAlreadyInstantiatedError`: la
+  página se cambiaba después de dibujar el selector de la barra lateral. Ahora se pide para la próxima corrida y
+  se aplica antes de dibujarlo.
+- La Bandeja con el filtro «Estado» vacío y una búsqueda rompía con `KeyError: 'Creado'`. Un filtro vacío ahora
+  es «todos» (como los demás) y la búsqueda ya no se queda sin columnas cuando no hay filas.
+- Pruebas nuevas que recorren la app de verdad en modo local (`tests/test_app_local.py`): Abrir desde Inicio, la
+  Bandeja con Estado vacío y una búsqueda sin resultados.
+
 ## 1.2.0 · 2026-11-05 · Portal propio y FreshService
 
 - **Portal del solicitante** (🌐 Portal), al estilo del portal de FreshService de IT: Inicio, Enviar un ticket y Mis
