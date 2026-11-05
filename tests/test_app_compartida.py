@@ -16,6 +16,7 @@ from test_compartida import ListasFalsas  # noqa: E402
 from tickets_ec import acceso, compartida  # noqa: E402
 from tickets_ec import catalogos as C  # noqa: E402
 from tickets_ec import config as config_mod  # noqa: E402
+from tickets_ec import correo as CO  # noqa: E402
 from tickets_ec.config import Config  # noqa: E402
 from tickets_ec.servicio import Mesa  # noqa: E402
 
@@ -32,7 +33,7 @@ def entorno(tmp_path, monkeypatch):
     cfg = Config(modo="compartida", entra_tenant="t", entra_cliente="c", sharepoint_host="adium.sharepoint.com",
                  base=tmp_path / "datos" / "tickets.db", carpeta_salida=tmp_path / "salida",
                  carpeta_adjuntos=tmp_path / "adjuntos", directorio=Path("/no-existe.csv"),
-                 casilla_automatica=False)
+                 casilla_automatica=True, segundos_sync=0)       # que cada pantalla sincronice
     quien = {"mail": ANA}
 
     class SesionFalsa:
@@ -58,7 +59,10 @@ def entorno(tmp_path, monkeypatch):
     otra.alta_analista(ELI, "Eli", equipo=C.EXCELENCIA)
     t = otra.crear("Share de pantoprazol", "IQVIA", "juan@adium.com.ar", "Juan")
     otra.asignar(t["numero"], ELI, ELI)
-    yield {"listas": listas, "quien": quien, "numero": t["numero"]}
+    # La casilla compartida: se anota quién la lee, sin salir a la red.
+    leidas: list[str] = []
+    monkeypatch.setattr(CO.FuenteGraph, "leer", lambda self: leidas.append(quien["mail"]) or iter(()))
+    yield {"listas": listas, "quien": quien, "numero": t["numero"], "leidas": leidas}
     st.cache_resource.clear()
 
 
@@ -83,11 +87,35 @@ def test_sin_cuenta_no_se_pasa_y_con_cuenta_se_ve_la_mesa_de_todos(entorno):
     assert any("<div class='n'>1</div><div class='t'>Pendientes del equipo" in m.value for m in at.markdown)
 
 
-def test_una_cuenta_que_no_es_del_equipo_no_entra(entorno):
-    entorno["quien"]["mail"] = "juan@adium.com.ar"
+def test_una_cuenta_que_no_es_del_equipo_ve_solo_el_portal_y_pide_desde_ahi(entorno):
+    entorno["quien"]["mail"] = "paula@adium.com.uy"
     at = _entrar(AppTest.from_file(APP))
     assert not at.exception
-    assert any("no está en la lista **Personas**" in e.value for e in at.error)
+    assert list(at.sidebar.radio[0].options) == ["🌐 Portal"]       # ni bandeja, ni indicadores, ni configuración
+    assert any("Paula" in m.value and "solicitante" in m.value for m in at.sidebar.markdown)
+    at.radio(key="portal_vista").set_value("➕ Enviar un ticket").run(timeout=60)
+    assert not at.exception
+    at.selectbox(key="pt_tipo").set_value("Solicitud de permisos").run(timeout=60)
+    assert any("con qué rol" in i.value for i in at.info)              # la ayuda del tipo elegido
+    at.text_input(key="pt_asunto").input("Acceso al tablero de Close Up")
+    at.text_area(key="pt_desc").input("Para mí, lectura")
+    next(b for b in at.button if b.label == "Enviar").click()
+    at.run(timeout=60)
+    assert not at.exception
+    assert any("Recibimos tu pedido" in m.value for m in at.success)
+    (nuevo,) = [i["fields"] for i in entorno["listas"].datos["Tickets"].values()
+                if i["fields"].get("SolicitanteMail") == "paula@adium.com.uy"]
+    assert (nuevo["Canal"], nuevo["Tipo"]) == ("Portal", "Solicitud de permisos")
+    # Lo ve en «Mis tickets», y no ve el de Juan que cargó la otra PC.
+    assert any(nuevo["Numero"] in m.value for m in at.markdown)
+    assert not any(entorno["numero"] in m.value for m in at.markdown)
+    assert entorno["leidas"] == []       # su PC no lee la casilla compartida (no tiene acceso)
+
+
+def test_el_equipo_tambien_tiene_el_portal_y_su_pc_lee_la_casilla(entorno):
+    at = _entrar(AppTest.from_file(APP))
+    assert "🌐 Portal" in at.sidebar.radio[0].options and "📥 Bandeja" in at.sidebar.radio[0].options
+    assert entorno["leidas"] and set(entorno["leidas"]) == {ANA}
 
 
 def test_el_analista_no_trabaja_el_ticket_de_otro(entorno):

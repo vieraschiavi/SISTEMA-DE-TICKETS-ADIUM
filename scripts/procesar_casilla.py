@@ -17,6 +17,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
 
 from tickets_ec import correo as CO  # noqa: E402
+from tickets_ec import freshservice  # noqa: E402
 from tickets_ec.almacen import Almacen  # noqa: E402
 from tickets_ec.config import cargar  # noqa: E402
 from tickets_ec.servicio import Mesa  # noqa: E402
@@ -48,11 +49,17 @@ def main() -> int:
         mesa = Mesa(Almacen(cfg.base), cfg, CO.BuzonSalida(cfg.carpeta_salida, enviar))
         resultados = mesa.procesar_bandeja(fuente(cfg))
         tacitos = mesa.cierre_tacito()
+        # FreshService de IT, si está prendido (apagado por defecto): trae y devuelve estados.
+        externos = freshservice.sincronizar(mesa, cfg)
+        if externos:
+            print(f"  FreshService: {sum(r.resultado == 'nuevo' for r in externos)} nuevos · "
+                  f"{sum(r.resultado.startswith('estado') for r in externos)} estados devueltos")
+        resultados += [r for r in externos if r.resultado.startswith("error")]
         errores = [r for r in resultados if r.resultado.startswith("error")]
         print(f"{datetime.now():%Y-%m-%d %H:%M} · {len(resultados)} correos · {len(errores)} con error · "
               f"{len(tacitos)} cierres tácitos")
         for r in errores:
-            print(f"  {r.message_id}: {r.resultado}")
+            print(f"  {getattr(r, 'message_id', getattr(r, 'origen', ''))}: {r.resultado}")
         return 1 if errores else 0
     finally:
         os.close(fd)

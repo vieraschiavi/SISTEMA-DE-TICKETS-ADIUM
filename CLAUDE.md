@@ -14,6 +14,7 @@ tablero de Power BI y paquete de Power Platform. Leé `README.md` primero.
 | E2E en Chromium | `python scripts/e2e_ui.py [carpeta-capturas]` |
 | Tablero (necesita `../Power-bi` o `ADIUM_SUITE`) | `python powerbi/armar_tablero.py` |
 | Regenerar Power Platform | `python scripts/generar_powerplatform.py` |
+| Regenerar la documentación del proyecto | `python scripts/documentar.py` |
 
 ## Reglas
 
@@ -34,5 +35,14 @@ tablero de Power BI y paquete de Power Platform. Leé `README.md` primero.
   un 412 es `Conflicto` y se muestra, nunca se reintenta pisando. La app no
   ve contraseñas: el token lo da MSAL y vive en memoria. `config.equipo.toml`
   no acepta secretos.
+- **Cada versión se documenta.** Un cambio que llega a `main` suma su entrada
+  arriba de `docs/CAMBIOS.md` (y sube `tickets_ec.__version__`) y regenera
+  `docs/PROYECTO.md` y `.html` con `scripts/documentar.py`. Un test falla si
+  quedaron viejos. Lo que describe el programa sale del código, no se escribe
+  a mano en el generador.
+- **FreshService: la opción de IT «Excelencia Comercial» no es nuestra.** Es un
+  pedido del área que resuelve IT. La mesa lee sólo su opción propia
+  (`freshservice_campo`/`_valor`), con el conector apagado por defecto y la
+  API key por entorno (`TICKETS_FRESHSERVICE_CLAVE`).
 - **Demo sintética.** Nada de personas ni correos reales.
 - Español rioplatense en textos, comentarios y commits.

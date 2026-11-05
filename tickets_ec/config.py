@@ -101,6 +101,18 @@ class Config:
     sharepoint_sitio: str = "/sites/TicketsEC"
     smtp_host: str = "smtp.office365.com"
     smtp_puerto: int = 587
+    #: FreshService de IT (`freshservice.py`): los tickets que alguien carga en
+    #: el portal de IT con la opción de la mesa entran acá, y el estado vuelve.
+    freshservice_activo: bool = False
+    freshservice_dominio: str = ""            # p. ej. «empresa.freshservice.com»
+    #: El nombre de API del campo «Incidencia en» (no se puede filtrar por `category`) y el valor
+    #: de la opción de la mesa. O, en `freshservice_filtro`, una consulta entera («group_id:1234»).
+    freshservice_campo: str = ""
+    freshservice_valor: str = "Reportería Excelencia Comercial"
+    #: Una consulta de filtro entera, si la de campo y valor no alcanza.
+    freshservice_filtro: str = ""
+    #: Devolver el estado (y la resolución, como nota) al ticket de FreshService.
+    freshservice_devolver_estado: bool = True
 
     # --- Secretos: sólo por entorno ---------------------------------------
     @property
@@ -114,6 +126,11 @@ class Config:
     @property
     def smtp_clave(self) -> str:
         return os.environ.get("TICKETS_SMTP_CLAVE", "")
+
+    @property
+    def freshservice_clave(self) -> str:
+        """La API key de FreshService (perfil de un agente de IT, o una cuenta de servicio)."""
+        return os.environ.get("TICKETS_FRESHSERVICE_CLAVE", "")
 
     @property
     def secreto(self) -> str:
@@ -134,7 +151,7 @@ class Config:
                 if not getattr(self, k)]
 
 
-_SECRETOS = {"graph_secreto", "imap_clave", "smtp_clave", "secreto"}
+_SECRETOS = {"graph_secreto", "imap_clave", "smtp_clave", "secreto", "freshservice_clave"}
 
 
 def _convertir(campo, valor):

@@ -50,7 +50,7 @@ Asegurar-Columna 'Tickets' 'Equipo' 'Equipo resolutor' 'Choice' @('Excelencia Co
 Asegurar-Columna 'Tickets' 'Tipo' 'Tipo de ticket' 'Choice' @('Incidente / dato incorrecto', 'Solicitud de permisos', 'Nuevo desarrollo', 'Cambio en tablero existente', 'Pedido de información', 'Pedido digital', 'Capacitación / consulta', 'Otro')
 Asegurar-Columna 'Tickets' 'Subtipo' 'Subtipo' 'Text' @()
 Asegurar-Columna 'Tickets' 'Prioridad' 'Prioridad' 'Choice' @('Crítica', 'Alta', 'Media', 'Baja')
-Asegurar-Columna 'Tickets' 'Canal' 'Canal' 'Choice' @('Correo', 'Portal', 'Manual', 'Teams', 'Teléfono')
+Asegurar-Columna 'Tickets' 'Canal' 'Canal' 'Choice' @('Correo', 'Portal', 'Manual', 'Teams', 'Teléfono', 'FreshService')
 Asegurar-Columna 'Tickets' 'Estado' 'Estado' 'Choice' @('Nuevo', 'Asignado', 'En curso', 'En espera del solicitante', 'Resuelto', 'Reabierto', 'Cerrado', 'Cancelado')
 Asegurar-Columna 'Tickets' 'Subestado' 'Subestado' 'Text' @()
 Asegurar-Columna 'Tickets' 'AnalistaMail' 'Analista (mail)' 'Text' @()
